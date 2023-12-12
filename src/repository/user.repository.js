@@ -50,6 +50,24 @@ class UserRepository {
   findUserById = async (id) => {
     return await prisma.user.findUnique({ where: { id } });
   };
+
+  findBusinessByOwnerId = async (ownerId) => {
+    return await prisma.business.findUnique({ where: { ownerId } });
+  };
+
+  createOrUpdateBusiness = async ({ ownerId, businessLicenseNumber }) => {
+    const existingBusiness = await this.findBusinessByOwnerId(ownerId);
+    if (existingBusiness) {
+      return await prisma.business.update({
+        where: { id: existingBusiness.id },
+        data: { businessLicenseNumber },
+      });
+    } else {
+      return await prisma.business.create({
+        data: { ownerId, businessLicenseNumber },
+      });
+    }
+  };
 }
 
 export default UserRepository;

@@ -17,17 +17,20 @@ class UserService {
    * @param {object} signUpData - 등록할 사용자 데이터
    * @returns {Promise<object>} 생성된 사용자 정보
    */
-  signUp = async ({ email, password, confirmPassword, name }) => {
+  signUp = async ({ email, password, confirmPassword, name, role, points }) => {
     const existingUser = await this.userRepository.findUserByEmail(email);
     if (existingUser) {
       throw ApiError.Conflict('이미 사용 중인 이메일입니다.');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const newPoint = role === '고객' ? 1000000 : 0;
     return await this.userRepository.createUser({
       email,
       password: hashedPassword,
       name,
+      role,
+      points: newPoint,
     });
   };
 
@@ -110,6 +113,27 @@ class UserService {
    */
   deleteUser = async (id) => {
     return await this.userRepository.deleteUser(id);
+  };
+
+  updateBusinessLicenseNumber = async (userId, licenseNumber) => {
+    const user = await this.userRepository.findUserById(userId);
+    if (!user) {
+      throw ApiError.NotFound('사용자 정보를 찾을 수 없습니다.');
+    }
+
+    if (user.role !== '사장') {
+      throw ApiError.Unauthorized('사업자 등록은 사장만 가능합니다.');
+    }
+
+    const business = await this.userRepository.findBusinessByOwnerId(userId);
+    if (business && business.businessLicenseNumber) {
+      throw ApiError.Conflict('사업자 등록번호는 이미 등록되어 있습니다.');
+    }
+
+    return await this.userRepository.createOrUpdateBusiness({
+      ownerId: userId,
+      businessLicenseNumber: licenseNumber,
+    });
   };
 }
 
