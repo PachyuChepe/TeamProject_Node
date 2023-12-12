@@ -1,0 +1,113 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String
+  email       String    @unique
+  emailVerified Boolean @default(false)
+  password    String
+  role        String
+  points      Int
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  stores       Store[]
+  orders       Order[]
+  reviews      Review[]
+  addresses    Address[]
+  businesses   Business[]
+}
+
+model Store {
+  id          Int       @id @default(autoincrement())
+  ownerId     Int?
+  name        String
+  description String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  owner       User?     @relation(fields: [ownerId], references: [id])
+  menus       Menu[]
+  reviews     Review[]
+}
+
+model Menu {
+  id          Int       @id @default(autoincrement())
+  storeId     Int
+  categoryId  Int
+  name        String
+  price       Int
+  imageUrl    String?
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  store       Store     @relation(fields: [storeId], references: [id])
+  category    FoodCategory @relation(fields: [categoryId], references: [id])
+  orders      Order[]
+}
+
+model Order {
+  id          Int       @id @default(autoincrement())
+  customerId  Int?
+  menuId      Int?
+  quantity    Int
+  totalPrice  Int
+  status      String
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  customer    User?     @relation(fields: [customerId], references: [id])
+  menu        Menu?     @relation(fields: [menuId], references: [id])
+}
+
+model Review {
+  id          Int       @id @default(autoincrement())
+  customerId  Int?
+  storeId     Int?
+  rating      Int
+  comment     String
+  createdAt   DateTime? @default(now())
+  updatedAt   DateTime? @updatedAt
+
+  customer    User?     @relation(fields: [customerId], references: [id])
+  store       Store?    @relation(fields: [storeId], references: [id])
+}
+
+model Address {
+  id            Int       @id @default(autoincrement())
+  userId        Int?
+  zipCode       String
+  streetAddress1 String
+  streetAddress2 String
+  state         String
+  createdAt     DateTime? @default(now())
+  updatedAt     DateTime? @updatedAt
+
+  user          User?     @relation(fields: [userId], references: [id])
+}
+
+model FoodCategory {
+  id        Int       @id @default(autoincrement())
+  name      String?
+  createdAt DateTime? @default(now())
+  updatedAt DateTime? @updatedAt
+
+  menus     Menu[]
+}
+
+model Business {
+  id                    Int       @id @default(autoincrement())
+  ownerId               Int?
+  businessLicenseNumber String
+  createdAt             DateTime? @default(now())
+  updatedAt             DateTime? @updatedAt
+
+  owner                 User?     @relation(fields: [ownerId], references: [id])
+}
