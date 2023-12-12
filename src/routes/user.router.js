@@ -18,5 +18,10 @@ router.get('/user', isLoggedIn, userController.getUser);
 router.put('/user', isLoggedIn, validateUpdateUser, userController.updateUser);
 router.delete('/user', isLoggedIn, userController.deleteUser);
 router.post('/logout', isLoggedIn, userController.logout);
+router.post(
+  '/business/license',
+  isLoggedIn,
+  userController.updateBusinessLicense,
+);
 
 export default router;

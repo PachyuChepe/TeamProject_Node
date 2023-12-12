@@ -47,6 +47,8 @@ class UserController {
       const userData = {
         email: user.email,
         name: user.name,
+        role: user.role,
+        points: user.points,
       };
 
       res.status(200).json({ success: true, data: userData });
@@ -60,12 +62,10 @@ class UserController {
     try {
       await this.userService.updateUser(res.locals.user.id, req.body);
 
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: '사용자 정보가 성공적으로 업데이트되었습니다.',
-        });
+      res.status(200).json({
+        success: true,
+        message: '사용자 정보가 성공적으로 업데이트되었습니다.',
+      });
     } catch (error) {
       next(error);
     }
@@ -78,12 +78,10 @@ class UserController {
       res.clearCookie('Authorization');
       await redisClient.del(res.locals.user.id.toString());
 
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: '회원 탈퇴가 성공적으로 처리되었습니다.',
-        });
+      res.status(200).json({
+        success: true,
+        message: '회원 탈퇴가 성공적으로 처리되었습니다.',
+      });
     } catch (error) {
       next(error);
     }
@@ -96,6 +94,21 @@ class UserController {
       res.clearCookie('Authorization');
 
       res.status(200).json({ success: true, message: '로그아웃 성공' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  updateBusinessLicense = async (req, res, next) => {
+    try {
+      const userId = res.locals.user.id;
+      const { licenseNumber } = req.body;
+      await this.userService.updateBusinessLicenseNumber(userId, licenseNumber);
+
+      res.status(200).json({
+        success: true,
+        message: '사업자 등록번호가 업데이트되었습니다.',
+      });
     } catch (error) {
       next(error);
     }
