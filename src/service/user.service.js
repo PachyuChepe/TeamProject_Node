@@ -1,10 +1,10 @@
 // service/user.service.js
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import env from "../config/env.config.js";
-import UserRepository from "../repository/user.repository.js";
-import ApiError from "../middleware/apiError.middleware.js";
-import redisClient from "../redis/redisClient.js";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import env from '../config/env.config.js';
+import UserRepository from '../repository/user.repository.js';
+import ApiError from '../middleware/apiError.middleware.js';
+import redisClient from '../redis/redisClient.js';
 
 // 사용자 관련 비즈니스 로직을 수행하는 서비스 클래스
 class UserService {
@@ -20,7 +20,7 @@ class UserService {
   signUp = async ({ email, password, confirmPassword, name }) => {
     const existingUser = await this.userRepository.findUserByEmail(email);
     if (existingUser) {
-      throw ApiError.Conflict("이미 사용 중인 이메일입니다.");
+      throw ApiError.Conflict('이미 사용 중인 이메일입니다.');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -39,17 +39,26 @@ class UserService {
   login = async ({ email, password }) => {
     const user = await this.userRepository.findUserByEmail(email);
     if (!user) {
-      throw ApiError.NotFound("사용자 정보를 찾을 수 없습니다.");
+      throw ApiError.NotFound('사용자 정보를 찾을 수 없습니다.');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw ApiError.Unauthorized("패스워드가 일치하지 않습니다.");
+      throw ApiError.Unauthorized('패스워드가 일치하지 않습니다.');
     }
 
-    const accessToken = jwt.sign({ userId: user.id }, env.JWT_SECRET, { expiresIn: "15m" });
-    const refreshToken = jwt.sign({ userId: user.id }, env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
-    await redisClient.set(user.id.toString(), refreshToken, "EX", 60 * 60 * 24 * 7);
+    const accessToken = jwt.sign({ userId: user.id }, env.JWT_SECRET, {
+      expiresIn: '15m',
+    });
+    const refreshToken = jwt.sign({ userId: user.id }, env.JWT_REFRESH_SECRET, {
+      expiresIn: '7d',
+    });
+    await redisClient.set(
+      user.id.toString(),
+      refreshToken,
+      'EX',
+      60 * 60 * 24 * 7,
+    );
 
     return { accessToken, user };
   };
@@ -62,7 +71,7 @@ class UserService {
   getUser = async (id) => {
     const user = await this.userRepository.findUserById(id);
     if (!user) {
-      throw ApiError.NotFound("사용자 정보를 찾을 수 없습니다");
+      throw ApiError.NotFound('사용자 정보를 찾을 수 없습니다');
     }
     return user;
   };
@@ -76,16 +85,22 @@ class UserService {
   updateUser = async (id, { currentPassword, newPassword, name }) => {
     const user = await this.userRepository.findUserById(id);
     if (!user) {
-      throw ApiError.NotFound("사용자 정보를 찾을 수 없습니다.");
+      throw ApiError.NotFound('사용자 정보를 찾을 수 없습니다.');
     }
 
-    const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+    const isPasswordValid = await bcrypt.compare(
+      currentPassword,
+      user.password,
+    );
     if (!isPasswordValid) {
-      throw ApiError.Unauthorized("현재 비밀번호가 일치하지 않습니다.");
+      throw ApiError.Unauthorized('현재 비밀번호가 일치하지 않습니다.');
     }
 
     const hashedPassword = await bcrypt.hash(newPassword, 10);
-    return await this.userRepository.updateUser(id, { password: hashedPassword, name });
+    return await this.userRepository.updateUser(id, {
+      password: hashedPassword,
+      name,
+    });
   };
 
   /**

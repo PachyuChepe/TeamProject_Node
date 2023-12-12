@@ -1,6 +1,6 @@
 // repository/user.repository.js
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // 데이터베이스에서 사용자 관련 작업을 수행하는 리포지토리 클래스

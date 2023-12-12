@@ -1,7 +1,7 @@
 // middleware/errorHandler.middleware.js
 
-import ApiError from "./apiError.middleware.js";
-import logger from "../config/winston.config.js";
+import ApiError from './apiError.middleware.js';
+import logger from '../config/winston.config.js';
 
 /**
  * Express 앱의 모든 오류를 처리하는 미들웨어
@@ -18,7 +18,9 @@ const errorHandler = (err, req, res, next) => {
   }
 
   // 비밀번호 필드가 있을 경우 숨김 처리
-  const filteredRequestBody = req.body.password ? { ...req.body, password: "HIDDEN" } : req.body;
+  const filteredRequestBody = req.body.password
+    ? { ...req.body, password: 'HIDDEN' }
+    : req.body;
 
   // 로그 메시지 생성 및 기록
   const logMessage = `
@@ -34,7 +36,13 @@ const errorHandler = (err, req, res, next) => {
   logger.error(logMessage);
 
   // 서버 오류 응답 반환
-  res.status(500).json({ success: false, message: "서버 처리 중 오류가 발생했습니다. 문제가 지속되면 지원팀에 문의해주세요." });
+  res
+    .status(500)
+    .json({
+      success: false,
+      message:
+        '서버 처리 중 오류가 발생했습니다. 문제가 지속되면 지원팀에 문의해주세요.',
+    });
 };
 
 export default errorHandler;
