@@ -17,5 +17,4 @@ const env = {
   REDIS_PASSWORD: process.env.REDIS_PASSWORD,
 };
 
-
 export default env;

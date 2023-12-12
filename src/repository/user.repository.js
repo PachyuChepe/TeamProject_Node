@@ -1,6 +1,6 @@
 // repository/user.repository.js
 
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 // 데이터베이스에서 사용자 관련 작업을 수행하는 리포지토리 클래스
@@ -49,6 +49,24 @@ class UserRepository {
    */
   findUserById = async (id) => {
     return await prisma.user.findUnique({ where: { id } });
+  };
+
+  findBusinessByOwnerId = async (ownerId) => {
+    return await prisma.business.findUnique({ where: { ownerId } });
+  };
+
+  createOrUpdateBusiness = async ({ ownerId, businessLicenseNumber }) => {
+    const existingBusiness = await this.findBusinessByOwnerId(ownerId);
+    if (existingBusiness) {
+      return await prisma.business.update({
+        where: { id: existingBusiness.id },
+        data: { businessLicenseNumber },
+      });
+    } else {
+      return await prisma.business.create({
+        data: { ownerId, businessLicenseNumber },
+      });
+    }
   };
 }
 

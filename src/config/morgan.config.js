@@ -1,5 +1,5 @@
-import morgan from "morgan";
-import logger from "./winston.config.js";
+import morgan from 'morgan';
+import logger from './winston.config.js';
 
 /**
  * Express 앱에 대한 HTTP 로깅 설정
@@ -12,7 +12,13 @@ const morganConfig = (app) => {
     morgan((tokens, req, res) => {
       const status = tokens.status(req, res);
       if (status < 400 || status >= 600) {
-        return [tokens.method(req, res), tokens.url(req, res), status, tokens["response-time"](req, res), "ms"].join(" ");
+        return [
+          tokens.method(req, res),
+          tokens.url(req, res),
+          status,
+          tokens['response-time'](req, res),
+          'ms',
+        ].join(' ');
       }
     }),
   );
@@ -22,7 +28,12 @@ const morganConfig = (app) => {
     morgan((tokens, req, res) => {
       const status = tokens.status(req, res);
       if (status >= 400 && status < 600) {
-        logger.error(`${tokens.method(req, res)} ${tokens.url(req, res)} ${status} ${tokens["response-time"](req, res)}ms`);
+        logger.error(
+          `${tokens.method(req, res)} ${tokens.url(
+            req,
+            res,
+          )} ${status} ${tokens['response-time'](req, res)}ms`,
+        );
       }
     }),
   );

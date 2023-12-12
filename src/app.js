@@ -7,6 +7,11 @@ import fs from 'fs';
 // import swaggerUi from "swagger-ui-express";
 import morganConfig from './config/morgan.config.js';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // 환경 설정 및 데이터베이스 설정
 import env from './config/env.config.js';
 import { checkDatabaseConnection } from './config/db.config.js';
