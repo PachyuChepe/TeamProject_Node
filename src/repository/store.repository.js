@@ -11,19 +11,24 @@ class StoreRepository {
   ) => {
     const uploadedStore = await prisma.Store.create({
       data: {
-        ownerId,
+        owner: {
+          connect: {
+            id: ownerId,
+          },
+        },
         name,
-        storedescription,
-        foodtype,
-        storestatus,
-        businesslicense,
+        description: storedescription,
+        // foodtype,
+        // storestatus,
+        // businesslicense,
       },
     });
     return uploadedStore;
   };
 
   updateStore = async (
-    storeId,
+    id,
+    ownerId,
     name,
     storedescription,
     foodtype,
@@ -31,11 +36,15 @@ class StoreRepository {
   ) => {
     const store = await prisma.Store.update({
       data: {
-        storeId,
+        owner: {
+          connect: {
+            id: +ownerId,
+          },
+        },
         name,
-        storedescription,
-        foodtype,
-        storestatus,
+        description: storedescription,
+        // foodtype,
+        // storestatus,
       },
       where: {
         id: +id,
@@ -48,6 +57,14 @@ class StoreRepository {
     await prisma.Store.delete({
       where: { id: +id },
     });
+  };
+
+  getStoreById = async (ownerId) => {
+    const storeid = await prisma.Store.findMany({
+      select: { id: true },
+      where: { ownerId: +ownerId },
+    });
+    return storeid.id;
   };
 }
 

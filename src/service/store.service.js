@@ -34,14 +34,14 @@ class StoreService {
   };
 
   updateStore = async (
-    storeId,
+    ownerId,
     name,
     storedescription,
     foodtype,
     storestatus,
   ) => {
     const store = await this.storeRepository.updateStore(
-      storeId,
+      ownerId,
       name,
       storedescription,
       foodtype,
@@ -60,11 +60,11 @@ class StoreService {
   };
 
   deleteStore = async (ownerId, id) => {
-    const storeId = await this.storeRepository.uploadStore(ownerId);
+    const storeId = await this.storeRepository.getStoreById(ownerId);
 
-    if (storeId !== existsStore[0].storeId) {
-      throw ApiError.Forbidden('삭제할 권한이 없습니다.');
-    }
+    // if (storeId !== existsStore.storeId) {
+    //   throw ApiError.Forbidden('삭제할 권한이 없습니다.');
+    // }
 
     await this.storeRepository.deleteStore(id);
   };

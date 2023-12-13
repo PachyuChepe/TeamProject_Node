@@ -30,6 +30,9 @@ model Store {
   ownerId     Int?
   name        String
   description String?
+  foodtype    String
+  storestatus String
+  businesslicense String
   createdAt   DateTime? @default(now())
   updatedAt   DateTime? @updatedAt
 

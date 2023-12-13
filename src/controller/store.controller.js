@@ -36,8 +36,7 @@ class StoreController {
     try {
       // const { id: userId } = res.locals.user;
       const { id } = req.params; // params 값 조회
-      const { name, storedescription, foodtype, storestatus, businesslicense } =
-        req.body; // body 값 조회
+      const { name, storedescription, foodtype, storestatus } = req.body; // body 값 조회
       const ownerId = res.locals.user.id;
 
       const store = await this.storeService.updateStore(
@@ -47,7 +46,6 @@ class StoreController {
         storedescription,
         foodtype,
         storestatus,
-        businesslicense,
       );
 
       res.status(200).json({
