@@ -1,7 +1,7 @@
 // controller/user.controller.js
 
-import UserService from "../service/user.service.js";
-import redisClient from "../redis/redisClient.js";
+import UserService from '../service/user.service.js';
+import redisClient from '../config/redisClient.config.js';
 
 // 사용자 관련 HTTP 요청을 처리하는 컨트롤러
 class UserController {
@@ -25,13 +25,15 @@ class UserController {
   login = async (req, res, next) => {
     try {
       const { accessToken } = await this.userService.login(req.body);
-      res.cookie("Authorization", `Bearer ${accessToken}`, {
+      res.cookie('Authorization', `Bearer ${accessToken}`, {
         httpOnly: true,
-        secure: true,
-        sameSite: "Strict",
+        secure: false,
+        sameSite: 'Strict',
       });
 
-      res.status(200).json({ success: true, message: "로그인 성공", accessToken });
+      res
+        .status(200)
+        .json({ success: true, message: '로그인 성공', accessToken });
     } catch (error) {
       next(error);
     }
@@ -45,6 +47,8 @@ class UserController {
       const userData = {
         email: user.email,
         name: user.name,
+        role: user.role,
+        points: user.points,
       };
 
       res.status(200).json({ success: true, data: userData });
@@ -58,7 +62,10 @@ class UserController {
     try {
       await this.userService.updateUser(res.locals.user.id, req.body);
 
-      res.status(200).json({ success: true, message: "사용자 정보가 성공적으로 업데이트되었습니다." });
+      res.status(200).json({
+        success: true,
+        message: '사용자 정보가 성공적으로 업데이트되었습니다.',
+      });
     } catch (error) {
       next(error);
     }
@@ -68,10 +75,13 @@ class UserController {
   deleteUser = async (req, res, next) => {
     try {
       await this.userService.deleteUser(res.locals.user.id);
-      res.clearCookie("Authorization");
+      res.clearCookie('Authorization');
       await redisClient.del(res.locals.user.id.toString());
 
-      res.status(200).json({ success: true, message: "회원 탈퇴가 성공적으로 처리되었습니다." });
+      res.status(200).json({
+        success: true,
+        message: '회원 탈퇴가 성공적으로 처리되었습니다.',
+      });
     } catch (error) {
       next(error);
     }
@@ -81,9 +91,55 @@ class UserController {
   logout = async (req, res, next) => {
     try {
       await redisClient.del(res.locals.user.id.toString());
-      res.clearCookie("Authorization");
+      res.clearCookie('Authorization');
 
-      res.status(200).json({ success: true, message: "로그아웃 성공" });
+      res.status(200).json({ success: true, message: '로그아웃 성공' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  updateBusinessLicense = async (req, res, next) => {
+    try {
+      const userId = res.locals.user.id;
+      const { licenseNumber } = req.body;
+      await this.userService.updateBusinessLicenseNumber(userId, licenseNumber);
+
+      res.status(200).json({
+        success: true,
+        message: '사업자 등록번호가 업데이트되었습니다.',
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  requestVerification = async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      await this.userService.sendVerificationCode(email);
+      res
+        .status(200)
+        .json({ success: true, message: '인증번호를 전송했습니다.' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  validateVerification = async (req, res, next) => {
+    try {
+      const { email, verifyCode } = req.body;
+      const isValid = await this.userService.verifyCode(email, verifyCode);
+      console.log(isValid, '뭔데이거?');
+      if (isValid) {
+        res
+          .status(200)
+          .json({ success: true, message: '인증이 완료되었습니다.' });
+      } else {
+        res
+          .status(400)
+          .json({ success: false, message: '인증번호가 일치하지 않습니다.' });
+      }
     } catch (error) {
       next(error);
     }

@@ -7,6 +7,11 @@ import fs from 'fs';
 // import swaggerUi from "swagger-ui-express";
 import morganConfig from './config/morgan.config.js';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // 환경 설정 및 데이터베이스 설정
 import env from './config/env.config.js';
 import { checkDatabaseConnection } from './config/db.config.js';
@@ -27,9 +32,11 @@ app.use(
 
 // 라우터 설정
 import userRouter from './routes/user.router.js';
+import storeRouter from './routes/store.router.js';
+import menusRouter from './routes/menus.router.js';
 import errorHandler from './middleware/errorHandler.middleware.js';
-import shopRouter from './routes/shop.router.js';
-app.use('/api', [userRouter, shopRouter]);
+app.use('/api', [userRouter, storeRouter]);
+app.use('/api', [menusRouter]);
 app.use(errorHandler);
 
 // 프론트엔드 파일 서빙

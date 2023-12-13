@@ -1,6 +1,6 @@
-import { spawn } from "child_process";
-import mysql from "mysql2/promise";
-import env from "./env.config.js";
+import { spawn } from 'child_process';
+import mysql from 'mysql2/promise';
+import env from './env.config.js';
 
 // 기존 MySQL 데이터베이스를 삭제하는 함수
 async function dropDatabase() {
@@ -32,15 +32,15 @@ async function setPrismaDB() {
   await dropDatabase();
 
   // Prisma 명령어를 통한 데이터베이스 생성
-  const prismaProcess = spawn("npx", ["prisma", "db", "push"], {
+  const prismaProcess = spawn('npx', ['prisma', 'db', 'push'], {
     shell: true,
-    stdio: "inherit",
+    stdio: 'inherit',
   });
 
   // Prisma 프로세스 종료 시 로깅
-  prismaProcess.on("close", (code) => {
+  prismaProcess.on('close', (code) => {
     if (code === 0) {
-      console.log("PrismaDB 생성 완료");
+      console.log('PrismaDB 생성 완료');
     } else {
       console.error(`PrismaDB 생성 실패: ${code}`);
     }

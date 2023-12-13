@@ -1,0 +1,40 @@
+@domain = http://localhost:4000/api
+#http://localhost:5608
+#http://3.36.72.57:5608
+
+### 
+# 업장 정보 전체 조회
+GET {{domain}}/menu?category=name&order=desc
+
+###
+# 업장 정보 개별 조회
+GET {{domain}}/menu/2
+
+###
+# 업장 신규 등록
+POST {{domain}}/uploadstore/
+Content-Type: application/JSON
+
+{
+  "name": "반찬집",
+  "storedescription": "정성가득",
+  "foodtype": "한식",
+  "storestatus": "대한민국",
+  "businesslicense": "110-32-54321"
+}
+
+###
+# 업장 정보 수정
+PUT {{domain}}/updatestore/1
+Content-Type: application/JSON
+
+{
+  "name": "menu1",
+  "price": "100000",
+  "imageUrl": ""
+}
+
+###
+
+# 업장 삭제 
+DELETE {{domain}}/deletestore/3
