@@ -1,0 +1,18 @@
+@domain = http://localhost:4000/api
+#http://localhost:5608
+#http://3.36.72.57:5608
+
+### 
+# 로그인
+POST {{domain}}/login
+Content-Type: application/JSON
+
+{
+  "email": "test2@test.com",
+  "password": "1234A!"
+}
+
+###
+# 로그아웃
+POST {{domain}}/logout
+Content-Type: application/JSON

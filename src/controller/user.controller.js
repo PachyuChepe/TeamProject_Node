@@ -27,7 +27,7 @@ class UserController {
       const { accessToken } = await this.userService.login(req.body);
       res.cookie('Authorization', `Bearer ${accessToken}`, {
         httpOnly: true,
-        secure: true,
+        secure: false,
         sameSite: 'Strict',
       });
 
