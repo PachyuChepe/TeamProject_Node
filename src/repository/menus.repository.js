@@ -5,7 +5,7 @@ class MenusRepository {
   getStoreId = async (ownerId) => {
     const storeId = await prisma.Store.findMany({
       select: { id: true },
-      where: { ownerId }
+      where: { ownerId: +ownerId }
     });
     return storeId[0].id;
   };

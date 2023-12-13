@@ -58,7 +58,7 @@ class MenusService {
 
   // 메뉴 삭제
   deleteMenu = async (ownerId, id) => {
-    // 조회 : 회원 번호 
+    // 조회 : 매장 번호 
     const storeId = await this.menusRepository.getStoreId(ownerId);
 
     // ERR 404 : 메뉴 id가 존재하지 않은 경우
