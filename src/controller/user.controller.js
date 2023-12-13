@@ -113,6 +113,37 @@ class UserController {
       next(error);
     }
   };
+
+  requestVerification = async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      await this.userService.sendVerificationCode(email);
+      res
+        .status(200)
+        .json({ success: true, message: '인증번호를 전송했습니다.' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  validateVerification = async (req, res, next) => {
+    try {
+      const { email, verifyCode } = req.body;
+      const isValid = await this.userService.verifyCode(email, verifyCode);
+      console.log(isValid, '뭔데이거?');
+      if (isValid) {
+        res
+          .status(200)
+          .json({ success: true, message: '인증이 완료되었습니다.' });
+      } else {
+        res
+          .status(400)
+          .json({ success: false, message: '인증번호가 일치하지 않습니다.' });
+      }
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default UserController;
