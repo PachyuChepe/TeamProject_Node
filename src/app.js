@@ -28,7 +28,8 @@ app.use(
 // 라우터 설정
 import userRouter from './routes/user.router.js';
 import errorHandler from './middleware/errorHandler.middleware.js';
-app.use('/api', [userRouter]);
+import shopRouter from './routes/shop.router.js';
+app.use('/api', [userRouter, shopRouter]);
 app.use(errorHandler);
 
 // 프론트엔드 파일 서빙
