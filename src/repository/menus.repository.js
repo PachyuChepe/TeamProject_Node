@@ -2,14 +2,12 @@ import { prisma } from '../utils/prisma/index.js';
 
 class MenusRepository {
   // 매장 번호 조회
-  getStoreId = async (email) => {
-    const storeId = await prisma.User.findUnique({
+  getStoreId = async (ownerId) => {
+    const storeId = await prisma.Store.findMany({
       select: { id: true },
-      where: {
-        email: "ay0530@test.com"
-      }
+      where: { ownerId }
     });
-    return storeId.id;
+    return storeId[0].id;
   };
 
   // 상품 저장
@@ -56,11 +54,15 @@ class MenusRepository {
         storeId: true,
         name: true,
         price: true,
-        // store: {
-        //   select: {
-        //     email: true,
-        //   },
-        // },
+        store: {
+          select: {
+            owner: {
+              select: {
+                email: true
+              }
+            },
+          },
+        },
       },
       where: { id: +id }
     });

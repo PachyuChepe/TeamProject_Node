@@ -8,11 +8,10 @@ class MenusController {
   createMenu = async (req, res, next) => {
     try {
       const { name, price, imageUrl } = req.body; // body 값 조회
-      const email = "ay0530@test.com";
-      // const { email } = res.locals.user; // localstroage 값 조회 
+      const ownerId = res.locals.user.id;
 
       // 조회 : 메뉴 정보
-      const menu = await this.menusService.createMenu(email, name, price, imageUrl);
+      const menu = await this.menusService.createMenu(ownerId, name, price, imageUrl);
 
       // response 반환
       res.status(201).json({ message: "메뉴 등록이 완료되었습니다.", data: menu });
@@ -58,11 +57,10 @@ class MenusController {
     try {
       const { id } = req.params; // params 값 조회
       const { name, price, imageUrl } = req.body; // body 값 조회
-      const email = "ay0530@test.com";
-      // const { email } = res.locals.user; // localstroage 값 조회 
+      const ownerId = res.locals.user.id;
 
       // 조회 : 메뉴 정보
-      const menu = await this.menusService.updateMenu(email, id, name, price, imageUrl);
+      const menu = await this.menusService.updateMenu(ownerId, id, name, price, imageUrl);
 
       // response 반환
       res.status(200).json({ message: "메뉴 수정이 완료되었습니다.", data: menu });
@@ -75,11 +73,11 @@ class MenusController {
   deleteMenu = async (req, res, next) => {
     try {
       const { id } = req.params; // params 값 조회
-      const email = "ay0530@test.com";
-      // const { email } = res.locals.user; // localstroage 값 조회 
+      const ownerId = res.locals.user.id;
+      // const { ownerId } = res.locals.user; // localstroage 값 조회 
 
       // 삭제 : 메뉴 정보
-      await this.menusService.deleteMenu(email, id);
+      await this.menusService.deleteMenu(ownerId, id);
 
       // response 반환
       res.status(200).json({ message: "메뉴를 삭제하였습니다." });

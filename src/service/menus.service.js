@@ -5,9 +5,9 @@ class MenusService {
   menusRepository = new MenusRepository();
 
   // 메뉴 저장
-  createMenu = async (email, name, price, imageUrl) => {
-    // 조회 : 회원 번호  
-    const storeId = await this.menusRepository.getStoreId(email);
+  createMenu = async (ownerId, name, price, imageUrl) => {
+    // 조회 : 매장 번호  
+    const storeId = await this.menusRepository.getStoreId(ownerId);
 
     // 저장 : 메뉴 정보
     const menu = await this.menusRepository.createMenu(storeId, name, price, imageUrl);
@@ -35,10 +35,9 @@ class MenusService {
   };
 
   // 메뉴 수정
-  updateMenu = async (email, id, name, price, imageUrl) => {
+  updateMenu = async (ownerId, id, name, price, imageUrl) => {
     // 조회 : 회원 번호 
-    const storeId = await this.menusRepository.getStoreId(email);
-
+    const storeId = await this.menusRepository.getStoreId(ownerId);
     // 조회 : 메뉴 정보
     const existsMenu = await this.menusRepository.getMenu(id);
 
@@ -58,9 +57,9 @@ class MenusService {
   };
 
   // 메뉴 삭제
-  deleteMenu = async (email, id) => {
+  deleteMenu = async (ownerId, id) => {
     // 조회 : 회원 번호 
-    const storeId = await this.menusRepository.getStoreId(email);
+    const storeId = await this.menusRepository.getStoreId(ownerId);
 
     // ERR 404 : 메뉴 id가 존재하지 않은 경우
     const existsMenu = await this.menusRepository.getMenu(id);
