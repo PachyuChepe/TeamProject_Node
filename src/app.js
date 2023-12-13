@@ -24,7 +24,10 @@ morganConfig(app);
 
 // CORS 설정
 app.use(
-  cors({ credentials: true, origin: ['http://localhost:4000'] }),
+  cors({
+    origin: [`https://localhost:${env.SERVER_PORT}`, 'https://www.vitahub.xyz'],
+    credentials: true,
+  }),
 );
 
 // 라우터 설정

@@ -59,7 +59,7 @@ export const isLoggedIn = async (req, res, next) => {
         });
         res.cookie('Authorization', `Bearer ${newAccessToken}`, {
           httpOnly: true,
-          secure: true,
+          secure: false,
           sameSite: 'Strict',
         });
         const user = await prisma.user.findUnique({ where: { id: userId } });
