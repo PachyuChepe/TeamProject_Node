@@ -1,0 +1,47 @@
+@domain = http://localhost:4000/api
+#http://localhost:5608
+#http://3.36.72.57:5608
+
+###
+# 회원 가입
+POST {{domain}}/signup
+Content-Type: application/JSON
+
+{
+  "email": "test2@test.com",
+  "password": "1234A!",
+  "confirmPassword": "1234A!",
+  "name": "test2",
+  "role": "고객"
+}
+
+###
+# 내 정보 조회
+GET {{domain}}/user
+
+###
+# 내 정보 수정
+PUT {{domain}}/user
+Content-Type: application/JSON
+
+{
+  "currentPassword": "1234A!",
+  "newPassword": "1234A!",
+  "name": "test22"
+}
+
+###
+# 내 정보 수정 - 사업자 번호 수정
+PUT {{domain}}/business/license
+Content-Type: application/JSON
+
+{
+  "name": "menu1",
+  "price": "100000",
+  "imageUrl": ""
+}
+
+###
+
+# 내 정보 삭제 
+DELETE {{domain}}/user
