@@ -31,7 +31,7 @@ model Store {
   name        String
   description String?
   foodtype    String
-  storestatus String
+  storeaddresses String
   businesslicense String
   createdAt   DateTime? @default(now())
   updatedAt   DateTime? @updatedAt

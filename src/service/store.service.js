@@ -16,7 +16,7 @@ class StoreService {
     name,
     storedescription,
     foodtype,
-    storestatus,
+    storeaddresses,
     businesslicense,
   ) => {
     // const user = await this.userRepository.findUserById(id);
@@ -26,7 +26,7 @@ class StoreService {
       name,
       storedescription,
       foodtype,
-      storestatus,
+      storeaddresses,
       businesslicense,
     );
 
@@ -38,14 +38,14 @@ class StoreService {
     name,
     storedescription,
     foodtype,
-    storestatus,
+    storeaddresses,
   ) => {
     const store = await this.storeRepository.updateStore(
       ownerId,
       name,
       storedescription,
       foodtype,
-      storestatus,
+      storeaddresses,
     );
 
     return store;
@@ -67,6 +67,42 @@ class StoreService {
     // }
 
     await this.storeRepository.deleteStore(id);
+  };
+
+  getStores = async () => {
+    const stores = await this.storeRepository.getStores();
+
+    stores.sort((a, b) => b.createdAt - a.createdAt);
+
+    return stores.map((store) => {
+      return {
+        id: store.id,
+        name: store.name,
+        description: store.description,
+        foodtype: store.foodtype,
+        storeaddresses: store.storeaddresses,
+        createdAt: store.createdAt,
+        updatedAt: store.updatedAt,
+      };
+    });
+  };
+
+  getStore = async (id, name, description, foodtype, storeaddresses, res) => {
+    const store = await this.storeRepository.getStore(id);
+
+    if (!store) {
+      throw ApiError.NotFound('업장이 존재하지 않습니다.');
+    }
+
+    return {
+      id: store.id,
+      name: store.name,
+      description: store.description,
+      foodtype: store.foodtype,
+      storeaddresses: store.storeaddresses,
+      createdAt: store.createdAt,
+      updatedAt: store.updatedAt,
+    };
   };
 }
 export default StoreService;

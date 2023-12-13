@@ -1,12 +1,26 @@
-import { prisma } from '../utils/prisma/index.js';
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
 class StoreRepository {
+  getStores = async () => {
+    const stores = await prisma.Store.findMany();
+
+    return stores;
+  };
+
+  getStore = async (id) => {
+    const store = await prisma.Store.findFirst({
+      where: { id: +id },
+    });
+    return store;
+  };
+
   uploadStore = async (
     ownerId,
     name,
     storedescription,
     foodtype,
-    storestatus,
+    storeaddresses,
     businesslicense,
   ) => {
     const uploadedStore = await prisma.Store.create({
@@ -19,20 +33,26 @@ class StoreRepository {
         name,
         description: storedescription,
         // foodtype,
-        // storestatus,
+        // storeaddresses,
         // businesslicense,
       },
     });
     return uploadedStore;
   };
 
-  updateStore = async (id, name, storedescription, foodtype, storestatus) => {
+  updateStore = async (
+    id,
+    name,
+    storedescription,
+    foodtype,
+    storeaddresses,
+  ) => {
     const store = await prisma.Store.update({
       data: {
         name,
         description: storedescription,
         // foodtype,
-        // storestatus,
+        // storeaddresses,
       },
       where: {
         id: +id,

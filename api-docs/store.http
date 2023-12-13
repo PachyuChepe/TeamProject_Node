@@ -8,7 +8,7 @@ GET {{domain}}/menu?category=name&order=desc
 
 ###
 # 업장 정보 개별 조회
-GET {{domain}}/menu/2
+GET {{domain}}/menu/1
 
 ###
 # 업장 신규 등록
@@ -19,7 +19,7 @@ Content-Type: application/JSON
   "name": "반찬집",
   "storedescription": "정성가득",
   "foodtype": "한식",
-  "storestatus": "대한민국",
+  "storeaddresses": "대한민국",
   "businesslicense": "110-32-54321"
 }
 
@@ -33,9 +33,17 @@ Content-Type: application/JSON
   "name": "파스타집",
   "storedescription": "봉골레",
   "foodtype": "양식",
-  "storestatus": "충청북도"
+  "storeaddresses": "충청북도"
 }
 
 ###
 # 업장 삭제 
 DELETE {{domain}}/deletestore/2
+
+### 
+# 업장 전체조회
+GET {{domain}}/store?category=name&order=desc
+
+###
+# 업장 상세 조회
+GET {{domain}}/store/15
