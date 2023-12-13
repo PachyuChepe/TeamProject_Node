@@ -57,13 +57,14 @@ class UserService {
     const refreshToken = jwt.sign({ userId: user.id }, env.JWT_REFRESH_SECRET, {
       expiresIn: '7d',
     });
-    await redisClient.set(
-      user.id.toString(),
-      refreshToken,
-      'EX',
-      60 * 60 * 24 * 7,
-    );
-
+    // await redisClient.set(
+    //   user.id.toString(),
+    //   refreshToken,
+    //   'EX',
+    //   60 * 60 * 24 * 7,
+    // );
+    await redisClient.set(user.id.toString(), refreshToken);
+    await redisClient.expire(user.id.toString(), 60 * 60 * 24 * 7);
     return { accessToken, user };
   };
 

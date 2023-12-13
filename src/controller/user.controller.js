@@ -130,7 +130,6 @@ class UserController {
     try {
       const { email, verifyCode } = req.body;
       const isValid = await this.userService.verifyCode(email, verifyCode);
-      console.log(isValid, '뭔데이거?');
       if (isValid) {
         res
           .status(200)

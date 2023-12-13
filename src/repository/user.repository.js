@@ -71,16 +71,12 @@ class UserRepository {
   };
 
   async saveVerificationCode(email, code) {
-    try {
-      await redisClient.set(`verify:${email}`, code);
-      await redisClient.expire(`verify:${email}`, 180);
+    // 인증 코드 저장 (유효기간 3분)
+    await redisClient.set(`verify:${email}`, code);
+    await redisClient.expire(`verify:${email}`, 180);
+    return true;
 
-      console.log(email, '레디스 얌마!!');
-      return true; // 성공적으로 저장되었음을 나타냅니다.
-    } catch (error) {
-      console.error('Redis Error:', error);
-      return false; // 에러가 발생했음을 나타냅니다.
-    }
+    // return await redisClient.set(`verify:${email}`, code, 'EX', 180);
   }
 
   async getVerificationCode(email) {
