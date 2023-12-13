@@ -30,7 +30,6 @@ Content-Type: application/JSON
 
 {
   "id": "3",
-  "ownerId": "1",
   "name": "파스타집",
   "storedescription": "봉골레",
   "foodtype": "양식",
@@ -39,4 +38,4 @@ Content-Type: application/JSON
 
 ###
 # 업장 삭제 
-DELETE {{domain}}/deletestore/1
+DELETE {{domain}}/deletestore/2
