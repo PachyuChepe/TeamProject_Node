@@ -1,5 +1,5 @@
 // redisClient.js
-import env from '../config/env.config.js';
+import env from './env.config.js';
 import redis from 'redis';
 
 // Redis 클라이언트 인스턴스 생성

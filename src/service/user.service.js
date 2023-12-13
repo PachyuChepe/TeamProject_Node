@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import env from '../config/env.config.js';
 import UserRepository from '../repository/user.repository.js';
 import ApiError from '../middleware/apiError.middleware.js';
-import redisClient from '../redis/redisClient.js';
+import redisClient from '../config/redisClient.config.js';
 
 // 사용자 관련 비즈니스 로직을 수행하는 서비스 클래스
 class UserService {

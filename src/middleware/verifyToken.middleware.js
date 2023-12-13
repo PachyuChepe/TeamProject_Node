@@ -4,7 +4,7 @@ import ApiError from './apiError.middleware.js';
 import jwt from 'jsonwebtoken';
 import { PrismaClient } from '@prisma/client';
 import env from '../config/env.config.js';
-import redisClient from '../redis/redisClient.js';
+import redisClient from '../config/redisClient.config.js';
 
 const prisma = new PrismaClient();
 
@@ -42,13 +42,11 @@ export const isLoggedIn = async (req, res, next) => {
       const refreshToken = await redisClient.get(userId.toString());
       if (!refreshToken) {
         // throw ApiError.Unauthorized("재로그인이 필요합니다.");
-        return res
-          .status(401)
-          .send({
-            success: false,
-            message:
-              '로그인 세션이 만료되었습니다. 안전한 서비스 이용을 위해 다시 로그인해주세요.',
-          });
+        return res.status(401).send({
+          success: false,
+          message:
+            '로그인 세션이 만료되었습니다. 안전한 서비스 이용을 위해 다시 로그인해주세요.',
+        });
       }
 
       try {

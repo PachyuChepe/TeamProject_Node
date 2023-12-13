@@ -1,7 +1,7 @@
 // controller/user.controller.js
 
 import UserService from '../service/user.service.js';
-import redisClient from '../redis/redisClient.js';
+import redisClient from '../config/redisClient.config.js';
 
 // 사용자 관련 HTTP 요청을 처리하는 컨트롤러
 class UserController {
