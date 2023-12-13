@@ -15,6 +15,8 @@ const env = {
   REDIS_PORT: process.env.REDIS_PORT,
   REDIS_USERNAME: process.env.REDIS_USERNAME,
   REDIS_PASSWORD: process.env.REDIS_PASSWORD,
+  NODE_MAIL_ID: process.env.NODE_MAIL_ID,
+  NODE_MAIL_PW: process.env.NODE_MAIL_PW,
 };
 
 export default env;

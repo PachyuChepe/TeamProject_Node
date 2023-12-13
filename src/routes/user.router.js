@@ -23,5 +23,7 @@ router.post(
   isLoggedIn,
   userController.updateBusinessLicense,
 );
+router.post('/request-verify', userController.requestVerification);
+router.post('/validate-verify', userController.validateVerification);
 
 export default router;

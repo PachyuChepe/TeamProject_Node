@@ -1,7 +1,7 @@
 // controller/user.controller.js
 
 import UserService from '../service/user.service.js';
-import redisClient from '../redis/redisClient.js';
+import redisClient from '../config/redisClient.config.js';
 
 // 사용자 관련 HTTP 요청을 처리하는 컨트롤러
 class UserController {
@@ -109,6 +109,37 @@ class UserController {
         success: true,
         message: '사업자 등록번호가 업데이트되었습니다.',
       });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  requestVerification = async (req, res, next) => {
+    try {
+      const { email } = req.body;
+      await this.userService.sendVerificationCode(email);
+      res
+        .status(200)
+        .json({ success: true, message: '인증번호를 전송했습니다.' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  validateVerification = async (req, res, next) => {
+    try {
+      const { email, verifyCode } = req.body;
+      const isValid = await this.userService.verifyCode(email, verifyCode);
+      console.log(isValid, '뭔데이거?');
+      if (isValid) {
+        res
+          .status(200)
+          .json({ success: true, message: '인증이 완료되었습니다.' });
+      } else {
+        res
+          .status(400)
+          .json({ success: false, message: '인증번호가 일치하지 않습니다.' });
+      }
     } catch (error) {
       next(error);
     }
