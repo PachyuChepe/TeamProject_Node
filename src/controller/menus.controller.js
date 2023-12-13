@@ -1,6 +1,4 @@
 
-// import { validationResult } from 'express-validator'; // express 유효성 검사 패키지
-// import { MenusValidError } from '../error-handlers/custom.errors.js'; // custom 에러
 import MenusService from '../service/menus.service.js'; // 서비스
 
 class MenusController {
@@ -8,17 +6,10 @@ class MenusController {
 
   // // 메뉴 정보 저장
   createMenu = async (req, res, next) => {
-    // validationResult : express-validator 유효성 검사 실행
-    // const errors = validationResult(req);
     try {
       const { name, price, imageUrl } = req.body; // body 값 조회
       const email = "ay0530@test.com";
       // const { email } = res.locals.user; // localstroage 값 조회 
-
-      // ERR 400 : 필수 값들이 입력되지 않은 경우
-      // if (!errors.isEmpty()) {
-      //   throw new MenusValidError();
-      // }
 
       // 조회 : 메뉴 정보
       const menu = await this.menusService.createMenu(email, name, price, imageUrl);
@@ -64,18 +55,11 @@ class MenusController {
 
   // //  메뉴 정보 수정
   updateMenu = async (req, res, next) => {
-    // validationResult : express-validator 유효성 검사 실행
-    // const errors = validationResult(req);
     try {
       const { id } = req.params; // params 값 조회
       const { name, price, imageUrl } = req.body; // body 값 조회
       const email = "ay0530@test.com";
       // const { email } = res.locals.user; // localstroage 값 조회 
-
-      // ERR 400 : 필수 값들이 입력되지 않은 경우
-      // if (!errors.isEmpty()) {
-      //   throw new MenusValidError();
-      // }
 
       // 조회 : 메뉴 정보
       const menu = await this.menusService.updateMenu(email, id, name, price, imageUrl);
