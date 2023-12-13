@@ -8,8 +8,8 @@ POST {{domain}}/login
 Content-Type: application/JSON
 
 {
-  "email": "test2@test.com",
-  "password": "1234A!"
+  "email": "skrwlqhrdma123@naver.com",
+  "password": "Qkrtlsdnr12!"
 }
 
 ###

@@ -38,9 +38,10 @@ app.use(
 
 // 라우터 설정
 import userRouter from './routes/user.router.js';
+import storeRouter from './routes/store.router.js';
 import menusRouter from './routes/menus.router.js';
 import errorHandler from './middleware/errorHandler.middleware.js';
-app.use('/api', [userRouter]);
+app.use('/api', [userRouter, storeRouter]);
 app.use('/api', [menusRouter]);
 app.use(errorHandler);
 

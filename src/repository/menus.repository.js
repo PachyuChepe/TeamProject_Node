@@ -18,8 +18,8 @@ class MenusRepository {
         storeId,
         price: +price,
         imageUrl,
-        categoryId: 1
-      }
+        categoryId: 1,
+      },
     });
     return createdMenu;
   };
@@ -35,13 +35,13 @@ class MenusRepository {
           select: {
             owner: {
               select: {
-                email: true
-              }
+                email: true,
+              },
             },
           },
         },
       },
-      orderBy
+      orderBy,
     });
     return menus;
   };
@@ -58,13 +58,13 @@ class MenusRepository {
           select: {
             owner: {
               select: {
-                email: true
-              }
+                email: true,
+              },
             },
           },
         },
       },
-      where: { id: +id }
+      where: { id: +id },
     });
     return menu;
   };
@@ -76,10 +76,11 @@ class MenusRepository {
         name,
         price: +price,
         imageUrl,
-        updatedAt: new Date()
-      }, where: {
-        id: +id
-      }
+        updatedAt: new Date(),
+      },
+      where: {
+        id: +id,
+      },
     });
     return menu;
   };
@@ -87,7 +88,7 @@ class MenusRepository {
   // 상품 삭제
   deleteMenu = async (id) => {
     await prisma.Menu.delete({
-      where: { id: +id }
+      where: { id: +id },
     });
   };
 }
