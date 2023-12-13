@@ -1,5 +1,6 @@
 // repository/user.repository.js
 
+import redisClient from '../config/redisClient.config.js';
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
@@ -68,6 +69,16 @@ class UserRepository {
       });
     }
   };
+
+  async saveVerificationCode(email, code) {
+    // 인증 코드 저장 (유효기간 3분)
+    return await redisClient.set(`verify:${email}`, code, 'EX', 180);
+  }
+
+  async getVerificationCode(email) {
+    // 인증 코드 조회
+    return await redisClient.get(`verify:${email}`);
+  }
 }
 
 export default UserRepository;

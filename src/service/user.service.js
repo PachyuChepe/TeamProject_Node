@@ -4,7 +4,8 @@ import jwt from 'jsonwebtoken';
 import env from '../config/env.config.js';
 import UserRepository from '../repository/user.repository.js';
 import ApiError from '../middleware/apiError.middleware.js';
-import redisClient from '../redis/redisClient.js';
+import redisClient from '../config/redisClient.config.js';
+import { sendVerificationEmail } from '../config/nodeMailer.config.js';
 
 // 사용자 관련 비즈니스 로직을 수행하는 서비스 클래스
 class UserService {
@@ -135,6 +136,18 @@ class UserService {
       businessLicenseNumber: licenseNumber,
     });
   };
+
+  async sendVerificationCode(email) {
+    const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+    await this.userRepository.saveVerificationCode(email, verifyCode);
+    await sendVerificationEmail(email, verifyCode);
+    return verifyCode;
+  }
+
+  async verifyCode(email, code) {
+    const storedCode = await this.userRepository.getVerificationCode(email);
+    return code === storedCode;
+  }
 }
 
 export default UserService;

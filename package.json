@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node src/app.js",
     "dev": "nodemon src/app.js",
-    "resetdb": "node src/config/drop.db.config.js",
+    "resetdb": "node src/config/dbReset.config.js",
     "test": "cross-env NODE_ENV=test mocha"
   },
   "keywords": [],
@@ -27,6 +27,7 @@
     "morgan": "^1.10.0",
     "mysql": "^2.18.1",
     "mysql2": "^3.6.5",
+    "nodemailer": "^6.9.7",
     "prisma": "^5.6.0",
     "redis": "^4.6.11",
     "swagger-jsdoc": "^6.2.8",
