@@ -10,28 +10,18 @@ class OrderController {
 
   // 고객 : 주문 생성 및 저장 post / menuid Int , quantity Int / 고객 1 : 주문 N
   createOrder = async (req, res, next) => {
-    console.log("여기는 오는거야?");
+    console.log('여기는 오는거야?');
     try {
-      const {
-        // customerId,
-        menuId,
-        quantity,
-        totalPrice,
-        // status,
-        // createdAt,
-        // updatedAt,
-      } = req.body;
-      // const orderId = res.locals.user.id;
-      const customerId = res.locals.user.id;
+      const { customerId, menuId, quantity, totalPrice, status } = req.body;
+      const orderId = res.locals.user.id;
+
       const newOrder = await this.orderService.createOrder(
         // orderId,
         customerId,
         menuId,
         quantity,
         totalPrice,
-        // status,
-        // createdAt,
-        // updatedAt,
+        status,
       );
 
       res.status(201).json({
@@ -55,8 +45,6 @@ class OrderController {
         // quantity,
         // totalPrice,
         status,
-        createdAt,
-        updatedAt,
       } = req.body;
       const orderId = res.locals.User.id;
 
@@ -68,8 +56,6 @@ class OrderController {
         // quantity,
         // totalPrice,
         status,
-        createdAt,
-        updatedAt,
       );
 
       res

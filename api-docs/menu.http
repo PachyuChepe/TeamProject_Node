@@ -16,6 +16,7 @@ POST {{domain}}/menu/
 Content-Type: application/JSON
 
 {
+  "ownerId": 3,
   "name": "menu2",
   "price": "10000",
   "imageUrl": ""

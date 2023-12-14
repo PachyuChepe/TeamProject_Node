@@ -8,9 +8,10 @@ POST {{domain}}/orders/
 Content-Type: application/JSON
 
 {
-    "quantity": "3",
-    "totalPrice":"50,200",
-    "status":"배달 완료"
+    "menuId" : 1,
+    "totalPrice":2000,
+    "status":"배달 완료",
+    "quantity": 3
 }
 
 ###

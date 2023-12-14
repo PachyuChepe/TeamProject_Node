@@ -32,9 +32,9 @@ class StoreRepository {
         },
         name,
         description: storedescription,
-        // foodtype,
-        // storeaddresses,
-        // businesslicense,
+        foodtype,
+        storeaddresses,
+        businesslicense,
       },
     });
     return createdStore;
