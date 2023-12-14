@@ -84,6 +84,20 @@ class MenusController {
       next(error);
     }
   };
+
+  // //  업종 전체 조회
+  getFoodCategory = async (req, res, next) => {
+    try {
+      console.log("컨트롤러 통과");
+      // 조회 : 모든 메뉴 정보 
+      const foodCategory = await this.menusService.getFoodCategory();
+
+      // response 반환
+      return res.status(200).json({ message: "전체 메뉴를 조회하였습니다.", foodCategory });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default MenusController;  // router 내보내기
