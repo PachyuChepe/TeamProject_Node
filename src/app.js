@@ -27,8 +27,8 @@ app.use(
   // 아영님 cors 설정(localhost 원활한 동작을 위함)
   cors({
     credentials: true,
-    origin: ['http://localhost:5500']
-  })
+    origin: ['http://localhost:5500'],
+  }),
   // 윤호님 cors 설정
   // cors({
   //   origin: [`https://localhost:${env.SERVER_PORT}`, 'https://www.vitahub.xyz'],
@@ -40,8 +40,9 @@ app.use(
 import userRouter from './routes/user.router.js';
 import storeRouter from './routes/store.router.js';
 import menusRouter from './routes/menus.router.js';
+import reviewRouter from './routes/reviews.router.js';
 import errorHandler from './middleware/errorHandler.middleware.js';
-app.use('/api', [userRouter, storeRouter]);
+app.use('/api', [userRouter, storeRouter, reviewRouter]);
 app.use('/api', [menusRouter]);
 app.use(errorHandler);
 
