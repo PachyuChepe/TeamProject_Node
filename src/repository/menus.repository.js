@@ -94,6 +94,12 @@ class MenusRepository {
       where: { id: +id },
     });
   };
+
+  // 업종 전체 조회
+  getFoodCategory = async () => {
+    const foodCategory = await prisma.FoodCategory.findMany();
+    return foodCategory;
+  };
 }
 
 export default MenusRepository;
