@@ -11,8 +11,8 @@ class StoreController {
   // 업장 등록 (user 정보가 등록 되어 있는 상태에서 업장 등록)
   createStore = async (req, res, next) => {
     try {
-      // const { id: userId } = res.locals.user;
       const {
+        categoryId,
         name,
         storedescription,
         foodtype,
@@ -22,6 +22,7 @@ class StoreController {
       const ownerId = res.locals.user.id;
 
       const store = await this.storeService.createStore(
+        categoryId,
         ownerId,
         name,
         storedescription,
@@ -41,14 +42,14 @@ class StoreController {
   // 업장 정보 수정 (user 정보가 등록 되어 있는 상태에서 업장 수정)
   updateStore = async (req, res, next) => {
     try {
-      // const { id: userId } = res.locals.user;
       const { id } = req.params; // params 값 조회
-      const { name, storedescription, foodtype, storeaddresses } = req.body; // body 값 조회
+      const { categoryId, name, storedescription, foodtype, storeaddresses } = req.body; // body 값 조회
       const ownerId = res.locals.user.id;
 
       const store = await this.storeService.updateStore(
         id,
         ownerId,
+        categoryId,
         name,
         storedescription,
         foodtype,
@@ -67,9 +68,8 @@ class StoreController {
   // 업장 삭제 (user 정보가 등록 되어 있는 상태에서 업장만 삭제)
   deleteStore = async (req, res, next) => {
     try {
-      // const { id: userId } = res.locals.user;
-      const { ownerId, id } = req.params; // params 값 조회
-      // const ownerId = res.locals.user.id;
+      const { id } = req.params; // params 값 조회
+      const ownerId = res.locals.user.id;
 
       await this.storeService.deleteStore(ownerId, id);
 

@@ -13,6 +13,7 @@ class StoreService {
 
   createStore = async (
     ownerId,
+    categoryId,
     name,
     storedescription,
     foodtype,
@@ -23,6 +24,7 @@ class StoreService {
 
     const store = await this.storeRepository.createStore(
       ownerId,
+      categoryId,
       name,
       storedescription,
       foodtype,
@@ -36,15 +38,16 @@ class StoreService {
   updateStore = async (
     id,
     ownerId,
+    categoryId,
     name,
     storedescription,
     foodtype,
     storeaddresses,
   ) => {
-    console.log('id.....: ', id);
     const store = await this.storeRepository.updateStore(
       id,
       ownerId,
+      categoryId,
       name,
       storedescription,
       foodtype,

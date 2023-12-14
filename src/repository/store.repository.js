@@ -17,6 +17,7 @@ class StoreRepository {
 
   createStore = async (
     ownerId,
+    categoryId,
     name,
     storedescription,
     foodtype,
@@ -27,14 +28,19 @@ class StoreRepository {
       data: {
         owner: {
           connect: {
-            id: ownerId,
+            id: +ownerId,
+          },
+        },
+        category: {
+          connect: {
+            id: +categoryId,
           },
         },
         name,
         description: storedescription,
-        // foodtype,
-        // storeaddresses,
-        // businesslicense,
+        foodtype: foodtype,
+        storeaddresses,
+        businesslicense,
       },
     });
     return createdStore;
@@ -42,6 +48,7 @@ class StoreRepository {
 
   updateStore = async (
     id,
+    categoryId,
     name,
     storedescription,
     foodtype,
@@ -49,10 +56,11 @@ class StoreRepository {
   ) => {
     const store = await prisma.Store.update({
       data: {
+        categoryId,
         name,
         description: storedescription,
-        // foodtype,
-        // storeaddresses,
+        foodtype,
+        storeaddresses,
       },
       where: {
         id: +id,
