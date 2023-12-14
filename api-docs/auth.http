@@ -8,11 +8,22 @@ POST {{domain}}/login
 Content-Type: application/JSON
 
 {
-  "email": "test2@test.com",
-  "password": "1234A!"
+  "email": "skrwlqhrdma123@naver.com",
+  "password": "Qkrtlsdnr12!"
 }
 
 ###
 # 로그아웃
 POST {{domain}}/logout
 Content-Type: application/JSON
+
+
+### 
+# 로그인-아영
+POST {{domain}}/login
+Content-Type: application/JSON
+
+{
+  "email": "test2@test.com",
+  "password": "1234A!"
+}

@@ -8,11 +8,11 @@ POST {{domain}}/signup
 Content-Type: application/JSON
 
 {
-  "email": "test2@test.com",
-  "password": "1234A!",
-  "confirmPassword": "1234A!",
-  "name": "test2",
-  "role": "고객"
+  "email": "skrwlqhrdma123@naver.com",
+  "password": "Qkrtlsdnr12!",
+  "confirmPassword": "Qkrtlsdnr12!",
+  "name": "박신욱",
+  "role": "사장"
 }
 
 ###

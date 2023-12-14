@@ -24,17 +24,24 @@ morganConfig(app);
 
 // CORS 설정
 app.use(
+  // 아영님 cors 설정(localhost 원활한 동작을 위함)
   cors({
-    origin: [`https://localhost:${env.SERVER_PORT}`, 'https://www.vitahub.xyz'],
     credentials: true,
-  }),
+    origin: ['http://localhost:5500']
+  })
+  // 윤호님 cors 설정
+  // cors({
+  //   origin: [`https://localhost:${env.SERVER_PORT}`, 'https://www.vitahub.xyz'],
+  //   credentials: true,
+  // }),
 );
 
 // 라우터 설정
 import userRouter from './routes/user.router.js';
+import storeRouter from './routes/store.router.js';
 import menusRouter from './routes/menus.router.js';
 import errorHandler from './middleware/errorHandler.middleware.js';
-app.use('/api', [userRouter]);
+app.use('/api', [userRouter, storeRouter]);
 app.use('/api', [menusRouter]);
 app.use(errorHandler);
 

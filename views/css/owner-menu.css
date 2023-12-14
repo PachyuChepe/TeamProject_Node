@@ -1,0 +1,53 @@
+.menu-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  border: 1px solid blue;
+}
+.menu-detail-container {
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  border: 1px solid blue;
+}
+
+.hidden {
+  display: none;
+}
+
+.delete_btn {
+  z-index: 100;
+}
+
+.hover-effect:hover {
+  cursor: pointer;
+}
+
+.submit-edit-form-wrapper {
+  margin: auto;
+  width: 50%;
+  /* border: 1px solid blue; */
+}
+
+.btn-wraaper {
+  margin: auto;
+  width: 300px;
+  border: 1px solid red;
+}
+
+.menu-options-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-option-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.option-wrapper {
+  display: flex;
+  flex-direction: row;
+}
