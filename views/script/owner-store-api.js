@@ -7,22 +7,22 @@ document.addEventListener('DOMContentLoaded', function () {
   const id = urlParams.get('id');
 
   // 조회 : 매장 정보 (매장 수정일 경우)
-  // if (id) {
-  //   axios
-  //     .get(`http://localhost:4000/api/menu/${id}`, {
-  //       withCredentials: true,
-  //     })
-  //     .then((res) => {
-  //       // 기존 input란에 API 반환값 참조
-  //       document.getElementById('name').value = res.data.data[0].name;
-  //       document.getElementById('description').value =
-  //         res.data.data[0].description;
-  //       document.getElementById('price').value = res.data.data[0].price;
-  //     })
-  //     .catch((error) => {
-  //       console.error('오류 발생:', error);
-  //     });
-  // }
+  if (id) {
+    axios
+      .get(`http://localhost:4000/api/store/${id}`, {
+        withCredentials: true,
+      })
+      .then((res) => {
+        console.log(res);
+        // 기존 input란에 API 반환값 참조
+        document.getElementById('name').value = res.data.data.name;
+        document.getElementById('description').value =
+          res.data.data.description;
+      })
+      .catch((error) => {
+        console.error('오류 발생:', error);
+      });
+  }
 });
 
 // 저장 : 매장 정보
@@ -32,7 +32,7 @@ function submitCreateForm() {
     name: document.getElementById('name').value,
     storedescription: document.getElementById('description').value,
     foodtype: document.getElementById('foodtype').value,
-    storestatus: document.getElementById('status').value,
+    address: document.getElementById('status').value,
     businesslicense: document.getElementById('businesslicense').value,
     ownerId: 2,
   };
@@ -64,7 +64,7 @@ function submitUpdateForm() {
     name: document.getElementById('name').value,
     storedescription: document.getElementById('description').value,
     foodtype: document.getElementById('foodtype').value,
-    storestatus: document.getElementById('status').value,
+    storeaddresses: document.getElementById('storeaddresses').value,
     businesslicense: document.getElementById('businesslicense').value,
     ownerId: 2,
   };

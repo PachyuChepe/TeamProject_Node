@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+  </head>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"
+  ></script>
+  <body>
+    <!-- 헤더 를 하나만 만들고 갖다 붙이는 식으로 하면 될 것 같은데 어케함 ? -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <!-- 로고 -->
+        <a class="navbar-brand" href="#">오죠사마 앙냥냥</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- 로그인 버튼 -->
+        <button>로그인</button>
+      </div>
+    </nav>
+    <!-- 매장 목록 출력 -->
+    <div class="stores-container">
+      <h1>매장 정보 조회</h1>
+      <!-- 가게 정보 정보 조회 영역-->
+      <div class="store-info-wrapper">
+        <div>가게명</div>
+        <div id="store_name" class="form-control"></div>
+        <div>가게설명</div>
+        <div id="store_description" class="form-control"></div>
+        <div>메뉴 종류</div>
+        <div id="food_type" class="form-control"></div>
+        <div>주소</div>
+        <div id="store_addresses" class="form-control"></div>
+      </div>
+      <h1>매장 메뉴 조회</h1>
+      <div class="store-menu-wrapper">
+        <!-- 매장 메뉴 조회 -->
+      </div>
+    </div>
+  </body>
+  <!-- 프론트 비동기처리(?)-->
+  <!-- 프론트에서 백으로 데이터 넘겨주기!-->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="script/user-store-api.js"></script>
+</html>

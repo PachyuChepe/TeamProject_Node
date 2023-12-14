@@ -14,28 +14,6 @@
     />
   </head>
   <body>
-    <!-- 헤더 를 하나만 만들고 갖다 붙이는 식으로 하면 될 것 같은데 어케함 ? -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <!-- 로고 -->
-        <a class="navbar-brand" href="#">오죠사마 앙냥냥</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- 로그인 버튼 -->
-        <button>로그인</button>
-      </div>
-    </nav>
-
     <!-- 가게 정보 저장 영역-->
     <div class="body-container">
       <h1>매장 등록하기</h1>
@@ -64,12 +42,12 @@
             class="form-control"
             placeholder="메뉴 종류를 입력해주세요."
           />
-          <label for="status">영업 상태</label>
+          <label for="storeaddresses">영업 상태</label>
           <input
             type="text"
-            id="status"
+            id="storeaddresses"
             class="form-control"
-            placeholder="영업 상태를 입력해주세요."
+            placeholder="주소를 입력해주세요."
           />
           <label for="businesslicense">사업자 번호</label>
           <input
@@ -80,6 +58,9 @@
           />
       </div>
     </div>
+    <!-- 등록된 가게가 없을 경우 저장 버튼만 활성화-->
+    <!-- 등록된 가게가 있을 경우 수정/삭제 버튼만 활성화-->
+    <!-- 삭제 시 저장 버튼만 다시 활성화-->
     <div class="btn-wraaper">
       <button type="button" onclick="submitCreateForm()">저장하기</button>
       <button type="button" onclick="submitUpdateForm()">수정하기</button>
