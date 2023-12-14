@@ -11,7 +11,7 @@ class StoreService {
   storeRepository = new StoreRepository();
   // this.userRepository = new UserRepository();
 
-  uploadStore = async (
+  createStore = async (
     ownerId,
     name,
     storedescription,
@@ -21,7 +21,7 @@ class StoreService {
   ) => {
     // const user = await this.userRepository.findUserById(id);
 
-    const store = await this.storeRepository.uploadStore(
+    const store = await this.storeRepository.createStore(
       ownerId,
       name,
       storedescription,

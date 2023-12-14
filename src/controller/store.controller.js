@@ -9,22 +9,19 @@ class StoreController {
   }
 
   // 업장 등록 (user 정보가 등록 되어 있는 상태에서 업장 등록)
-  uploadStore = async (req, res, next) => {
+  createStore = async (req, res, next) => {
     try {
       // const { id: userId } = res.locals.user;
-
       const {
-        ownerId, // 프론트 로그인 기능 후 제거
         name,
         storedescription,
         foodtype,
         storeaddresses,
         businesslicense,
       } = req.body;
-      // const ownerId = res.locals.user.id; // 프론트 로그인 기능 후 활성화
+      const ownerId = res.locals.user.id;
 
-
-      const store = await this.storeService.uploadStore(
+      const store = await this.storeService.createStore(
         ownerId,
         name,
         storedescription,
@@ -33,7 +30,9 @@ class StoreController {
         businesslicense,
       );
 
-      res.status(201).json({ success: true, data: store });
+      res
+        .status(201)
+        .json({ success: true, message: '업장 등록 완료', data: store });
     } catch (error) {
       next(error);
     }
@@ -44,8 +43,8 @@ class StoreController {
     try {
       // const { id: userId } = res.locals.user;
       const { id } = req.params; // params 값 조회
-      const { ownerId, name, storedescription, foodtype, storeaddresses } = req.body; // body 값 조회 // ownerId 프론트 로그인 기능 후 제거
-      // const ownerId = res.locals.user.id; // 프론트 로그인 기능 후 활성화
+      const { name, storedescription, foodtype, storeaddresses } = req.body; // body 값 조회
+      const ownerId = res.locals.user.id;
 
       const store = await this.storeService.updateStore(
         id,

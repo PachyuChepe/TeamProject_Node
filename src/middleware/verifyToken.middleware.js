@@ -11,6 +11,7 @@ const prisma = new PrismaClient();
 // 로그인된 사용자를 확인하는 미들웨어
 export const isLoggedIn = async (req, res, next) => {
   const { Authorization } = req.cookies;
+  console.log('req.cookies~~~~~: ', req.cookies);
   const [authType, authToken] = (Authorization ?? '').split(' ');
 
   // 토큰 유효성 검증
@@ -32,6 +33,7 @@ export const isLoggedIn = async (req, res, next) => {
       throw new jwt.JsonWebTokenError('Invalid token');
     }
     res.locals.user = user;
+    console.log(res.locals);
     next();
   } catch (err) {
     // 토큰 만료 시 새로운 토큰 생성 및 재검증
@@ -55,13 +57,16 @@ export const isLoggedIn = async (req, res, next) => {
         const newAccessToken = jwt.sign({ userId: userId }, env.JWT_SECRET, {
           expiresIn: '15m',
         });
-        res.cookie('Authorization', `Bearer ${newAccessToken}`, {
-          httpOnly: true,
-          secure: false,
-          sameSite: 'Strict',
-        });
+        res.cookie('Authorization', `Bearer ${newAccessToken}`
+          // , {
+          // httpOnly: true,
+          // secure: false,
+          // sameSite: 'Strict',
+          // }
+        );
         const user = await prisma.user.findUnique({ where: { id: userId } });
         res.locals.user = user;
+        console.log(res.locals);
         next();
       } catch (refreshTokenError) {
         await redisClient.del(userId.toString());
