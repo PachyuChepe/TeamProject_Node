@@ -12,16 +12,24 @@ class StoreController {
   uploadStore = async (req, res, next) => {
     try {
       // const { id: userId } = res.locals.user;
-      const { ownerId, name, storedescription, foodtype, storestatus, businesslicense } =
-        req.body;
-      // const ownerId = res.locals.user.id;
+
+      const {
+        ownerId, // 프론트 로그인 기능 후 제거
+        name,
+        storedescription,
+        foodtype,
+        storeaddresses,
+        businesslicense,
+      } = req.body;
+      // const ownerId = res.locals.user.id; // 프론트 로그인 기능 후 활성화
+
 
       const store = await this.storeService.uploadStore(
         ownerId,
         name,
         storedescription,
         foodtype,
-        storestatus,
+        storeaddresses,
         businesslicense,
       );
 
@@ -36,9 +44,8 @@ class StoreController {
     try {
       // const { id: userId } = res.locals.user;
       const { id } = req.params; // params 값 조회
-      console.log('id!!!!: ', id);
-      const { ownerId, name, storedescription, foodtype, storestatus } = req.body; // body 값 조회
-      // const ownerId = res.locals.user.id;
+      const { ownerId, name, storedescription, foodtype, storeaddresses } = req.body; // body 값 조회 // ownerId 프론트 로그인 기능 후 제거
+      // const ownerId = res.locals.user.id; // 프론트 로그인 기능 후 활성화
 
       const store = await this.storeService.updateStore(
         id,
@@ -46,7 +53,7 @@ class StoreController {
         name,
         storedescription,
         foodtype,
-        storestatus,
+        storeaddresses,
       );
 
       res.status(200).json({
@@ -70,6 +77,38 @@ class StoreController {
       res.status(200).json({
         success: true,
         message: '업장 삭제가 완료되었습니다.',
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // 업장 정보 조회
+  getStores = async (req, res, next) => {
+    try {
+      const stores = await this.storeService.getStores();
+
+      res.status(200).json({
+        success: true,
+        message: '업장 목록 조회에 성공하였습니다.',
+        data: stores,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // 업장 상세 조회
+  getStore = async (req, res, next) => {
+    try {
+      const { id } = req.params;
+
+      const store = await this.storeService.getStore(id, res);
+
+      return res.status(200).json({
+        success: true,
+        message: '업장 조회에 성공했습니다.',
+        data: store,
       });
     } catch (error) {
       next(error);

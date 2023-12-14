@@ -29,7 +29,10 @@ router.delete('/deletestore/:id',
   storeController.deleteStore
 );
 
-// 업장 전체 조회 ?
-// 업장 정보 조회 ?
+// 업장 전체 조회
+router.get('/store', storeController.getStores);
+
+// 업장 상세 조회
+router.get('/store/:id', storeController.getStore);
 
 export default router;

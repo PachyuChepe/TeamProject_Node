@@ -2,7 +2,7 @@ import ApiError from './apiError.middleware.js';
 
 // 업장 신규 등록 시 요구 조건들
 export const validateUploadstore = (req, res, next) => {
-  const { name, storedescription, foodtype, storestatus, businesslicense } =
+  const { name, storedescription, foodtype, storeaddresses, businesslicense } =
     req.body;
 
   // if (!user) {
@@ -17,7 +17,7 @@ export const validateUploadstore = (req, res, next) => {
   if (!foodtype) {
     throw ApiError.BadRequest('어떠한 종류의 음식을 판매할건지 선택해주세요.');
   }
-  if (!storestatus) {
+  if (!storeaddresses) {
     throw ApiError.BadRequest('가게 위치를 입력해주세요.');
   }
   if (!businesslicense) {
@@ -29,7 +29,7 @@ export const validateUploadstore = (req, res, next) => {
 
 // 등록 되어있는 업장 정보 수정 시 요구 조건들
 export const validateUpdatestore = (req, res, next) => {
-  const { name, storedescription, foodtype, storestatus } = req.body;
+  const { name, storedescription, foodtype, storeaddresses } = req.body;
 
   if (!name) {
     throw ApiError.BadRequest('가게 이름을 입력해주세요.');
@@ -40,7 +40,7 @@ export const validateUpdatestore = (req, res, next) => {
   if (!foodtype) {
     throw ApiError.BadRequest('어떠한 종류의 음식을 판매할건지 선택해주세요.');
   }
-  if (!storestatus) {
+  if (!storeaddresses) {
     throw ApiError.BadRequest('가게 위치를 입력해주세요.');
   }
 
