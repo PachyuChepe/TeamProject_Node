@@ -40,8 +40,9 @@ app.use(
 import userRouter from './routes/user.router.js';
 import storeRouter from './routes/store.router.js';
 import menusRouter from './routes/menus.router.js';
+import orderRouter from './routes/order.router.js';
 import errorHandler from './middleware/errorHandler.middleware.js';
-app.use('/api', [userRouter, storeRouter]);
+app.use('/api', [userRouter, storeRouter, orderRouter]);
 app.use('/api', [menusRouter]);
 app.use(errorHandler);
 
