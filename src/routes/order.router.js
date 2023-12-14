@@ -53,7 +53,7 @@ router.delete('/orders/:orderid', isLoggedIn, orderController.cancelOrder);
 router.get('/orders/user/:userid', isLoggedIn, orderController.getOrders);
 
 // 공통? 사장? : 주문 상세 조회
-router.get('/orders/:orderId', isLoggedIn, orderController.getOrder);
+router.get('/orders/:orderid', isLoggedIn, orderController.getOrder);
 
 // 주문 전체 조회
 // {

@@ -36,7 +36,6 @@ export const isLoggedIn = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.log(err);
     // 토큰 만료 시 새로운 토큰 생성 및 재검증
     if (err instanceof jwt.TokenExpiredError) {
       const decoded = jwt.decode(authToken);

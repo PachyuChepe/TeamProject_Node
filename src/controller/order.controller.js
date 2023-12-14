@@ -38,7 +38,7 @@ class OrderController {
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
   updateOrder = async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { orderid } = req.params;
       const {
         // customerId,
         // menuId,
@@ -46,18 +46,18 @@ class OrderController {
         // totalPrice,
         status,
       } = req.body;
-      const orderId = res.locals.user.id;
+      // const orderId = res.locals.user.id;
 
       const newOrder = await this.orderService.updateOrder(
-        id,
-        orderId,
+        orderid,
+        // orderId,
         // customerId,
         // menuId,
         // quantity,
         // totalPrice,
         status,
       );
-      console.log(status, '여깁니다co');
+
       res
         .status(200)
         .json({ message: '배달이 완료되었습니다', data: newOrder });
@@ -69,10 +69,10 @@ class OrderController {
   // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
   cancelOrder = async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { orderid } = req.params;
       const orderId = res.locals.user.id;
 
-      await this.orderService.cancelOrder(id, orderId);
+      await this.orderService.cancelOrder(orderid, orderId);
 
       res.status(200).json({ message: '주문을 취소하였습니다.' });
     } catch (error) {
@@ -98,9 +98,9 @@ class OrderController {
   // 공통? 사장? : 주문 상세 조회
   getOrder = async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { orderid } = req.params;
 
-      const order = await this.orderService.getOrder(id, res);
+      const order = await this.orderService.getOrder(orderid, res);
 
       return res.status(200).json({
         success: true,

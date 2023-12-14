@@ -20,13 +20,13 @@ PATCH  {{domain}}/orders/1
 Content-Type: application/JSON
 
 {
-    "id": 5,
+    "orderid": 1,
     "status":"배달 완료"
 }
 
 ###
 # 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
-DELETE {{domain}}/orders/2
+DELETE {{domain}}/orders/1
 
 ### 
 # 공통? 고객? : 주문 전체 조회
@@ -34,4 +34,4 @@ GET {{domain}}/orders/user/0
 
 ###
 # 공통? 사장? : 주문 상세 조회
-GET {{domain}}/orders/2
+GET {{domain}}/orders/6
