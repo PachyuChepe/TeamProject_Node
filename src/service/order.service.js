@@ -9,41 +9,32 @@ class OrderService {
 
   // 고객 : 주문 생성 및 저장 post / menuid Int , quantity Int / 고객 1 : 주문 N
   createOrder = async (
+    menuId,
     orderId,
     customerId,
-    menuId,
     quantity,
     totalPrice,
     status,
-    createdAt,
-    updatedAt,
   ) => {
     const order = await this.orderRepository.createOrder(
+      menuId,
       orderId,
       customerId,
-      menuId,
       quantity,
       totalPrice,
       status,
-      createdAt,
-      updatedAt,
     );
     return order;
   };
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-  updateOrder = async (id, status, createdAt, updatedAt) => {
-    const order = await this.orderRepository.updateOrder(
-      id,
-      status,
-      createdAt,
-      updatedAt,
-    );
+  updateOrder = async (id, status) => {
+    const order = await this.orderRepository.updateOrder(id, status);
     return order;
   };
 
   // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
-  cancelOrder = async (id, menuId) => {
+  cancelOrder = async (id) => {
     await this.orderRepository.cancelOrder(id);
   };
 
@@ -65,5 +56,19 @@ class OrderService {
   };
 
   // 공통? 사장? : 주문 상세 조회 customerId? --menuId
+  getOrder = async (id) => {
+    const order = await this.orderRepository.getOrder(id);
+    if (!order) {
+      throw ApiError.Noutfound('주문이 존재하지 않습니다.');
+    }
+    return {
+      id: order.id,
+      quantity: order.quantity,
+      totalPrice: order.totalPrice,
+      status: order.status,
+      createdAt: order.createdAt,
+      updatedAt: order.updatedAt,
+    };
+  };
 }
 export default OrderService;

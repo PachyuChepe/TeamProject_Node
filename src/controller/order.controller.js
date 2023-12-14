@@ -11,15 +11,7 @@ class OrderController {
   // 고객 : 주문 생성 및 저장 post / menuid Int , quantity Int / 고객 1 : 주문 N
   createOrder = async (req, res, next) => {
     try {
-      const {
-        customerId,
-        menuId,
-        quantity,
-        totalPrice,
-        status,
-        createdAt,
-        updatedAt,
-      } = req.body;
+      const { customerId, menuId, quantity, totalPrice, status } = req.body;
       const orderId = res.locals.user.id;
 
       const newOrder = await this.orderService.createOrder(
@@ -29,8 +21,6 @@ class OrderController {
         quantity,
         totalPrice,
         status,
-        createdAt,
-        updatedAt,
       );
 
       res.status(201).json({
@@ -53,8 +43,6 @@ class OrderController {
         // quantity,
         // totalPrice,
         status,
-        createdAt,
-        updatedAt,
       } = req.body;
       const orderId = res.locals.User.id;
 
@@ -66,8 +54,6 @@ class OrderController {
         // quantity,
         // totalPrice,
         status,
-        createdAt,
-        updatedAt,
       );
 
       res

@@ -13,36 +13,21 @@ class OrderRepository {
     quantity,
     totalPrice,
     status,
-    createdAt,
-    // updatedAt,
   ) => {
+    console.log(quantity);
     const createdOrder = await prisma.Order.create({
       data: {
-        Order: {
-          connect: {
-            menuId,
-          },
-        },
+        menuId,
+        quantity,
+        totalPrice,
+        status,
       },
-      quantity,
-      totalPrice,
-      status,
-      createdAt,
-      //   updatedAt,
     });
     return createdOrder;
   };
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-  updateOrder = async (
-    id,
-    menuId,
-    quantity,
-    totalPrice,
-    status,
-    // createdAt,
-    updatedAt,
-  ) => {
+  updateOrder = async (id, menuId, quantity, totalPrice, status) => {
     const order = await prisma.Order.update({
       data: { menuId, quantity, totalPrice, status },
       where: { id: +id },
@@ -65,6 +50,11 @@ class OrderRepository {
   };
 
   // 공통? 사장? : 주문 상세 조회
-  // router.get('/orders/:orderId', isLoggedIn, orderController.getOrder);
+  getOrder = async (id) => {
+    const order = await prisma.Order.findFirst({
+      where: { id: +id },
+    });
+    return order;
+  };
 }
 export default OrderRepository;
