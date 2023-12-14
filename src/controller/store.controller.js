@@ -9,7 +9,7 @@ class StoreController {
   }
 
   // 업장 등록 (user 정보가 등록 되어 있는 상태에서 업장 등록)
-  uploadStore = async (req, res, next) => {
+  createStore = async (req, res, next) => {
     try {
       // const { id: userId } = res.locals.user;
       const {
@@ -21,7 +21,7 @@ class StoreController {
       } = req.body;
       const ownerId = res.locals.user.id;
 
-      const store = await this.storeService.uploadStore(
+      const store = await this.storeService.createStore(
         ownerId,
         name,
         storedescription,
@@ -30,7 +30,9 @@ class StoreController {
         businesslicense,
       );
 
-      res.status(201).json({ success: true, data: store });
+      res
+        .status(201)
+        .json({ success: true, message: '업장 등록 완료', data: store });
     } catch (error) {
       next(error);
     }

@@ -12,7 +12,7 @@ GET {{domain}}/menu/1
 
 ###
 # 업장 신규 등록
-POST {{domain}}/uploadstore/
+POST {{domain}}/createstore/
 Content-Type: application/JSON
 
 {
