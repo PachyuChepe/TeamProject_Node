@@ -8,27 +8,29 @@ class OrderRepository {
   // 고객 : 주문 생성 및 저장 post / menuid Int , quantity Int / 고객 1 : 주문 N
   createOrder = async (
     // orderId,
-    // customerId,
+    customerId,
     menuId,
     quantity,
     totalPrice,
-    status,
-    createdAt,
+    // createdAt,
     // updatedAt,
   ) => {
     const createdOrder = await prisma.Order.create({
       data: {
-        Order: {
-          connect: {
-            menuId,
-          },
-        },
-      },
-      quantity,
-      totalPrice,
-      status,
-      createdAt,
-      //   updatedAt,
+        customerId,
+        menuId,
+        //   order: {
+        //     connect: {
+        //       menuId,
+        //     },
+        //   },
+        // },
+        quantity,
+        totalPrice,
+        // status,
+        // createdAt,
+        //   updatedAt,
+      }
     });
     return createdOrder;
   };
