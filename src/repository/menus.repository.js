@@ -25,7 +25,7 @@ class MenusRepository {
   };
 
   // 상품 전체 조회
-  getMenus = async (orderBy) => {
+  getMenus = async (storeId, orderBy) => {
     const menus = await prisma.Menu.findMany({
       select: {
         id: true,
@@ -40,6 +40,9 @@ class MenusRepository {
             },
           },
         },
+      },
+      where: {
+        storeId: +storeId
       },
       orderBy,
     });

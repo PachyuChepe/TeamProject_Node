@@ -15,7 +15,7 @@ class StoreRepository {
     return store;
   };
 
-  uploadStore = async (
+  createStore = async (
     ownerId,
     name,
     storedescription,
@@ -23,7 +23,7 @@ class StoreRepository {
     storeaddresses,
     businesslicense,
   ) => {
-    const uploadedStore = await prisma.Store.create({
+    const createdStore = await prisma.Store.create({
       data: {
         owner: {
           connect: {
@@ -37,12 +37,11 @@ class StoreRepository {
         // businesslicense,
       },
     });
-    return uploadedStore;
+    return createdStore;
   };
 
   updateStore = async (
     id,
-    ownerId, //프론트 로그인 기능 후 제거
     name,
     storedescription,
     foodtype,

@@ -1,7 +1,7 @@
 import ApiError from './apiError.middleware.js';
 
 // 업장 신규 등록 시 요구 조건들
-export const validateUploadstore = (req, res, next) => {
+export const validatecreatestore = (req, res, next) => {
   const { name, storedescription, foodtype, storeaddresses, businesslicense } =
     req.body;
 

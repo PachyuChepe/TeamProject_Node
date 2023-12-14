@@ -23,12 +23,12 @@ class MenusController {
   // //  메뉴 정보 전체 조회
   getMenus = async (req, res, next) => {
     try {
-      const { category, order } = req.query; // req 조회
+      const { storeId, category, order } = req.query; // req 조회
       const orderBy = {}; // 정렬 필드 객체 생성
       orderBy[category] = order === 'desc' ? 'desc' : 'asc';
 
       // 조회 : 모든 메뉴 정보 
-      const menus = await this.menusService.getMenus(orderBy);
+      const menus = await this.menusService.getMenus(storeId, orderBy);
 
       // response 반환
       return res.status(200).json({ message: "전체 메뉴를 조회하였습니다.", data: menus });

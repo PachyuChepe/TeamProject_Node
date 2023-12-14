@@ -15,8 +15,8 @@ class MenusService {
   };
 
   // 메뉴 전체 조회
-  getMenus = async (orderBy) => {
-    const menus = await this.menusRepository.getMenus(orderBy);
+  getMenus = async (storeId, orderBy) => {
+    const menus = await this.menusRepository.getMenus(storeId, orderBy);
     return menus;
   };
 

@@ -2,7 +2,7 @@ import express from 'express';
 const router = express.Router();
 import { isLoggedIn } from '../middleware/verifyToken.middleware.js';
 import {
-  validateUploadstore,
+  validatecreatestore,
   validateUpdatestore,
 } from '../middleware/storeValidation.middleware.js';
 import StoreController from '../controller/store.controller.js';
@@ -11,21 +11,21 @@ const storeController = new StoreController();
 
 // 업장 등록
 router.post(
-  '/uploadstore',
-  validateUploadstore,
-  // isLoggedIn,
-  storeController.uploadStore,
+  '/createstore',
+  validatecreatestore,
+  isLoggedIn,
+  storeController.createStore,
 );
 // 업장 정보 수정
 router.put(
   '/updatestore/:id',
   validateUpdatestore,
-  // isLoggedIn,
+  isLoggedIn,
   storeController.updateStore,
 );
 // 업장 삭제
 router.delete('/deletestore/:id',
-  // isLoggedIn,
+  isLoggedIn,
   storeController.deleteStore
 );
 
