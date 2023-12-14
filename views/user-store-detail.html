@@ -40,7 +40,7 @@
       </div>
     </nav>
     <!-- 매장 목록 출력 -->
-    <div class="stores-container">
+    <div class="store-info-container">
       <h1>매장 정보 조회</h1>
       <!-- 가게 정보 정보 조회 영역-->
       <div class="store-info-wrapper">
@@ -54,9 +54,23 @@
         <div id="store_addresses" class="form-control"></div>
       </div>
       <h1>매장 메뉴 조회</h1>
-      <div class="store-menu-wrapper">
-        <!-- 매장 메뉴 조회 -->
-      </div>
+      <table
+        id="store_menu_wrapper"
+        class="table table-hover store-menu-wrapper"
+      >
+        <thead>
+          <tr>
+            <th scope="col">대표 이미지</th>
+            <th scope="col">이름</th>
+            <th scope="col">가격</th>
+            <th></th>
+          </tr>
+        </thead>
+        <!-- 메뉴 목록 출력 -->
+        <tbody id="menu_list">
+          <!-- 매장 메뉴 조회 -->
+        </tbody>
+      </table>
     </div>
   </body>
   <!-- 프론트 비동기처리(?)-->
