@@ -147,7 +147,21 @@ class UserService {
 
   async verifyCode(email, code) {
     const storedCode = await this.userRepository.getVerificationCode(email);
-    return code === storedCode;
+
+    // Redis에서 인증 코드를 찾을 수 없는 경우
+    if (storedCode === null) {
+      throw ApiError.BadRequest(
+        '인증 번호의 유효 기간이 만료되었습니다. 다시 요청해주세요.',
+      );
+    }
+
+    // 인증 코드가 일치하지 않는 경우
+    if (code !== storedCode) {
+      throw ApiError.BadRequest('인증번호가 일치하지 않습니다.');
+    }
+
+    // return code === storedCode;
+    return true;
   }
 }
 

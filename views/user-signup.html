@@ -1,114 +1,308 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- 페이지 기본 설정: 문자셋, 화면 크기 대응, 제목 설정, 스타일시트 및 스크립트 링크 -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Signup Page</title>
-    <link rel="stylesheet" href="/css/reset.css" />
+    <link rel="stylesheet" href="./css/reset.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <style></style>
   </head>
   <body class="bg-gray-50">
+    <div id="header"></div>
+
+    <!-- 전체 페이지를 중앙에 정렬하기 위한 컨테이너 -->
     <div class="min-h-screen flex items-center justify-center">
+      <!-- 회원가입 양식 전체를 감싸는 박스 -->
       <div
-        class="flex w-2/4 h-128 mx-auto bg-white shadow-lg rounded-lg overflow-hidden"
+        class="flex w-5/6 h-full mx-auto bg-white shadow-lg rounded-lg overflow-hidden"
       >
+        <!-- 왼쪽 배경 이미지 섹션 -->
         <div
           class="w-1/2 bg-cover"
           style="
             background-image: url('https://source.unsplash.com/random/800x600?food');
           "
         ></div>
-        <div class="w-1/2 p-8 flex flex-col justify-center">
-          <div class="mb-4 flex items-center">
-            <div class="flex-grow">
-              <label for="email" class="block text-sm font-medium text-gray-700"
-                >이메일</label
-              >
-              <input
-                type="email"
-                id="email"
-                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                placeholder="Enter your email"
-                required
-              />
-            </div>
+
+        <!-- 오른쪽 양식 섹션 -->
+        <div class="w-1/2 py-16 px-52 flex flex-col justify-center">
+          <!-- 탭 버튼들: 일반 회원 및 사업자 회원 선택 -->
+          <div class="w-full flex">
             <button
-              type="submit"
-              class="mt-6 ml-2 px-3 py-1 text-xs border border-transparent rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
+              id="normalTabBtn"
+              class="tab w-1/2 bg-gray-100 text-gray-600 py-2"
+              onclick="changeTab('normal')"
             >
-              인증번호 전송
+              일반 회원
+            </button>
+            <button
+              id="businessTabBtn"
+              class="tab w-1/2 bg-gray-100 text-gray-600 py-2"
+              onclick="changeTab('business')"
+            >
+              사업자 회원
             </button>
           </div>
 
-          <div class="mb-4 flex items-center">
-            <div class="flex-grow">
+          <!-- 탭 내용: 일반 회원 가입 양식 -->
+          <div id="normalTab" class="tab-content">
+            <!-- 이메일 입력 필드와 버튼 -->
+            <div class="mt-6 mb-6 flex items-center">
+              <div class="flex-grow">
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700"
+                  >이메일</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="mt-6 ml-2 px-3 py-1 text-xs border border-transparent rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
+              >
+                인증번호 전송
+              </button>
+            </div>
+
+            <!-- 인증번호 입력 필드와 버튼 -->
+            <div class="mb-6 flex items-center">
+              <div class="flex-grow">
+                <label
+                  for="verification"
+                  class="block text-sm font-medium text-gray-700"
+                  >인증번호 입력</label
+                >
+                <input
+                  type="text"
+                  id="verification"
+                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  placeholder="Enter verification code"
+                />
+              </div>
+              <button
+                type="submit"
+                class="mt-6 ml-2 px-3 py-1 text-xs border border-transparent rounded text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300"
+              >
+                인증번호 확인
+              </button>
+            </div>
+
+            <!-- 패스워드 입력 필드 -->
+            <div class="mb-6">
               <label
-                for="verification"
+                for="password"
                 class="block text-sm font-medium text-gray-700"
-                >인증번호 입력</label
+                >패스워드</label
+              >
+              <input
+                type="password"
+                id="password"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <!-- 패스워드 재확인 입력 필드 -->
+            <div class="mb-6">
+              <label
+                for="password-confirm"
+                class="block text-sm font-medium text-gray-700"
+                >비밀번호 재확인</label
+              >
+              <input
+                type="password"
+                id="password-confirm"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Confirm your password"
+              />
+            </div>
+
+            <!-- 이름 입력 필드 -->
+            <div class="mb-6">
+              <label for="name" class="block text-sm font-medium text-gray-700"
+                >이름</label
               >
               <input
                 type="text"
-                id="verification"
+                id="name"
                 class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-                placeholder="Enter verification code"
+                placeholder="Enter your name"
               />
             </div>
-            <button
-              type="submit"
-              class="mt-6 ml-2 px-3 py-1 text-xs border border-transparent rounded text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300"
-            >
-              인증번호 확인
-            </button>
+
+            <!-- 회원가입 버튼 -->
+            <div class="flex justify-end">
+              <button
+                type="submit"
+                class="px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                signup
+              </button>
+            </div>
           </div>
-          <div class="mb-4">
-            <label
-              for="password"
-              class="block text-sm font-medium text-gray-700"
-              >패스워드</label
-            >
-            <input
-              type="password"
-              id="password"
-              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="Enter your password"
-            />
-          </div>
-          <div class="mb-4">
-            <label
-              for="password-confirm"
-              class="block text-sm font-medium text-gray-700"
-              >비밀번호 재확인</label
-            >
-            <input
-              type="password"
-              id="password-confirm"
-              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="Confirm your password"
-            />
-          </div>
-          <div class="mb-6">
-            <label for="name" class="block text-sm font-medium text-gray-700"
-              >이름</label
-            >
-            <input
-              type="text"
-              id="name"
-              class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-              placeholder="Enter your name"
-            />
-          </div>
-          <div class="flex justify-end">
-            <button
-              type="submit"
-              class="px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-              signup
-            </button>
+
+          <!-- 사업자 회원 가입 양식 섹션 -->
+          <div id="businessTab" class="tab-content hidden">
+            <!-- 이메일 입력 필드와 버튼 -->
+            <div class="mt-6 mb-4 flex items-center">
+              <div class="flex-grow">
+                <label
+                  for="email"
+                  class="block text-sm font-medium text-gray-700"
+                  >이메일</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  placeholder="Enter your email"
+                  required
+                />
+              </div>
+              <button
+                type="submit"
+                class="mt-6 ml-2 px-3 py-1 text-xs border border-transparent rounded text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
+              >
+                인증번호 전송
+              </button>
+            </div>
+
+            <!-- 인증번호 입력 필드와 버튼 -->
+            <div class="mt-6 mb-4 flex items-center">
+              <div class="flex-grow">
+                <label
+                  for="verification"
+                  class="block text-sm font-medium text-gray-700"
+                  >인증번호 입력</label
+                >
+                <input
+                  type="text"
+                  id="verification"
+                  class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                  placeholder="Enter verification code"
+                />
+              </div>
+              <button
+                type="submit"
+                class="mt-6 ml-2 px-3 py-1 text-xs border border-transparent rounded text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-300"
+              >
+                인증번호 확인
+              </button>
+            </div>
+
+            <!-- 패스워드 입력 필드 -->
+            <div class="mt-6 mb-4">
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700"
+                >패스워드</label
+              >
+              <input
+                type="password"
+                id="password"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Enter your password"
+              />
+            </div>
+
+            <!-- 패스워드 재확인 입력 필드 -->
+            <div class="mt-6 mb-4">
+              <label
+                for="password-confirm"
+                class="block text-sm font-medium text-gray-700"
+                >비밀번호 재확인</label
+              >
+              <input
+                type="password"
+                id="password-confirm"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Confirm your password"
+              />
+            </div>
+
+            <!-- 이름 입력 필드 -->
+            <div class="mt-6 mb-6">
+              <label for="name" class="block text-sm font-medium text-gray-700"
+                >이름</label
+              >
+              <input
+                type="text"
+                id="name"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Enter your name"
+              />
+            </div>
+
+            <!-- 회원가입 버튼 -->
+            <div class="flex justify-end">
+              <button
+                type="submit"
+                class="px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                signup
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
+    <div id="footer"></div>
+
+    <!-- 탭 변경 기능을 위한 자바스크립트 -->
+    <script>
+      // 탭 변경 기능
+      function changeTab(tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName('tab-content');
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = 'none';
+        }
+        tablinks = document.getElementsByClassName('tab');
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(
+            ' bg-white text-indigo-600',
+            ' bg-gray-100 text-gray-600',
+          );
+        }
+        document.getElementById(tabName + 'Tab').style.display = 'block';
+        // 직접 버튼에 스타일 적용
+        if (tabName === 'normal') {
+          document.getElementById('normalTabBtn').className =
+            'tab w-1/2 bg-white text-indigo-600 py-2';
+          document.getElementById('businessTabBtn').className =
+            'tab w-1/2 bg-gray-100 text-gray-600 py-2';
+        } else {
+          document.getElementById('businessTabBtn').className =
+            'tab w-1/2 bg-white text-indigo-600 py-2';
+          document.getElementById('normalTabBtn').className =
+            'tab w-1/2 bg-gray-100 text-gray-600 py-2';
+        }
+      }
+
+      // 헤더와 푸터 로드 함수
+      function loadHTML(url, id) {
+        fetch(url)
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(id).innerHTML = data;
+          })
+          .catch((error) => console.error(error));
+      }
+
+      // 페이지 로드 시 실행
+      document.addEventListener('DOMContentLoaded', function () {
+        loadHTML('header.html', 'header');
+        loadHTML('footer.html', 'footer');
+        changeTab('normal'); // 기본적으로 "일반 회원" 탭을 활성화
+      });
+    </script>
   </body>
 </html>
