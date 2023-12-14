@@ -13,19 +13,19 @@ const storeController = new StoreController();
 router.post(
   '/uploadstore',
   validateUploadstore,
-  // isLoggedIn,
+  isLoggedIn,
   storeController.uploadStore,
 );
 // 업장 정보 수정
 router.put(
   '/updatestore/:id',
   validateUpdatestore,
-  // isLoggedIn,
+  isLoggedIn,
   storeController.updateStore,
 );
 // 업장 삭제
 router.delete('/deletestore/:id',
-  // isLoggedIn,
+  isLoggedIn,
   storeController.deleteStore
 );
 
