@@ -25,12 +25,14 @@ class UserController {
   login = async (req, res, next) => {
     try {
       const { accessToken, user } = await this.userService.login(req.body); // 로그인 시 페이지 이동을 위해 user 값 받아오기 추가(이아영)
-      res.cookie('Authorization', `Bearer ${accessToken}`, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'Strict',
-      });
-
+      res.cookie('Authorization', `Bearer ${accessToken}`,
+        // {
+        // httpOnly: true,
+        // secure: false,
+        // sameSite: 'Strict',
+        // }
+      );
+      console.log('req.cookies!!!: ', accessToken);
       res
         .status(200)
         .json({ success: true, message: '로그인 성공', accessToken, user });

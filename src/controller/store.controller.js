@@ -11,17 +11,16 @@ class StoreController {
   // 업장 등록 (user 정보가 등록 되어 있는 상태에서 업장 등록)
   uploadStore = async (req, res, next) => {
     try {
-      // const { id: userId } = res.locals.user;
-
       const {
-        ownerId, // 프론트 로그인 기능 후 제거
+        // ownerId, // 프론트 로그인 기능 후 제거
         name,
         storedescription,
         foodtype,
         storeaddresses,
         businesslicense,
       } = req.body;
-      // const ownerId = res.locals.user.id; // 프론트 로그인 기능 후 활성화
+      const ownerId = res.locals.user.id; // 프론트 로그인 기능 후 활성화
+      console.log('ownerId: ', ownerId);
 
 
       const store = await this.storeService.uploadStore(

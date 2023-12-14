@@ -32,9 +32,8 @@ function submitCreateForm() {
     name: document.getElementById('name').value,
     storedescription: document.getElementById('description').value,
     foodtype: document.getElementById('foodtype').value,
-    address: document.getElementById('status').value,
+    storeaddresses: document.getElementById('storeaddresses').value,
     businesslicense: document.getElementById('businesslicense').value,
-    ownerId: 2,
   };
 
   axios
@@ -66,7 +65,6 @@ function submitUpdateForm() {
     foodtype: document.getElementById('foodtype').value,
     storeaddresses: document.getElementById('storeaddresses').value,
     businesslicense: document.getElementById('businesslicense').value,
-    ownerId: 2,
   };
 
   axios
