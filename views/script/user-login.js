@@ -18,7 +18,7 @@ document
       if (user.role === "고객") {
         window.location.href = 'user-main.html'; // 고객 메인 페이지 이동
       } else if (user.role === "사장" && user.stores.length > 0) {
-        window.location.href = 'owner-main.html'; // 사장 메인 페이지 이동
+        window.location.href = `http://localhost:4000/owner-main.html?id=${user.stores[0].id}`; // 사장 메인 페이지 이동
       } else if (user.role === "사장" && user.stores.length === 0) {
         window.location.href = 'owner-store-create.html'; // 사장 가게 등록 페이지 이동
       } else {
