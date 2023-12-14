@@ -46,7 +46,7 @@ class OrderController {
         // totalPrice,
         status,
       } = req.body;
-      const orderId = res.locals.User.id;
+      const orderId = res.locals.user.id;
 
       const newOrder = await this.orderService.updateOrder(
         id,
@@ -57,7 +57,7 @@ class OrderController {
         // totalPrice,
         status,
       );
-
+      console.log(status, '여깁니다co');
       res
         .status(200)
         .json({ message: '배달이 완료되었습니다', data: newOrder });

@@ -28,11 +28,12 @@ class OrderRepository {
   };
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-  updateOrder = async (id, menuId, quantity, totalPrice, status) => {
-    const order = await prisma.Order.update({
-      data: { menuId, quantity, totalPrice, status },
+  updateOrder = async (id, status) => {
+    const order = await prisma.order.update({
+      data: { status },
       where: { id: +id },
     });
+    console.log(status, '여깁니다re');
     return order;
   };
 
