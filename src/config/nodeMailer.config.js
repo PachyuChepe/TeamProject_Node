@@ -20,9 +20,40 @@ export const sendVerificationEmail = async (email, verifyCode) => {
     const message = {
       from: env.NODE_MAIL_ID,
       to: `<${email}>`,
-      subject: '유니버스 인증메일',
-      html: `<p>귀하의 인증번호는 ${verifyCode} 입니다.</p>`,
-      // 기타 HTML 내용 및 첨부 파일 구성
+      subject: '아이도리 인증메일',
+      html: `
+      <div style='
+      margin: 0 auto 0 auto;
+      padding: 3.5% 0 5% 0;
+      text-align: center;
+      border: 0.5px solid #ececec;
+      height: 50%;
+      width: 50%;
+      '>
+      <img src="cid:aidori-nodeMailer" /><br/><br/><br/>
+
+      
+      <span style="
+      font-size: 30pt;
+      border: 0.5px solid #ececec;
+      padding: 0.5% 2.5%;
+      font-weight:bold;
+      ">${verifyCode}</span>
+      <br/>
+      <h2>인증번호는 3분간 유효합니다.</h2><br/><br/><br/>
+      <h4 style="
+      color: gray;
+      ">
+      &copy; Copyright aidori, 2023 All Rights Reserved.
+      </h4>
+      </div>`,
+      attachments: [
+        {
+          filename: 'aidori-nodeMailer.png',
+          path: '../TeamProject_Node_Ojyosama/views/img/aidori-nodeMailer.png',
+          cid: 'aidori-nodeMailer',
+        },
+      ],
     };
 
     // 이메일 전송

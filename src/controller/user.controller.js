@@ -129,17 +129,10 @@ class UserController {
   validateVerification = async (req, res, next) => {
     try {
       const { email, verifyCode } = req.body;
-      const isValid = await this.userService.verifyCode(email, verifyCode);
-      console.log(isValid, '뭔데이거?');
-      if (isValid) {
-        res
-          .status(200)
-          .json({ success: true, message: '인증이 완료되었습니다.' });
-      } else {
-        res
-          .status(400)
-          .json({ success: false, message: '인증번호가 일치하지 않습니다.' });
-      }
+      await this.userService.verifyCode(email, verifyCode);
+      res
+        .status(200)
+        .json({ success: true, message: '인증이 완료되었습니다.' });
     } catch (error) {
       next(error);
     }
