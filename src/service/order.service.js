@@ -10,7 +10,7 @@ class OrderService {
   // 고객 : 주문 생성 및 저장 post / menuid Int , quantity Int / 고객 1 : 주문 N
   createOrder = async (
     menuId,
-    orderId,
+    // orderId,
     customerId,
     quantity,
     totalPrice,
@@ -18,7 +18,7 @@ class OrderService {
   ) => {
     const order = await this.orderRepository.createOrder(
       menuId,
-      orderId,
+      // orderId,
       customerId,
       quantity,
       totalPrice,

@@ -15,7 +15,7 @@ class OrderController {
       const orderId = res.locals.user.id;
 
       const newOrder = await this.orderService.createOrder(
-        orderId,
+        // orderId,
         customerId,
         menuId,
         quantity,
