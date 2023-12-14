@@ -26,7 +26,14 @@ class StoreRepository {
     return uploadedStore;
   };
 
-  updateStore = async (id, name, storedescription, foodtype, storestatus) => {
+  updateStore = async (
+    id,
+    ownerId,
+    name,
+    storedescription,
+    foodtype,
+    storestatus) => {
+    console.log('id~~~: ', id);
     const store = await prisma.Store.update({
       data: {
         name,

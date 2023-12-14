@@ -34,13 +34,16 @@ class StoreService {
   };
 
   updateStore = async (
+    id,
     ownerId,
     name,
     storedescription,
     foodtype,
     storestatus,
   ) => {
+    console.log('id.....: ', id);
     const store = await this.storeRepository.updateStore(
+      id,
       ownerId,
       name,
       storedescription,

@@ -12,9 +12,9 @@ class StoreController {
   uploadStore = async (req, res, next) => {
     try {
       // const { id: userId } = res.locals.user;
-      const { name, storedescription, foodtype, storestatus, businesslicense } =
+      const { ownerId, name, storedescription, foodtype, storestatus, businesslicense } =
         req.body;
-      const ownerId = res.locals.user.id;
+      // const ownerId = res.locals.user.id;
 
       const store = await this.storeService.uploadStore(
         ownerId,
@@ -36,12 +36,13 @@ class StoreController {
     try {
       // const { id: userId } = res.locals.user;
       const { id } = req.params; // params 값 조회
-      const { name, storedescription, foodtype, storestatus } = req.body; // body 값 조회
-      const ownerId = res.locals.user.id;
+      console.log('id!!!!: ', id);
+      const { ownerId, name, storedescription, foodtype, storestatus } = req.body; // body 값 조회
+      // const ownerId = res.locals.user.id;
 
       const store = await this.storeService.updateStore(
-        ownerId,
         id,
+        ownerId,
         name,
         storedescription,
         foodtype,
@@ -61,8 +62,8 @@ class StoreController {
   deleteStore = async (req, res, next) => {
     try {
       // const { id: userId } = res.locals.user;
-      const { id } = req.params; // params 값 조회
-      const ownerId = res.locals.user.id;
+      const { ownerId, id } = req.params; // params 값 조회
+      // const ownerId = res.locals.user.id;
 
       await this.storeService.deleteStore(ownerId, id);
 

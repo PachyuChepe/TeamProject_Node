@@ -13,18 +13,21 @@ const storeController = new StoreController();
 router.post(
   '/uploadstore',
   validateUploadstore,
-  isLoggedIn,
+  // isLoggedIn,
   storeController.uploadStore,
 );
 // 업장 정보 수정
 router.put(
   '/updatestore/:id',
   validateUpdatestore,
-  isLoggedIn,
+  // isLoggedIn,
   storeController.updateStore,
 );
 // 업장 삭제
-router.delete('/deletestore/:id', isLoggedIn, storeController.deleteStore);
+router.delete('/deletestore/:id',
+  // isLoggedIn,
+  storeController.deleteStore
+);
 
 // 업장 전체 조회 ?
 // 업장 정보 조회 ?
