@@ -9,13 +9,13 @@ class ReviewController {
   createReview = async (req, res, next) => {
     try {
       const { storeId, rating, comment } = req.body;
-      const customerId = req.user.id; // 현재 로그인한 사용자의 ID
+      const customerId = res.locals.user.id; // 현재 로그인한 사용자의 ID
 
       const review = await this.reviewService.createReview(
         customerId,
         storeId,
         rating,
-        comment,
+        comment
       );
 
       res.status(201).json({
