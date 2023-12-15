@@ -39,8 +39,8 @@ PUT {{domain}}/user
 Content-Type: application/json
 
 {
-  "currentPassword": "oldpassword",
-  "newPassword": "newpassword",
+  "currentPassword": "123qweQWE!",
+  "newPassword": "123qweQWE!",
   "name": "파츄체페 업데이트"
 }
 
@@ -86,6 +86,7 @@ POST {{domain}}/createstore
 Content-Type: application/json
 
 {
+  "categoryId": "1",
   "name": "새 업장 이름",
   "storedescription": "업장 설명",
   "foodtype": "음식 종류",
@@ -100,6 +101,7 @@ PUT {{domain}}/updatestore/1
 Content-Type: application/json
 
 {
+  "categoryId": "2",
   "name": "업데이트된 업장 이름",
   "storedescription": "업데이트된 업장 설명",
   "foodtype": "업데이트된 음식 종류",
