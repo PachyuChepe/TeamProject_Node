@@ -27,7 +27,7 @@ app.use(
   // 아영님 cors 설정(localhost 원활한 동작을 위함)
   cors({
     credentials: true,
-    origin: ['http://localhost:5500']
+    origin: ['http://localhost:4000']
   })
   // 윤호님 cors 설정
   // cors({

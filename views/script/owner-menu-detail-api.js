@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
   // 쿼리 스트링 id 받아오기
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
-  const $detail = document.getElementById('detail');
 
   // 조회 : 메뉴 정보 (메뉴 수정일 경우)
   if (id) {
@@ -48,7 +47,7 @@ function submitCreateForm() {
     .then((res) => {
       // 게시글 조회 화면으로 이동시키기!
       alert('저장이 완료되었습니다.');
-      window.location.href = `http://localhost:5500/views/owner-menu-detail.html?id=${res.data.data.id}`;
+      window.location.href = `/owner-menu-detail.html?id=${res.data.data.id}`;
     })
     .catch((error) => {
       console.error('오류 발생:', error);
@@ -99,7 +98,7 @@ function submitDeleteForm() {
     .then((res) => {
       // 삭제하기 전에 정말 삭제할거에요? 알림창으로 할까.. 너무 번거롭낭
       alert('삭제가 완료되었습니다.');
-      window.location.href = 'http://localhost:5500/views/owner-menu.html?';
+      window.location.href = '/owner-menu.html?';
     })
     .catch((error) => {
       console.error('오류 발생:', error);

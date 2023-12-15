@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
         let temp_html = `
-        <tr class="hover-effect" onclick="location.href='http://localhost:5500/views/owner-menu-detail.html?id=${e.id}'">
+        <tr class="hover-effect" onclick="location.href='/owner-menu-detail.html?id=${e.id}'">
           <td class="hidden">${e.id}</td>
           <td>이미지</td>
           <td>${e.name}</td>
@@ -42,6 +42,7 @@ function clickDeleteBtn(clickedButton) {
   const buttonId = clickedButton.id; // 클릭한 버튼의 ID 가져오기
   const buttonIdArr = buttonId.split('_'); // 버튼 ID 쪼개기
   const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
+  // 여기 ownerId 받아오는 방법 수정해야됨
   const ownerId = 3;
 
   axios
