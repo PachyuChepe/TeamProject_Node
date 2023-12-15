@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function () {
     .then((res) => {
       const foodCategory = res.data.foodCategory;
       updateComboBox(foodCategory);
-
     })
     .catch((error) => {
       console.error('오류 발생:', error);
@@ -33,13 +32,14 @@ document.addEventListener('DOMContentLoaded', function () {
         withCredentials: true,
       })
       .then((res) => {
+        const store = res.data.data;
         console.log(res);
         // 기존 input란에 API 반환값 참조
-        document.getElementById('name').value = res.data.data.name;
-        document.getElementById('description').value = res.data.data.description;
-        document.getElementById('food_category').value = res.data.data.categoryId;
-        document.getElementById('storeaddresses').value = res.data.data.storeaddresses;
-        document.getElementById('businesslicense').value = res.data.data.businesslicense;
+        document.getElementById('name').value = store.name;
+        document.getElementById('description').value = store.description;
+        document.getElementById('food_category').value = store.categoryId;
+        document.getElementById('storeaddresses').value = store.storeaddresses;
+        document.getElementById('businesslicense').value = store.businesslicense;
 
       })
       .catch((error) => {
@@ -82,7 +82,7 @@ function submitCreateForm() {
     })
     .then((res) => {
       alert('저장이 완료되었습니다.');
-      window.parent.location.href = `http://localhost:4000/owner-main.html?id=${res.data.data.id}`;
+      window.parent.location.href = `/owner-main.html?id=${res.data.data.id}`;
     })
     .catch((error) => {
       console.error('오류 발생:', error);

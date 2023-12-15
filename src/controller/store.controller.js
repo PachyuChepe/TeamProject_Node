@@ -44,18 +44,14 @@ class StoreController {
     try {
       const { id } = req.params; // params 값 조회
       const { categoryId, name, storedescription, foodtype, storeaddresses } = req.body; // body 값 조회
-      const ownerId = res.locals.user.id;
-
       const store = await this.storeService.updateStore(
         id,
-        ownerId,
         categoryId,
         name,
         storedescription,
         foodtype,
         storeaddresses,
       );
-
       res.status(200).json({
         success: true,
         message: '성공적으로 수정 되었습니다',

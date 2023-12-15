@@ -56,7 +56,7 @@ class StoreRepository {
   ) => {
     const store = await prisma.Store.update({
       data: {
-        categoryId,
+        categoryId: +categoryId,
         name,
         description: storedescription,
         foodtype,
