@@ -21,6 +21,12 @@ class ReviewService {
     return reviews;
   };
 
+  // 특정 고객의 리뷰 조회
+  getUserReviews = async (customerId) => {
+    const reviews = await this.reviewRepository.getUserReviews(customerId);
+    return reviews;
+  };
+
   // 특정 리뷰 조회
   getReviewById = async (reviewId) => {
     const review = await this.reviewRepository.getReviewById(reviewId);

@@ -39,6 +39,29 @@ class ReviewRepository {
     return reviews;
   };
 
+  // 특정 고객의 리뷰 조회
+  getUserReviews = async (customerId) => {
+    const reviews = await prisma.review.findMany({
+      where: {
+        customerId,
+      },
+      include: {
+        customer: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        store: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+    return reviews;
+  };
+
   // 특정 리뷰 조회
   getReviewById = async (reviewId) => {
     const review = await prisma.review.findUnique({

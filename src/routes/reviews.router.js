@@ -22,8 +22,8 @@ reviewRouter.get(
 
 // 특정 고객 리뷰 조회
 reviewRouter.get(
-  '/reviews/store/:storeId',
-  reviewController.getStoreReviews,
+  '/reviews/client',
+  reviewController.getUserReviews,
 );
 
 // 특정 리뷰 조회

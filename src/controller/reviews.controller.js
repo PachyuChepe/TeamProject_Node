@@ -54,6 +54,32 @@ class ReviewController {
     }
   };
 
+  // 특정 고객의 리뷰 조회
+  getUserReviews = async (req, res, next) => {
+    try {
+      const { order } = req.params;
+      const customerId = res.locals.id;
+      const sortOrder = order === 'desc' ? -1 : 1;
+
+      let reviews = await this.reviewService.getUserReviews(customerId);
+
+      // 작성 일자 기준 정렬
+      reviews = reviews.sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return sortOrder * (dateA - dateB);
+      });
+
+      res.status(200).json({
+        success: true,
+        message: '사용자의 리뷰를 성공적으로 가져왔습니다.',
+        data: reviews,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   // 특정 리뷰 조회
   getReviewById = async (req, res, next) => {
     try {
