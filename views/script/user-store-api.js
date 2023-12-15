@@ -30,15 +30,21 @@ document.addEventListener('DOMContentLoaded', function () {
     .then((response) => {
       console.log('response: ', response);
       // API 실행결과를 response로 받아와서 html 그려주기
+      // <tr class="hover-effect" onclick="location.href='/owner-menu-detail.html?id=${e.id}'"> // 메뉴 상세정보 조회 기능을 구현할 경우 생성!!!
       response.data.data.forEach((e, idx) => {
         let temp_html = `
-        <tr class="hover-effect" onclick="location.href='http://localhost:5500/views/owner-menu-detail.html?id=${e.id}'">
+        <tr>
           <td class="hidden">${e.id}</td>
           <td>이미지</td>
           <td>${e.name}</td>
-          <td>${e.price}</td>
+          <td id="price_${e.id}">${e.price}</td>
           <td>
-            <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickDeleteBtn(this)">삭제하기</button>
+            <button type="button" id="decrease_button_${e.id}" onclick="clickDecreaseBtn(this)">-</button>
+            <input type="number" id="quantity_input_${e.id}" value="0">
+            <button type="button" id="increase_button_${e.id}" onclick="clickIncleaseBtn(this)">+</button>
+          </td>
+          <td>
+            <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickCreateBtn(this)">주문하기</button>
           </td>
         </tr>
         `;
@@ -49,4 +55,4 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('오류 발생:', error);
     });
 });
-
+;
