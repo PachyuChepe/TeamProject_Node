@@ -43,8 +43,6 @@ document.addEventListener('DOMContentLoaded', function () {
           <div id="review_img">이미지</div>
           <div class="form-control">이미지이이이이이</div>
         </div>
-        <button id="review_edit_btn_${e.id}" onclick="location.href='/user-review-edit.html?id=${e.id}'">수정하기</button>
-        <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickDeleteBtn(this)">삭제하기</button>
         `;
         $reviewContainer.insertAdjacentHTML('beforeend', temp_html);
 
