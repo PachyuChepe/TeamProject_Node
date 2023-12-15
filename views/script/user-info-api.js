@@ -1,10 +1,9 @@
-
 // 조회 : 고객 정보
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
   // 조회 : 고객 정보
   axios
-    .get(`http://localhost:4000/api/user`, {
+    .get(`/api/user`, {
       withCredentials: true,
     })
     .then((res) => {
@@ -32,7 +31,7 @@ function submitUpdateForm() {
   };
 
   axios
-    .put(`http://localhost:4000/api/user`, data, {
+    .put('/api/user', data, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })

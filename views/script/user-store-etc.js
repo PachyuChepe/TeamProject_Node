@@ -10,13 +10,13 @@ function clickCreateBtn(clickedButton) {
   // API로 전달할 값 JSON으로 설정
   const data = {
     menuId: id,
-    status: "배달전",
+    status: '배달전',
     quantity: $quantity,
     totalPrice: $price * $quantity,
   };
 
   axios
-    .post('http://localhost:4000/api/orders', data, {
+    .post('/api/orders', data, {
       headers: { 'Content-Type': 'application/json; charset=UTF-8' },
       withCredentials: true,
     })
@@ -36,7 +36,7 @@ function clickIncleaseBtn(clickedButton) {
   const quantityInput = document.getElementById(`quantity_input_${id}`);
   const currentValue = parseInt(quantityInput.value, 10);
   quantityInput.value = currentValue + 1;
-};
+}
 
 function clickDecreaseBtn(clickedButton) {
   const buttonId = clickedButton.id; // 클릭한 버튼의 ID 가져오기
@@ -45,7 +45,8 @@ function clickDecreaseBtn(clickedButton) {
 
   const quantityInput = document.getElementById(`quantity_input_${id}`);
   const currentValue = parseInt(quantityInput.value, 10);
-  if (currentValue > 0) { // 수량이 0보다 클 때만 감소
+  if (currentValue > 0) {
+    // 수량이 0보다 클 때만 감소
     quantityInput.value = currentValue - 1;
   }
-};
+}

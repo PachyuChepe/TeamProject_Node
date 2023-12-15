@@ -1,4 +1,3 @@
-
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
   // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
@@ -8,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const $reviewContainer = document.getElementById('review_container');
 
   axios
-    .get(`http://localhost:4000/api/reviews/store/${id}`, {
+    .get(`/api/reviews/store/${id}`, {
       withCredentials: true,
     })
     .then((response) => {
@@ -51,7 +50,9 @@ document.addEventListener('DOMContentLoaded', function () {
         // 별점 표시
         const starScore = e.rating;
         const reviewId = `review_wrapper_${e.id}`;
-        const $starLabels = document.querySelectorAll(`#${reviewId} .custom_star`);
+        const $starLabels = document.querySelectorAll(
+          `#${reviewId} .custom_star`,
+        );
 
         // 별점 초기화 및 적용
         $starLabels.forEach((label, index) => {
@@ -60,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function () {
           } else {
             label.style.backgroundImage = 'url("../img/star_n.png")';
           }
-          label.style.pointerEvents = "none";
+          label.style.pointerEvents = 'none';
         });
       });
     })
@@ -68,7 +69,6 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('오류 발생:', error);
     });
 });
-
 
 // 삭제 버튼을 눌렀을 때 실행하는 함수
 // 삭제 : 메뉴
@@ -79,7 +79,7 @@ function clickDeleteBtn(clickedButton) {
   const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
 
   axios
-    .delete(`http://localhost:4000/api/reviews/${id}`, {
+    .delete(`/api/reviews/${id}`, {
       withCredentials: true,
     })
     .then((res) => {
