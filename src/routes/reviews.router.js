@@ -1,7 +1,7 @@
 import express from 'express';
 import { isLoggedIn } from '../middleware/verifyToken.middleware.js';
 import { validateReview } from '../middleware/reviewValidation.middleware.js';
-import ReviewController from '../controller/reviewController.js';
+import ReviewController from '../controller/reviews.controller.js';
 
 const reviewController = new ReviewController();
 const reviewRouter = express.Router();

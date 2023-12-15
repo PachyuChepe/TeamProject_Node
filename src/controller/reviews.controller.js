@@ -1,4 +1,4 @@
-import ReviewService from '../service/review.service.js';
+import ReviewService from '../service/reviews.service.js';
 
 class ReviewController {
   constructor() {

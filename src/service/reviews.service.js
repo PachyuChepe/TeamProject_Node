@@ -1,5 +1,5 @@
 import ApiError from '../middleware/apiError.middleware.js';
-import ReviewRepository from '../repository/review.repository.js';
+import ReviewRepository from '../repository/reviews.repository.js';
 
 class ReviewService {
   reviewRepository = new ReviewRepository();

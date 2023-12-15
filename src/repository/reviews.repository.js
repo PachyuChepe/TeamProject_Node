@@ -1,4 +1,6 @@
-import { prisma } from '../utils/prisma/index.js';
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 class ReviewRepository {
   // 리뷰 생성
