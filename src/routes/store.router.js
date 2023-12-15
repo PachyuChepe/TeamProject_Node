@@ -24,10 +24,7 @@ router.put(
   storeController.updateStore,
 );
 // 업장 삭제
-router.delete('/deletestore/:id',
-  isLoggedIn,
-  storeController.deleteStore
-);
+router.delete('/deletestore/:id', isLoggedIn, storeController.deleteStore);
 
 // 업장 전체 조회
 router.get('/store', storeController.getStores);

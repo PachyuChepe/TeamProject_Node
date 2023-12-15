@@ -1,35 +1,30 @@
+// StoreRepository.js
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 class StoreRepository {
-  getStores = async () => {
-    const stores = await prisma.Store.findMany();
+  async getStores() {
+    return prisma.Store.findMany();
+  }
 
-    return stores;
-  };
-
-  getStore = async (id) => {
-    const store = await prisma.Store.findFirst({
-      where: { id: +id },
+  async getStore(id) {
+    return prisma.Store.findUnique({
+      where: { id: parseInt(id, 10) },
     });
-    return store;
-  };
+  }
 
-  createStore = async (
+  async createStore(
     ownerId,
     name,
     storedescription,
     foodtype,
     storeaddresses,
     businesslicense,
-  ) => {
-    const createdStore = await prisma.Store.create({
+  ) {
+    return prisma.Store.create({
       data: {
-        owner: {
-          connect: {
-            id: ownerId,
-          },
-        },
+        ownerId,
         name,
         description: storedescription,
         foodtype,
@@ -37,43 +32,32 @@ class StoreRepository {
         businesslicense,
       },
     });
-    return createdStore;
-  };
+  }
 
-  updateStore = async (
-    id,
-    name,
-    storedescription,
-    foodtype,
-    storeaddresses,
-  ) => {
-    const store = await prisma.Store.update({
+  async updateStore(id, name, storedescription, foodtype, storeaddresses) {
+    return prisma.Store.update({
+      where: { id: parseInt(id, 10) },
       data: {
         name,
         description: storedescription,
-        // foodtype,
-        // storeaddresses,
-      },
-      where: {
-        id: +id,
+        foodtype,
+        storeaddresses,
       },
     });
-    return store;
-  };
+  }
 
-  deleteStore = async (id) => {
+  async deleteStore(id) {
     await prisma.Store.delete({
-      where: { id: +id },
+      where: { id: parseInt(id, 10) },
     });
-  };
+  }
 
-  getStoreById = async (ownerId) => {
-    const storeid = await prisma.Store.findMany({
-      select: { id: true },
-      where: { ownerId: +ownerId },
+  async getStoreById(id) {
+    return prisma.Store.findUnique({
+      where: { id: parseInt(id, 10) },
+      include: { owner: true },
     });
-    return storeid.id;
-  };
+  }
 }
 
 export default StoreRepository;

@@ -45,8 +45,9 @@ import userRouter from './routes/user.router.js';
 import storeRouter from './routes/store.router.js';
 import menusRouter from './routes/menus.router.js';
 import orderRouter from './routes/order.router.js';
+import reviewRouter from './routes/reviews.router.js';
 import errorHandler from './middleware/errorHandler.middleware.js';
-app.use('/api', [userRouter, storeRouter, orderRouter]);
+app.use('/api', [userRouter, storeRouter, orderRouter, reviewRouter]);
 app.use('/api', [menusRouter]);
 app.use(errorHandler);
 
