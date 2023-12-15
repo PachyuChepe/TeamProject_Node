@@ -12,8 +12,14 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    <!-- 헤더/푸터 출력-->
+    <script defer src="./script/tag-load.js"></script>
+    <script defer src="./script/owner-paging.js"></script>
   </head>
   <body>
+    <div id="header"></div>
+    <!-- 상단 바 -->
+    <div id="owner_top_menu"></div>
     <!-- 가게 정보 저장 영역-->
     <div class="body-container">
       <h1>매장 등록하기</h1>
@@ -27,7 +33,7 @@
             placeholder="가게명을 입력해주세요."
             required
           />
-  
+
           <div>가게 설명</div>
           <input
             type="text"
@@ -59,13 +65,10 @@
             class="form-control"
             placeholder="사업자 번호를 입력해주세요."
           />
+        </form>
       </div>
     </div>
-    <!-- 등록된 가게가 없을 경우 저장 버튼만 활성화-->
-    <!-- 등록된 가게가 있을 경우 수정/삭제 버튼만 활성화-->
-    <!-- 삭제 시 저장 버튼만 다시 활성화-->
     <div class="btn-wraaper">
-      <button type="button" onclick="submitCreateForm()">저장하기</button>
       <button type="button" onclick="submitUpdateForm()">수정하기</button>
       <button type="button" onclick="submitDeleteForm()">삭제하기</button>
     </div>

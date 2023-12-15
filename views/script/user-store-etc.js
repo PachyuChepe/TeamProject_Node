@@ -33,8 +33,8 @@ function clickIncleaseBtn(clickedButton) {
   const buttonIdArr = buttonId.split('_'); // 버튼 ID 쪼개기
   const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
 
-  var quantityInput = document.getElementById(`quantity_input_${id}`);
-  var currentValue = parseInt(quantityInput.value, 10);
+  const quantityInput = document.getElementById(`quantity_input_${id}`);
+  const currentValue = parseInt(quantityInput.value, 10);
   quantityInput.value = currentValue + 1;
 };
 
@@ -43,8 +43,8 @@ function clickDecreaseBtn(clickedButton) {
   const buttonIdArr = buttonId.split('_'); // 버튼 ID 쪼개기
   const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
 
-  var quantityInput = document.getElementById(`quantity_input_${id}`);
-  var currentValue = parseInt(quantityInput.value, 10);
+  const quantityInput = document.getElementById(`quantity_input_${id}`);
+  const currentValue = parseInt(quantityInput.value, 10);
   if (currentValue > 0) { // 수량이 0보다 클 때만 감소
     quantityInput.value = currentValue - 1;
   }

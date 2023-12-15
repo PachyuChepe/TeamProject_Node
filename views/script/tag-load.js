@@ -12,5 +12,11 @@ function loadHTML(url, id) {
 document.addEventListener('DOMContentLoaded', function () {
   loadHTML('header.html', 'header');
   loadHTML('footer.html', 'footer');
-  loadHTML('user-top-menu.html', 'user_top_menu');
+  if (window.location.href.includes('user-') && window.location.href !== 'http://localhost:4000/user-main.html') {
+    loadHTML('user-top-menu.html', 'user_top_menu');
+  }
+  if (window.location.href.includes('owner-')) {
+    loadHTML('owner-top-menu.html', 'owner_top_menu');
+  }
+
 });
