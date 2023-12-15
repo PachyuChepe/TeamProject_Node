@@ -34,23 +34,6 @@ function changeTab(tabName) {
   }
 }
 
-// 헤더와 푸터 로드 함수
-function loadHTML(url, id) {
-  fetch(url)
-    .then((response) => response.text())
-    .then((data) => {
-      document.getElementById(id).innerHTML = data;
-    })
-    .catch((error) => console.error(error));
-}
-
-// 페이지 로드 시 실행
-document.addEventListener('DOMContentLoaded', function () {
-  loadHTML('header.html', 'header');
-  loadHTML('footer.html', 'footer');
-  changeTab('normal'); // 기본적으로 "일반 회원" 탭을 활성화
-});
-
 document.addEventListener('DOMContentLoaded', function () {
   // 초기 상태 설정: 모든 입력 필드와 버튼을 비활성화
   setVerificationAndSignupFieldsEnabled(false);

@@ -7,11 +7,11 @@ POST {{domain}}/signup
 Content-Type: application/json
 
 {
-  "email": "pachyuchepe@gmail.com",
+  "email": "pachyuchepe1@gmail.com",
   "password": "123qweQWE!",
   "confirmPassword": "123qweQWE!",
   "name": "파츄체페",
-  "role": "사장",
+  "role": "고객",
   "points": 100
 }
 
@@ -22,7 +22,7 @@ POST {{domain}}/login
 Content-Type: application/json
 
 {
-  "email": "john@example.com",
+  "email": "pachyuchepe@gmail.com",
   "password": "123qweQWE!"
 }
 

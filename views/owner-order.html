@@ -4,7 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>[사장님] 주문 내역 조회 페이지</title>
-
+    <link rel="stylesheet" href="./css/tag-load-page.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="./script/tag-load.js"></script>
     <style>
       table#orderInfo th,
       td {
@@ -16,6 +18,7 @@
   </head>
 
   <body>
+    <div id="header"></div>
     <!-- 뒤로 가기 버튼 (직전 페이지) -->
 
     <!-- 주문 상품 정보 -->
@@ -67,5 +70,6 @@
         btnElement.innerHTML = html;
       }
     </script>
+    <div id="footer"></div>
   </body>
 </html>
