@@ -1,0 +1,43 @@
+@domain = http://localhost:4000/api
+#http://localhost:5608
+#http://3.36.72.57:5608
+
+###
+# 리뷰 등록
+POST {{domain}}/reviews
+Content-Type: application/JSON
+
+{
+  "storeId": 1,
+  "rating": 4,
+  "comment": "존 맛 탱"
+}
+
+###
+# 리뷰 수정
+# 리뷰 번호가 없을 경우 500 에러 발생
+PUT {{domain}}/updatestore/1
+Content-Type: application/JSON
+
+{
+  "rating": 4,
+  "comment": "존 맛 탱 탱 구 리"
+}
+
+
+###
+# 리뷰 삭제 
+# 리뷰에 메뉴, 리뷰가 작성되어 있을 경우 "Foreign key constraint failed on the field: `storeId`" 에러 발생 -> 보강 예정
+DELETE {{domain}}/deletestore/16
+
+### 
+# 리뷰 전체조회
+# 고객 별 조회
+GET {{domain}}/store?category=name&order=desc
+# 매장 별 조회
+GET {{domain}}/store?category=name&order=desc
+
+###
+# 리뷰 상세 조회
+# 리뷰 번호가 없을 경우 500 에러 발생
+GET {{domain}}/store/16
