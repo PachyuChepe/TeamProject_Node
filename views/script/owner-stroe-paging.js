@@ -12,7 +12,7 @@ document.getElementById('menu').addEventListener('click', function () {
 
 // 주문 목록 조회 페이지로 이동
 document.getElementById('order').addEventListener('click', function () {
-  document.getElementById('main_iframe').src = 'owner-order.html'; // 새로 고침 시 페이지 이동 방지
+  document.getElementById('main_iframe').src = 'owner-orders.html'; // 새로 고침 시 페이지 이동 방지
   localStorage.setItem('lastIframeSrc', src);
 });
 
