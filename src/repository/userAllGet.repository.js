@@ -1,22 +1,7 @@
-import express from 'express';
-import { isLoggedIn } from '../middleware/verifyToken.middleware.js';
-import userAllGetController from '../controller/userAllGet.controller.js';
+import { PrismaClient } from '@prisma/client';
 
-const router = express.Router();
+const prisma = new PrismaClient();
 
-const userAllGetController = new UserAllGetController();
-
-// 유저의 정보
-router.get('/user-info', isLoggedIn, userAllGetController.getUserInfo);
-
-// 특정 '고객' 유저의 리뷰와 주문 상세 조회 라우터
-router.get(
-  '/customer-details',
-  isLoggedIn,
-  userAllGetController.getCustomerDetails,
-);
-
-//
 // 유저의 정보
 router.get('/user-info', isLoggedIn, async (req, res) => {
   try {
@@ -111,7 +96,3 @@ router.get('/customer-details', isLoggedIn, async (req, res) => {
     res.status(500).json({ message: 'Server error', error: error.message });
   }
 });
-
-//
-
-export default router;
