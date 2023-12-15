@@ -15,7 +15,7 @@ class UserController {
       const userData = await this.userService.signUp(req.body);
       const { password, ...data } = userData;
 
-      res.status(201).json({ success: true, data });
+      res.status(201).json({ success: true, message: '회원가입 성공', data });
     } catch (error) {
       next(error);
     }

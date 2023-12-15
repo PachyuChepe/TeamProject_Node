@@ -7,7 +7,7 @@ document
     const password = document.getElementById('password').value;
 
     try {
-      const response = await axios.post('http://localhost:4000/api/login', {
+      const response = await axios.post('/api/login', {
         email: email,
         password: password,
       });

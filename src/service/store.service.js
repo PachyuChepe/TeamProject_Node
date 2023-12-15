@@ -25,6 +25,7 @@ class StoreService {
       storeaddresses,
       businesslicense,
     );
+
     return store;
   };
 
@@ -44,15 +45,12 @@ class StoreService {
       foodtype,
       storeaddresses,
     );
+    return store;
   };
 
-  async deleteStore(ownerId, id) {
-    const store = await this.storeRepository.getStoreById(id);
-    if (!store || store.ownerId !== ownerId) {
-      throw new ApiError(404, '업장을 찾을 수 없거나 권한이 없습니다.');
-    }
+  deleteStore = async (ownerId, id) => {
     await this.storeRepository.deleteStore(id);
-  }
+  };
 
   async getStores() {
     const stores = await this.storeRepository.getStores();

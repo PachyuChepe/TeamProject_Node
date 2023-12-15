@@ -82,7 +82,7 @@ class UserRepository {
   async saveVerificationCode(email, code) {
     // 인증 코드 저장 (유효기간 3분)
     await redisClient.set(`verify:${email}`, code);
-    await redisClient.expire(`verify:${email}`, 10);
+    await redisClient.expire(`verify:${email}`, 180);
     return true;
 
     // return await redisClient.set(`verify:${email}`, code, 'EX', 180);
