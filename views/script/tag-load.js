@@ -12,4 +12,5 @@ function loadHTML(url, id) {
 document.addEventListener('DOMContentLoaded', function () {
   loadHTML('header.html', 'header');
   loadHTML('footer.html', 'footer');
+  loadHTML('user-top-menu.html', 'user_top_menu');
 });

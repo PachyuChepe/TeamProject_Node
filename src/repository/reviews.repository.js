@@ -20,7 +20,30 @@ class ReviewRepository {
   getStoreReviews = async (storeId) => {
     const reviews = await prisma.review.findMany({
       where: {
-        storeId,
+        storeId: +storeId
+      },
+      include: {
+        customer: {
+          select: {
+            name: true,
+            email: true,
+          },
+        },
+        store: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+    return reviews;
+  };
+
+  // 특정 고객의 리뷰 조회
+  getUserReviews = async (customerId) => {
+    const reviews = await prisma.review.findMany({
+      where: {
+        customerId,
       },
       include: {
         customer: {
@@ -67,7 +90,10 @@ class ReviewRepository {
   updateReview = async (reviewId, rating, comment) => {
     const updatedReview = await prisma.review.update({
       where: { id: +reviewId },
-      data: { rating, comment },
+      data: {
+        rating: +rating,
+        comment
+      },
     });
 
     return updatedReview;

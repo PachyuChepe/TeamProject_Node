@@ -2,11 +2,9 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-// 유저의 정보
-router.get('/user-info', isLoggedIn, async (req, res) => {
-  try {
-    const userId = res.locals.user.id; // 로그인된 사용자의 ID
-    const user = await prisma.user.findUnique({
+class userAllGetRepository {
+  getUserInfo = async (userId) => {
+    return await prisma.user.findUnique({
       where: { id: userId },
       select: {
         id: true,
@@ -50,27 +48,10 @@ router.get('/user-info', isLoggedIn, async (req, res) => {
         addresses: true,
       },
     });
+  };
 
-    if (!user) {
-      return res.status(404).json({ message: 'User not found' });
-    }
-
-    if (user.role !== '사장') {
-      return res.status(403).json({ message: 'Access denied' });
-    }
-
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
-});
-
-// 특정 '고객' 유저의 리뷰와 주문 상세 조회 라우터
-router.get('/customer-details', isLoggedIn, async (req, res) => {
-  const userId = res.locals.user.id; // 로그인된 사용자의 ID
-
-  try {
-    const user = await prisma.user.findUnique({
+  getCustomerDetails = async (userId, role) => {
+    return await prisma.user.findUnique({
       where: {
         id: userId,
         role: '고객', // '고객' 역할 필터 적용
@@ -84,15 +65,6 @@ router.get('/customer-details', isLoggedIn, async (req, res) => {
         },
       },
     });
-
-    if (!user) {
-      return res
-        .status(404)
-        .json({ message: 'User not found or not a customer' });
-    }
-
-    res.status(200).json(user);
-  } catch (error) {
-    res.status(500).json({ message: 'Server error', error: error.message });
-  }
-});
+  };
+}
+export default userAllGetRepository;

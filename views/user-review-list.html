@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/layout.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
+      crossorigin="anonymous"
+    />
+    <!-- 헤더/푸터 출력-->
+    <script defer src="./script/tag-load.js"></script>
+  </head>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"
+  ></script>
+  <body>
+    <div id="header"></div>
+    <!-- 상단 바-->
+    <div id="user_top_menu"></div>
+    <h1>리뷰 목록 조회</h1>
+    <div id="review_container" class="review-container">
+      <!-- <div id="review_wrapper_${e.id}" class="hover-effect review-wrapper">
+        <div class="hidden">${e.id}</div>
+        <div id="store_name">매장명</div>
+        <div class="form-control">${e.store.id}</div>
+        <div id="menu_id">리뷰</div>
+        <div class="form-control">${e.comment}</div>
+        <div id="review_img">이미지</div>
+        <div class="form-control">이미지이이이이이</div>
+      </div> -->
+    </div>
+    <div id="footer"></div>
+  </body>
+
+  <!-- axios (프론트 <-> 백 통신) -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="script/user-review-api.js"></script>
+</html>
