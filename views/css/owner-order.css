@@ -1,10 +1,37 @@
 table#orderInfo th,
 td {
-  border: solid 1px #e0e0be;
+  border: solid 1.5px #62d320;
+  border-radius: 5px;
+  width: 90px;
+  height: 20px;
   text-align: center;
   padding: 20px 0;
-  font-size: 14pt;
+  margin: 5px 10px;
+  font-size: 12pt;
+  font-weight: bold;
+  display: inline-block;
+}
+
+#orderListName {
+  font-size: 12pt;
   font-weight: bold;
   display: inline-block;
   padding: 10px 10px;
+}
+
+#orderBox {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  border: 1px solid blue;
+}
+
+.btn {
+  border: solid 1.5px #62d320;
+  width: 70px;
+  height: 45px;
+  display: felx;
+  justify-content: flex-end;
 }
