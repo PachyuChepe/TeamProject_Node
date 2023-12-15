@@ -38,6 +38,14 @@
   --footer-height: 80px; /* 푸터의 높이에 맞게 조정 */
 }
 
+body {
+  padding-top: var(--header-height);
+  padding-bottom: var(--footer-height);
+  margin: 0; /* 기본 여백 제거 */
+  /* 기존 스타일 */
+  background-color: #f3f3f3;
+}
+
 header {
   height: var(--header-height);
   display: flex; /* Flexbox 레이아웃 사용 */
