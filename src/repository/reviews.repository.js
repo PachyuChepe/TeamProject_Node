@@ -20,7 +20,7 @@ class ReviewRepository {
   getStoreReviews = async (storeId) => {
     const reviews = await prisma.review.findMany({
       where: {
-        storeId,
+        storeId: +storeId
       },
       include: {
         customer: {
@@ -90,7 +90,10 @@ class ReviewRepository {
   updateReview = async (reviewId, rating, comment) => {
     const updatedReview = await prisma.review.update({
       where: { id: +reviewId },
-      data: { rating, comment },
+      data: {
+        rating: +rating,
+        comment
+      },
     });
 
     return updatedReview;

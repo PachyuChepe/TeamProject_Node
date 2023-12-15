@@ -11,6 +11,8 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    <!-- 헤더/푸터 출력-->
+    <script defer src="./script/tag-load.js"></script>
   </head>
   <script
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
@@ -18,6 +20,7 @@
     crossorigin="anonymous"
   ></script>
   <body>
+    <div id="header"></div>
     <h1>리뷰 목록 조회</h1>
     <div id="review_container" class="review-container">
       <!-- <div id="review_wrapper_${e.id}" class="hover-effect review-wrapper">
@@ -30,6 +33,7 @@
         <div class="form-control">이미지이이이이이</div>
       </div> -->
     </div>
+    <div id="footer"></div>
   </body>
 
   <!-- axios (프론트 <-> 백 통신) -->
