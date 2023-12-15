@@ -3,8 +3,8 @@
 #http://3.36.72.57:5608
 
 ### 
-# 메뉴 정보 전체 조회
-GET {{domain}}/menu?category=name&order=desc
+# 매장에 저장된 메뉴 정보 전체 조회
+GET {{domain}}/menu?storeId=1&category=name&order=desc
 
 ###
 # 메뉴 정보 개별 조회
@@ -23,7 +23,7 @@ Content-Type: application/JSON
 
 ###
 # 메뉴 정보 수정
-PUT {{domain}}/menu/1
+PUT {{domain}}/menu/16
 Content-Type: application/JSON
 
 {
@@ -34,7 +34,7 @@ Content-Type: application/JSON
 
 ###
 # 메뉴 삭제 
-DELETE {{domain}}/menu/3
+DELETE {{domain}}/menu/16
 
 ### 
 # 업종 전체 조회

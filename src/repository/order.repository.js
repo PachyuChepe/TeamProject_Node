@@ -20,8 +20,8 @@ class OrderRepository {
         menuId: +menuId,
         quantity: +quantity,
         totalPrice: +totalPrice,
-        status
-      }
+        status,
+      },
     });
     return createdOrder;
   };

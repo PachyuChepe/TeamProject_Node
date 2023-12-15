@@ -35,24 +35,11 @@ class OrderController {
   updateOrder = async (req, res, next) => {
     try {
       const { orderid } = req.params;
-      const {
-        // customerId,
-        // menuId,
-        // quantity,
-        // totalPrice,
-        status,
-      } = req.body;
-      // const orderId = res.locals.user.id;
 
-      const newOrder = await this.orderService.updateOrder(
-        orderid,
-        // orderId,
-        // customerId,
-        // menuId,
-        // quantity,
-        // totalPrice,
-        status,
-      );
+      const { status } = req.body;
+      // const orderId = res.locals.User.id;
+
+      const newOrder = await this.orderService.updateOrder(orderid, status);
 
       res
         .status(200)
@@ -66,9 +53,8 @@ class OrderController {
   cancelOrder = async (req, res, next) => {
     try {
       const { orderid } = req.params;
-      const orderId = res.locals.user.id;
 
-      await this.orderService.cancelOrder(orderid, orderId);
+      await this.orderService.cancelOrder(orderid);
 
       res.status(200).json({ message: '주문을 취소하였습니다.' });
     } catch (error) {
