@@ -1,4 +1,3 @@
-
 // 조회 : 매장 정보 (매장 수정일 경우)
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
@@ -8,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 업종 콤보박스 조회
   axios
-    .get(`http://localhost:4000/api/food-category`, {
+    .get(`/api/food-category`, {
       withCredentials: true,
     })
     .then((res) => {
@@ -22,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 조회 : 매장 정보 (매장 수정일 경우)
   if (id) {
     axios
-      .get(`http://localhost:4000/api/store/${id}`, {
+      .get(`/api/store/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -32,8 +31,8 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('description').value = store.description;
         document.getElementById('food_category').value = store.categoryId;
         document.getElementById('storeaddresses').value = store.storeaddresses;
-        document.getElementById('businesslicense').value = store.businesslicense;
-
+        document.getElementById('businesslicense').value =
+          store.businesslicense;
       })
       .catch((error) => {
         console.error('오류 발생:', error);
@@ -45,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function () {
 function updateComboBox(foodCategory) {
   const comboBox = document.getElementById('food_category');
   // 데이터의 각 항목에 대해 반복
-  foodCategory.forEach(item => {
+  foodCategory.forEach((item) => {
     // 새로운 <option> 요소 생성
     const option = document.createElement('option');
     option.value = item.id; // 콤보 박스에 표시할 값
@@ -69,7 +68,7 @@ function submitCreateForm() {
   };
 
   axios
-    .post('http://localhost:4000/api/createstore', data, {
+    .post('/api/createstore', data, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })
@@ -99,7 +98,7 @@ function submitUpdateForm() {
   };
 
   axios
-    .put(`http://localhost:4000/api/updatestore/${id}`, data, {
+    .put(`/api/updatestore/${id}`, data, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })
@@ -119,7 +118,7 @@ function submitDeleteForm() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
   axios
-    .delete(`http://localhost:4000/api/deletestore/${id}`, {
+    .delete(`/api/deletestore/${id}`, {
       withCredentials: true,
     })
     .then((res) => {

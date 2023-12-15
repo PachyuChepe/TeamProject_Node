@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 조회 : 매장 정보 (매장 수정일 경우)
   axios
-    .get(`http://localhost:4000/api/store/${id}`, {
+    .get(`/api/store/${id}`, {
       withCredentials: true,
     })
     .then((res) => {
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   // 조회 : 메뉴
   axios
-    .get(`http://localhost:4000/api/menu?storeId=${id}&category=name&order=desc`, {
+    .get(`/api/menu?storeId=${id}&category=name&order=desc`, {
       withCredentials: true,
     })
     .then((response) => {
@@ -53,4 +53,3 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('오류 발생:', error);
     });
 });
-;
