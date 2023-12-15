@@ -37,7 +37,6 @@ class StoreService {
 
   updateStore = async (
     id,
-    ownerId,
     categoryId,
     name,
     storedescription,
@@ -46,14 +45,12 @@ class StoreService {
   ) => {
     const store = await this.storeRepository.updateStore(
       id,
-      ownerId,
       categoryId,
       name,
       storedescription,
       foodtype,
       storeaddresses,
     );
-
     return store;
     // const user = await this.userRepository.findUserById(id);
     // if (!user) {
@@ -62,7 +59,7 @@ class StoreService {
     //   }
     // if (!storeId) {
     //   throw ApiError.NotFound('수정할 가게가 없습니다');
-    // }
+    // }  
   };
 
   deleteStore = async (ownerId, id) => {
@@ -100,15 +97,7 @@ class StoreService {
       throw ApiError.NotFound('업장이 존재하지 않습니다.');
     }
 
-    return {
-      id: store.id,
-      name: store.name,
-      description: store.description,
-      foodtype: store.foodtype,
-      storeaddresses: store.storeaddresses,
-      createdAt: store.createdAt,
-      updatedAt: store.updatedAt,
-    };
+    return store;
   };
 }
 export default StoreService;

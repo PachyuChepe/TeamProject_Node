@@ -13,25 +13,18 @@ class OrderController {
     console.log("여기는 오는거야?");
     try {
       const {
-        // customerId,
         menuId,
         quantity,
         totalPrice,
-        // status,
-        // createdAt,
-        // updatedAt,
+        status
       } = req.body;
-      // const orderId = res.locals.user.id;
       const customerId = res.locals.user.id;
       const newOrder = await this.orderService.createOrder(
-        // orderId,
         customerId,
         menuId,
         quantity,
         totalPrice,
-        // status,
-        // createdAt,
-        // updatedAt,
+        status
       );
 
       res.status(201).json({
@@ -49,28 +42,9 @@ class OrderController {
   updateOrder = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const {
-        // customerId,
-        // menuId,
-        // quantity,
-        // totalPrice,
-        status,
-        createdAt,
-        updatedAt,
-      } = req.body;
-      const orderId = res.locals.User.id;
+      const { status } = req.body;
 
-      const newOrder = await this.orderService.updateOrder(
-        id,
-        orderId,
-        // customerId,
-        // menuId,
-        // quantity,
-        // totalPrice,
-        status,
-        createdAt,
-        updatedAt,
-      );
+      const newOrder = await this.orderService.updateOrder(id, status,);
 
       res
         .status(200)

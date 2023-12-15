@@ -14,7 +14,7 @@ class OrderService {
     menuId,
     quantity,
     totalPrice,
-    // status,
+    status,
     // createdAt,
     // updatedAt,
   ) => {
@@ -24,7 +24,7 @@ class OrderService {
       menuId,
       quantity,
       totalPrice,
-      // status,
+      status,
       // createdAt,
       // updatedAt,
     );
@@ -32,13 +32,8 @@ class OrderService {
   };
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-  updateOrder = async (id, status, createdAt, updatedAt) => {
-    const order = await this.orderRepository.updateOrder(
-      id,
-      status,
-      createdAt,
-      updatedAt,
-    );
+  updateOrder = async (id, status) => {
+    const order = await this.orderRepository.updateOrder(id, status);
     return order;
   };
 
