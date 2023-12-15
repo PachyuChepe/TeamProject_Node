@@ -1,7 +1,7 @@
 // 현재 URL에서 파라미터 추출
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
-console.log('id: ', id);
+// console.log('id: ', id);
 
 // 매장 정보 수정을 눌렀을 때
 function moveStoreInfoEdit() {

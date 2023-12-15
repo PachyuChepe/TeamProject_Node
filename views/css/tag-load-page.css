@@ -68,7 +68,7 @@ footer {
   border: 1px solid #ccc;
   padding: 10px;
   width: auto;
-  min-width: 120px; /* 필요에 따라 조정 */
+  min-width: 130px; /* 필요에 따라 조정 */
   display: flex; /* 또는 display: grid; */
   flex-direction: column; /* flex 또는 grid 아이템들을 가운데 정렬 */
   align-items: center; /* 세로축 중앙 정렬 */
