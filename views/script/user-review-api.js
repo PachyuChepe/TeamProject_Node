@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <div id="review_wrapper_${e.id}" class="review-wrapper">
           <div class="hidden">${e.id}</div>
           <div id="store_name">매장명</div>
-          <div class="form-control">${e.store.id}</div>
+          <div class="form-control">${e.store.name}</div>
           <div id="rating">별점</div>
           <div class="star_grade">
             <div class="review_comment_star_grade_wrapper${count}">
