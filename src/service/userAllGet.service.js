@@ -17,7 +17,7 @@ class UserAllGetService {
     return await this.userAllGetRepository.getUserInfo(id);
   };
 
-  getCustomerDetails = async () => {
+  getCustomerDetails = async (id) => {
     const user = await this.userAllGetRepository.getCustomerDetails(id);
     if (!user) {
       throw ApiError.NotFound('User not found or not a customer');

@@ -33,11 +33,12 @@ DELETE {{domain}}/reviews/16
 ### 
 # 리뷰 전체조회
 # 고객 별 조회
-GET {{domain}}/reviews/store/1
+GET {{domain}}/reviews/client
 
 ###
 # 매장 별 조회
-GET {{domain}}/reviews/client
+
+GET {{domain}}/reviews/store/2
 
 ###
 # 리뷰 상세 조회

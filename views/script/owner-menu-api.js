@@ -1,13 +1,9 @@
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
   const $menu_detail = document.getElementById('menu_detail');
-  // 부모 url에서 id 값 추출하기(iframe를 사용할 경우)
-  const url = window.parent.location.href; // 부모 페이지의 url 조회
-  const urlArr = url.split("="); // =로 나눠버리기!!(param이 더 있으면 이거 못 씁니다~)
-  const id = urlArr[1];
-  // 메뉴 전체 조회
-  // 내 매장의 메뉴들만 조회해야함 -> 매장 CRUD를 만든 후에 적용하는게 나을듯
-  // 일단 전체 메뉴 조회 ㄱ
+  // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
   axios
     .get(`http://localhost:4000/api/menu?storeId=${id}&category=name&order=desc`, {
       withCredentials: true,
