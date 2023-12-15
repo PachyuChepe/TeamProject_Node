@@ -8,24 +8,30 @@ const reviewRouter = express.Router();
 
 // 리뷰 생성
 reviewRouter.post(
-  '/api/reviews',
+  '/reviews',
   isLoggedIn,
   validateReview,
   reviewController.createReview,
 );
 
-// 특정 가게의 리뷰 조회
+// 특정 가게 리뷰 조회
 reviewRouter.get(
-  '/api/reviews/store/:storeId',
+  '/reviews/store/:storeId',
+  reviewController.getStoreReviews,
+);
+
+// 특정 고객 리뷰 조회
+reviewRouter.get(
+  '/reviews/store/:storeId',
   reviewController.getStoreReviews,
 );
 
 // 특정 리뷰 조회
-reviewRouter.get('/api/reviews/:reviewId', reviewController.getReviewById);
+reviewRouter.get('/reviews/:reviewId', reviewController.getReviewById);
 
 // 리뷰 수정
 reviewRouter.put(
-  '/api/reviews/:reviewId',
+  '/reviews/:reviewId',
   isLoggedIn,
   validateReview,
   reviewController.updateReview,
@@ -33,7 +39,7 @@ reviewRouter.put(
 
 // 리뷰 삭제
 reviewRouter.delete(
-  '/api/reviews/:reviewId',
+  '/reviews/:reviewId',
   isLoggedIn,
   reviewController.deleteReview,
 );
