@@ -11,7 +11,7 @@ Content-Type: application/JSON
     "customerId":1,
     "menuId" : 1,
     "totalPrice":2000,
-    "status":"배달 완료",
+    "status":"배달중",
     "quantity": 3
 }
 
@@ -34,4 +34,4 @@ GET {{domain}}/orders/user/0
 
 ###
 # 공통? 사장? : 주문 상세 조회
-GET {{domain}}/orders/0
+GET {{domain}}/orders/13

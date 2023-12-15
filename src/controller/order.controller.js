@@ -39,7 +39,7 @@ class OrderController {
       const { status } = req.body;
       // const orderId = res.locals.User.id;
 
-      const newOrder = await this.orderService.updateOrder(orderid, status,);
+      const newOrder = await this.orderService.updateOrder(orderid, status);
 
       res
         .status(200)
@@ -80,9 +80,9 @@ class OrderController {
   // 공통? 사장? : 주문 상세 조회
   getOrder = async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { orderid } = req.params;
 
-      const order = await this.orderService.getOrder(id, res);
+      const order = await this.orderService.getOrder(orderid, res);
 
       return res.status(200).json({
         success: true,

@@ -49,26 +49,19 @@ class OrderService {
         quantity: order.quantity,
         totalPrice: order.totalPrice,
         status: order.status,
-        createdAt: order.createdAt,
-        updatedAt: order.updatedAt,
       };
     });
   };
 
   // 공통? 사장? : 주문 상세 조회 customerId? --menuId
-  getOrder = async (id) => {
-    const order = await this.orderRepository.getOrder(id);
-    if (!order) {
+  getOrder = async (orderid) => {
+    const existsOrder = await this.orderRepository.getOrder(orderid);
+    if (existsOrder.length === 0) {
       throw ApiError.Noutfound('주문이 존재하지 않습니다.');
     }
-    return {
-      id: order.id,
-      quantity: order.quantity,
-      totalPrice: order.totalPrice,
-      status: order.status,
-      createdAt: order.createdAt,
-      updatedAt: order.updatedAt,
-    };
+
+    const order = await this.orderRepository.getOrder(orderid);
+    return order;
   };
 }
 export default OrderService;

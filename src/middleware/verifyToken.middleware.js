@@ -66,7 +66,6 @@ export const isLoggedIn = async (req, res, next) => {
         );
         const user = await prisma.user.findUnique({ where: { id: userId } });
         res.locals.user = user;
-        // console.log(res.locals);
         next();
       } catch (refreshTokenError) {
         await redisClient.del(userId.toString());

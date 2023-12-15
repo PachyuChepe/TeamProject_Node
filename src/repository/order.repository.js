@@ -14,25 +14,25 @@ class OrderRepository {
     totalPrice,
     status,
   ) => {
-    console.log(quantity);
     const createdOrder = await prisma.Order.create({
       data: {
         customerId,
         menuId: +menuId,
         quantity: +quantity,
         totalPrice: +totalPrice,
-        status
-      }
+        status,
+      },
     });
     return createdOrder;
   };
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-  updateOrder = async (orderid, menuId, quantity, totalPrice, status) => {
-    const order = await prisma.Order.update({
+  updateOrder = async (orderid, status) => {
+    const order = await prisma.order.update({
       data: { status },
       where: { id: +orderid },
     });
+
     return order;
   };
 
@@ -51,9 +51,14 @@ class OrderRepository {
   };
 
   // 공통? 사장? : 주문 상세 조회
-  getOrder = async (id) => {
-    const order = await prisma.Order.findFirst({
-      where: { id: +id },
+  getOrder = async (orderid) => {
+    const order = await prisma.order.findFirst({
+      select: {
+        quantity: true,
+        totalPrice: true,
+        status: true,
+      },
+      where: { id: +orderid },
     });
     return order;
   };
