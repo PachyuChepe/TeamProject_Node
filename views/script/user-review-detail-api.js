@@ -1,4 +1,3 @@
-
 // 조회 : 리뷰 (리뷰 수정일 경우)
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
@@ -11,14 +10,15 @@ document.addEventListener('DOMContentLoaded', function () {
   // 조회 : 리뷰 (리뷰 수정일 경우)
   if (id) {
     axios
-      .get(`http://localhost:4000/api/reviews/${id}`, {
+      .get(`/api/reviews/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
         const reviews = res.data.data;
         // 기존 input란에 API 반환값 참조
         document.getElementById('comment').value = reviews.comment;
-        document.getElementById('review_select_star_grade').innerText = reviews.rating;
+        document.getElementById('review_select_star_grade').innerText =
+          reviews.rating;
         const starScore = reviews.rating; // 현재 별점
         // 별점 이미지 초기화 및 적용
         $starLabels.forEach((label, index) => {
@@ -48,11 +48,12 @@ function submitCreateForm() {
   // API로 전달할 값 JSON으로 설정
   const data = {
     comment: document.getElementById('comment').value,
-    rating: document.querySelector('input[name="review_star_grade"]:checked').value,
+    rating: document.querySelector('input[name="review_star_grade"]:checked')
+      .value,
   };
 
   axios
-    .post('http://localhost:4000/api/reviews', data, {
+    .post('/api/reviews', data, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })
@@ -74,11 +75,12 @@ function submitUpdateForm() {
   // API로 전달할 값 JSON으로 설정
   const data = {
     comment: document.getElementById('comment').value,
-    rating: document.querySelector('input[name="review_star_grade"]:checked').value,
+    rating: document.querySelector('input[name="review_star_grade"]:checked')
+      .value,
   };
 
   axios
-    .put(`http://localhost:4000/api/reviews/${id}`, data, {
+    .put(`/api/reviews/${id}`, data, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })
@@ -98,7 +100,7 @@ function submitDeleteForm() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
   axios
-    .delete(`http://localhost:4000/api/reviews/${id}`, {
+    .delete(`/api/reviews/${id}`, {
       withCredentials: true,
     })
     .then((res) => {
