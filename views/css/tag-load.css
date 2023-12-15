@@ -1,0 +1,26 @@
+/* import */
+@import url('reset.css');
+
+.profile-area {
+  position: relative;
+  float: right;
+}
+
+.profile-img {
+  cursor: pointer;
+}
+
+.profile-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  display: none; /* 기본적으로 숨김 */
+}
+
+.profile-menu button {
+  display: block;
+  margin-bottom: 5px;
+}
