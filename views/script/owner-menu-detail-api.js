@@ -88,11 +88,8 @@ function submitDeleteForm() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
 
-  // API로 전달할 값 JSON으로 설정
-  const ownerId = 3;
-
   axios
-    .delete(`http://localhost:4000/api/menu/${id}/${ownerId}`, {
+    .delete(`http://localhost:4000/api/menu/${id}`, {
       withCredentials: true,
     })
     .then((res) => {

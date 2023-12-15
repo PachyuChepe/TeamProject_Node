@@ -7,8 +7,8 @@ class MenusController {
   // // 메뉴 정보 저장
   createMenu = async (req, res, next) => {
     try {
-      const { ownerId, name, price, imageUrl } = req.body; // body 값 조회
-      // const ownerId = res.locals.user.id;
+      const { name, price, imageUrl } = req.body; // body 값 조회
+      const ownerId = res.locals.user.id;
 
       // 조회 : 메뉴 정보
       const menu = await this.menusService.createMenu(ownerId, name, price, imageUrl);
@@ -56,8 +56,8 @@ class MenusController {
   updateMenu = async (req, res, next) => {
     try {
       const { id } = req.params; // params 값 조회
-      const { ownerId, name, price, imageUrl } = req.body; // body 값 조회
-      // const ownerId = res.locals.user.id;
+      const { name, price, imageUrl } = req.body; // body 값 조회
+      const ownerId = res.locals.user.id;
 
       // 조회 : 메뉴 정보
       const menu = await this.menusService.updateMenu(ownerId, id, name, price, imageUrl);
@@ -72,8 +72,8 @@ class MenusController {
   // //  메뉴 정보 삭제
   deleteMenu = async (req, res, next) => {
     try {
-      const { id, ownerId } = req.params; // params 값 조회
-      // const ownerId = res.locals.user.id;
+      const { id } = req.params; // params 값 조회
+      const ownerId = res.locals.user.id;
 
       // 삭제 : 메뉴 정보
       await this.menusService.deleteMenu(ownerId, id);

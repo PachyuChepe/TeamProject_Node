@@ -12,16 +12,15 @@ class StoreService {
   // this.userRepository = new UserRepository();
 
   createStore = async (
-    ownerId,
+
     categoryId,
+    ownerId,
     name,
     storedescription,
     foodtype,
     storeaddresses,
     businesslicense,
   ) => {
-    // const user = await this.userRepository.findUserById(id);
-
     const store = await this.storeRepository.createStore(
       ownerId,
       categoryId,
