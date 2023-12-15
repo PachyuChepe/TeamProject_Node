@@ -28,14 +28,14 @@ class OrderService {
   };
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-  updateOrder = async (id, status) => {
-    const order = await this.orderRepository.updateOrder(id, status);
+  updateOrder = async (orderid, status) => {
+    const order = await this.orderRepository.updateOrder(orderid, status);
     return order;
   };
 
   // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
-  cancelOrder = async (id) => {
-    await this.orderRepository.cancelOrder(id);
+  cancelOrder = async (orderid) => {
+    await this.orderRepository.cancelOrder(orderid);
   };
 
   // 공통? 고객? : 주문 전체 조회

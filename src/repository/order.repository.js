@@ -28,18 +28,18 @@ class OrderRepository {
   };
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-  updateOrder = async (id, menuId, quantity, totalPrice, status) => {
+  updateOrder = async (orderid, menuId, quantity, totalPrice, status) => {
     const order = await prisma.Order.update({
-      data: { menuId, quantity, totalPrice, status },
-      where: { id: +id },
+      data: { status },
+      where: { id: +orderid },
     });
     return order;
   };
 
   // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
-  cancelOrder = async (menuId) => {
+  cancelOrder = async (orderid) => {
     await prisma.Order.delete({
-      where: { menuId: +menuId },
+      where: { id: +orderid },
     });
   };
 

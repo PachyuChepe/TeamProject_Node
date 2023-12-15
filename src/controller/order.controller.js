@@ -34,11 +34,12 @@ class OrderController {
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
   updateOrder = async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const { status } = req.body;
-      const orderId = res.locals.User.id;
+      const { orderid } = req.params;
 
-      const newOrder = await this.orderService.updateOrder(id, orderId, status,);
+      const { status } = req.body;
+      // const orderId = res.locals.User.id;
+
+      const newOrder = await this.orderService.updateOrder(orderid, status,);
 
       res
         .status(200)
@@ -51,10 +52,9 @@ class OrderController {
   // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
   cancelOrder = async (req, res, next) => {
     try {
-      const { id } = req.params;
-      const orderId = res.locals.user.id;
+      const { orderid } = req.params;
 
-      await this.orderService.cancelOrder(id, orderId);
+      await this.orderService.cancelOrder(orderid);
 
       res.status(200).json({ message: '주문을 취소하였습니다.' });
     } catch (error) {
