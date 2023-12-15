@@ -1,21 +1,20 @@
+// StoreRepository.js
 import { PrismaClient } from '@prisma/client';
+
 const prisma = new PrismaClient();
 
 class StoreRepository {
-  getStores = async () => {
-    const stores = await prisma.Store.findMany();
+  async getStores() {
+    return prisma.Store.findMany();
+  }
 
-    return stores;
-  };
-
-  getStore = async (id) => {
-    const store = await prisma.Store.findFirst({
-      where: { id: +id },
+  async getStore(id) {
+    return prisma.Store.findUnique({
+      where: { id: parseInt(id, 10) },
     });
-    return store;
-  };
+  }
 
-  createStore = async (
+  async createStore(
     ownerId,
     categoryId,
     name,
@@ -23,8 +22,8 @@ class StoreRepository {
     foodtype,
     storeaddresses,
     businesslicense,
-  ) => {
-    const createdStore = await prisma.Store.create({
+  ) {
+    return prisma.Store.create({
       data: {
         owner: {
           connect: {
@@ -43,8 +42,7 @@ class StoreRepository {
         businesslicense,
       },
     });
-    return createdStore;
-  };
+  }
 
   updateStore = async (
     id,
@@ -66,22 +64,20 @@ class StoreRepository {
         id: +id,
       },
     });
-    return store;
   };
 
-  deleteStore = async (id) => {
+  async deleteStore(id) {
     await prisma.Store.delete({
-      where: { id: +id },
+      where: { id: parseInt(id, 10) },
     });
-  };
+  }
 
-  getStoreById = async (ownerId) => {
-    const storeid = await prisma.Store.findMany({
-      select: { id: true },
-      where: { ownerId: +ownerId },
+  async getStoreById(id) {
+    return prisma.Store.findUnique({
+      where: { id: parseInt(id, 10) },
+      include: { owner: true },
     });
-    return storeid.id;
-  };
+  }
 }
 
 export default StoreRepository;
