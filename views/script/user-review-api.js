@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then((response) => {
       const reviews = response.data.data;
-      console.log('reviews: ', reviews);
+      // console.log('reviews: ', reviews);
       let count;
       // API 실행결과를 response로 받아와서 html 그려주기
       reviews.forEach((e, idx) => {

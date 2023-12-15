@@ -17,7 +17,7 @@ function fetchRestaurants() {
 }
 
 function createRestaurantCard(restaurant) {
-  console.log('뭐뭐들어옴?', restaurant);
+  // console.log('뭐뭐들어옴?', restaurant);
   const card = document.createElement('div');
   card.className = 'bg-white shadow rounded overflow-hidden';
   card.innerHTML = `
