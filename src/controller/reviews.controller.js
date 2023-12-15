@@ -9,13 +9,13 @@ class ReviewController {
   createReview = async (req, res, next) => {
     try {
       const { storeId, rating, comment } = req.body;
-      const customerId = req.user.id; // 현재 로그인한 사용자의 ID
+      const customerId = res.locals.user.id; // 현재 로그인한 사용자의 ID
 
       const review = await this.reviewService.createReview(
         customerId,
         storeId,
         rating,
-        comment,
+        comment
       );
 
       res.status(201).json({
@@ -47,6 +47,32 @@ class ReviewController {
       res.status(200).json({
         success: true,
         message: '가게의 리뷰를 성공적으로 가져왔습니다.',
+        data: reviews,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // 특정 고객의 리뷰 조회
+  getUserReviews = async (req, res, next) => {
+    try {
+      const { order } = req.params;
+      const customerId = res.locals.id;
+      const sortOrder = order === 'desc' ? -1 : 1;
+
+      let reviews = await this.reviewService.getUserReviews(customerId);
+
+      // 작성 일자 기준 정렬
+      reviews = reviews.sort((a, b) => {
+        const dateA = new Date(a.createdAt);
+        const dateB = new Date(b.createdAt);
+        return sortOrder * (dateA - dateB);
+      });
+
+      res.status(200).json({
+        success: true,
+        message: '사용자의 리뷰를 성공적으로 가져왔습니다.',
         data: reviews,
       });
     } catch (error) {

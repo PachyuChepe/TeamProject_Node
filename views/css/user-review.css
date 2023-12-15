@@ -1,0 +1,44 @@
+.review-container {
+  width: 50%;
+  margin: auto;
+}
+
+.review-wrapper {
+  border: 1px solid blue;
+}
+
+/* 별점 */
+.review_star_line {
+  width: 97.5%;
+  height: 1px;
+  border: none;
+  background-color: rgb(200, 200, 200);
+}
+
+.review_star_grade_wrapper {
+  margin: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.hidden_radio {
+  display: none;
+}
+
+.custom_star {
+  width: 30px;
+  height: 30px;
+  margin: 0 2px;
+  background-size: cover;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.custom_star {
+  background-image: url('../img/star_y.png');
+}
+
+#review_select_star_grade {
+  font-size: 20px;
+  margin: 0 5px;
+}
