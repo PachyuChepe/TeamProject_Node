@@ -61,7 +61,7 @@ model Order {
   menuId      Int?
   quantity    Int
   totalPrice  Int
-  status      String    @default("배달 전")
+  status      String    
   createdAt   DateTime? @default(now())
   updatedAt   DateTime? @updatedAt
 
