@@ -5,9 +5,12 @@ document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
   axios
-    .get(`http://localhost:4000/api/menu?storeId=${id}&category=name&order=desc`, {
-      withCredentials: true,
-    })
+    .get(
+      `http://localhost:4000/api/menu?storeId=${id}&category=name&order=desc`,
+      {
+        withCredentials: true,
+      },
+    )
     .then((response) => {
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
@@ -39,7 +42,7 @@ function clickDeleteBtn(clickedButton) {
   const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
 
   axios
-    .delete(`http://localhost:4000/api/menu/${id}`, {
+    .delete(`/api/menu/${id}`, {
       withCredentials: true,
     })
     .then((res) => {

@@ -38,7 +38,8 @@ document.addEventListener('DOMContentLoaded', function () {
       if (accessToken) {
         menuContent = `
           <button onclick="location.href='profile-edit.html'">회원정보수정</button>
-          <button onclick="location.href='my-page.html'">마이페이지</button>
+          <button onclick="location.href='my-page.html'">주문목록조회</button>
+          <button onclick="location.href='my-page.html'">리뷰조회</button>
           <button onclick="location.href='logout.html'">로그아웃</button>
         `;
       } else {
@@ -63,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return cookie[name];
     }
   });
-  // if (window.location.href.includes('user-') && window.location.href !== 'http://localhost:4000/user-main.html') {
+  // if (window.location.href.includes('user-') && window.location.href !== '/user-main.html') {
   //   loadHTML('user-top-menu.html', 'user_top_menu');
   // }
   // if (window.location.href.includes('owner-')) {

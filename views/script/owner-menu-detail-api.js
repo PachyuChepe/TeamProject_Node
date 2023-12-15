@@ -1,4 +1,3 @@
-
 // 조회 : 메뉴 정보 (메뉴 수정일 경우)
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
@@ -9,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 조회 : 메뉴 정보 (메뉴 수정일 경우)
   if (id) {
     axios
-      .get(`http://localhost:4000/api/menu/${id}`, {
+      .get(`/api/menu/${id}`, {
         withCredentials: true,
       })
       .then((res) => {
@@ -40,7 +39,7 @@ function submitCreateForm() {
   };
 
   axios
-    .post('http://localhost:4000/api/menu', data, {
+    .post('/api/menu', data, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })
@@ -69,7 +68,7 @@ function submitUpdateForm() {
   };
 
   axios
-    .put(`http://localhost:4000/api/menu/${id}`, data, {
+    .put(`/api/menu/${id}`, data, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })
@@ -89,7 +88,7 @@ function submitDeleteForm() {
   const id = urlParams.get('id');
 
   axios
-    .delete(`http://localhost:4000/api/menu/${id}`, {
+    .delete(`/api/menu/${id}`, {
       withCredentials: true,
     })
     .then((res) => {
