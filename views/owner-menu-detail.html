@@ -12,12 +12,18 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    <!-- 헤더/푸터 출력-->
+    <script defer src="./script/tag-load.js"></script>
+    <script defer src="./script/owner-paging.js"></script>
   </head>
   <body>
+    <div id="header"></div>
+    <!-- 상단 바 -->
+    <div id="owner_top_menu"></div>
     <h1>음식 정보 저장하기</h1>
     <div class="submit-edit-form-wrapper">
       <form id="submitEditForm">
-        <label for="name" >음식명</label>
+        <label for="name">음식명</label>
         <input
           type="text"
           id="name"
@@ -42,9 +48,8 @@
           placeholder="가격을 입력해주세요."
         />
       </form>
-        <button id="createInputBtn">옵션 추가하기</button>
-        <div id="inputContainer"></div>
-      </div>
+      <button id="createInputBtn">옵션 추가하기</button>
+      <div id="inputContainer"></div>
     </div>
 
     <div class="btn-wraaper">
