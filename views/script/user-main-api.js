@@ -1,33 +1,54 @@
-// 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
-  const $storeContainer = document.getElementById('store_container');
+  fetchRestaurants();
+});
 
-  // 전체 매장 조회
+function fetchRestaurants() {
   axios
-    .get(`http://localhost:4000/api/store?category=name&order=desc`, {
-      withCredentials: true,
-    })
+    .get('/api/store')
     .then((response) => {
-      // API 실행결과를 response로 받아와서 html 그려주기
-      response.data.data.forEach((e, idx) => {
-        let temp_html = `
-        <div class="card hover-effect" style="width: 18rem" onclick="location.href='/user-store-detail.html?id=${e.id}'">
-          <img
-            src="./assets/test-img.jpg"
-            class="card-img-top"
-            alt="..."
-          />
-          <td class="hidden">${e.id}</td>
-          <div class="card-body">
-            <h5 class="card-title">${e.name}</h5>
-            <p class="card-text">${e.description}</p>
-          </div>
-        </div>
-        `;
-        $storeContainer.insertAdjacentHTML('beforeend', temp_html);
+      const restaurants = response.data.data;
+      const container = document.getElementById('restaurants-container');
+      restaurants.forEach((restaurant) => {
+        const restaurantCard = createRestaurantCard(restaurant);
+        container.appendChild(restaurantCard);
       });
     })
-    .catch((error) => {
-      console.error('오류 발생:', error);
-    });
-});
+    .catch((error) => console.error('Error fetching restaurants:', error));
+}
+
+function createRestaurantCard(restaurant) {
+  console.log('뭐뭐들어옴?', restaurant);
+  const card = document.createElement('div');
+  card.className = 'bg-white shadow rounded overflow-hidden';
+  card.innerHTML = `
+  <img src="https://source.unsplash.com/random/400x300?restaurant&sig=${
+    restaurant.id
+  }" 
+     alt="${restaurant.name}" class="w-full h-48 object-cover" />
+<div class="p-4">
+    <h3 class="text-lg font-semibold">${restaurant.name}</h3>
+    <p class="text-sm text-gray-600">Rating: ${
+      restaurant.rating
+        ? `★★★★★`.slice(0, restaurant.rating) + `☆☆☆☆☆`.slice(restaurant.rating)
+        : 'Not Rated'
+    }</p>
+    <p class="text-sm text-gray-600">Category: ${restaurant.foodtype}</p>
+    <p class="text-sm text-gray-600">Address: ${restaurant.storeaddresses}</p>
+    <p class="text-sm text-gray-600">Hours: ${
+      restaurant.hours ? restaurant.hours : 'Not Available'
+    }</p>
+    <div class="flex justify-between items-center mt-4">
+      <span class="text-sm text-gray-600">${
+        restaurant.reviews ? restaurant.reviews + ' Reviews' : 'No Reviews'
+      }</span>
+      <span class="text-sm text-gray-600">${
+        restaurant.comments ? restaurant.comments + ' Comments' : 'No Comments'
+      }</span>
+      <button class="text-blue-500 hover:text-blue-700">
+        Favorite
+      </button>
+    </div>
+</div>
+`;
+  return card;
+}
