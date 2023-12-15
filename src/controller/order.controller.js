@@ -10,13 +10,10 @@ class OrderController {
 
   // 고객 : 주문 생성 및 저장 post / menuid Int , quantity Int / 고객 1 : 주문 N
   createOrder = async (req, res, next) => {
-    console.log('여기는 오는거야?');
     try {
       const { customerId, menuId, quantity, totalPrice, status } = req.body;
-      const orderId = res.locals.user.id;
 
       const newOrder = await this.orderService.createOrder(
-        // orderId,
         customerId,
         menuId,
         quantity,
@@ -30,7 +27,6 @@ class OrderController {
         data: newOrder,
       });
     } catch (error) {
-      console.log(error);
       next(error);
     }
   };
@@ -39,24 +35,10 @@ class OrderController {
   updateOrder = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const {
-        // customerId,
-        // menuId,
-        // quantity,
-        // totalPrice,
-        status,
-      } = req.body;
+      const { status } = req.body;
       const orderId = res.locals.User.id;
 
-      const newOrder = await this.orderService.updateOrder(
-        id,
-        orderId,
-        // customerId,
-        // menuId,
-        // quantity,
-        // totalPrice,
-        status,
-      );
+      const newOrder = await this.orderService.updateOrder(id, orderId, status,);
 
       res
         .status(200)

@@ -27,15 +27,17 @@ model User {
 model Store {
   id          Int       @id @default(autoincrement())
   ownerId     Int?
+  categoryId  Int?
   name        String
   description String?
-  foodtype    String
-  storeaddresses String
-  businesslicense String
+  foodtype    String?
+  storeaddresses String?
+  businesslicense String?
   createdAt   DateTime? @default(now())
   updatedAt   DateTime? @updatedAt
 
   owner       User?     @relation(fields: [ownerId], references: [id])
+  category    FoodCategory? @relation(fields: [categoryId], references: [id])
   menus       Menu[]
   reviews     Review[]
 }
@@ -43,7 +45,6 @@ model Store {
 model Menu {
   id          Int       @id @default(autoincrement())
   storeId     Int
-  categoryId  Int
   name        String
   price       Int
   imageUrl    String?
@@ -51,7 +52,6 @@ model Menu {
   updatedAt   DateTime? @updatedAt
 
   store       Store     @relation(fields: [storeId], references: [id])
-  category    FoodCategory @relation(fields: [categoryId], references: [id])
   orders      Order[]
 }
 
@@ -61,7 +61,7 @@ model Order {
   menuId      Int?
   quantity    Int
   totalPrice  Int
-  status      String
+  status      String    
   createdAt   DateTime? @default(now())
   updatedAt   DateTime? @updatedAt
 
@@ -101,5 +101,5 @@ model FoodCategory {
   createdAt DateTime? @default(now())
   updatedAt DateTime? @updatedAt
 
-  menus     Menu[]
+  stores       Store[]
 }

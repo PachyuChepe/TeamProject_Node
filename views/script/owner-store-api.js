@@ -6,11 +6,23 @@ document.addEventListener('DOMContentLoaded', function () {
   const url = window.parent.location.href; // 부모 페이지의 url 조회
   const urlArr = url.split("="); // =로 나눠버리기!!(param이 더 있으면 이거 못 씁니다~)
   const id = urlArr[1];
-  console.log('id: ', id);
 
   // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
   // const urlParams = new URLSearchParams(window.location.search);
   // const id = urlParams.get('id');
+
+  // 업종 콤보박스 조회
+  axios
+    .get(`http://localhost:4000/api/food-category`, {
+      withCredentials: true,
+    })
+    .then((res) => {
+      const foodCategory = res.data.foodCategory;
+      updateComboBox(foodCategory);
+    })
+    .catch((error) => {
+      console.error('오류 발생:', error);
+    });
 
   // 조회 : 매장 정보 (매장 수정일 경우)
   if (id) {
@@ -19,18 +31,35 @@ document.addEventListener('DOMContentLoaded', function () {
         withCredentials: true,
       })
       .then((res) => {
-        console.log(res);
+        const store = res.data.data;
         // 기존 input란에 API 반환값 참조
-        document.getElementById('name').value = res.data.data.name;
-        document.getElementById('description').value =
-          res.data.data.description;
+        document.getElementById('name').value = store.name;
+        document.getElementById('description').value = store.description;
+        document.getElementById('food_category').value = store.categoryId;
+        document.getElementById('storeaddresses').value = store.storeaddresses;
+        document.getElementById('businesslicense').value = store.businesslicense;
+
       })
       .catch((error) => {
         console.error('오류 발생:', error);
       });
   }
-
 });
+
+// 콤보박스 업데이트
+function updateComboBox(foodCategory) {
+  const comboBox = document.getElementById('food_category');
+  // 데이터의 각 항목에 대해 반복
+  foodCategory.forEach(item => {
+    // 새로운 <option> 요소 생성
+    const option = document.createElement('option');
+    option.value = item.id; // 콤보 박스에 표시할 값
+    option.textContent = item.name; // 콤보 박스에 표시할 문구
+
+    // 콤보박스에 옵션 추가
+    comboBox.appendChild(option);
+  });
+}
 
 // 저장 : 매장 정보
 function submitCreateForm() {
@@ -38,19 +67,20 @@ function submitCreateForm() {
   const data = {
     name: document.getElementById('name').value,
     storedescription: document.getElementById('description').value,
-    foodtype: document.getElementById('foodtype').value,
-    storeaddresses: document.getElementById('storeaddresses').value,
+    categoryId: document.getElementById('food_category').value,
+    foodtype: document.getElementById('food_category').value, // 추후 삭제 예정
+    storeaddresses: document.getElementById('storeaddresses').value, // 추후 삭제 예정
     businesslicense: document.getElementById('businesslicense').value,
   };
 
   axios
-    .post('http://localhost:4000/api/uploadstore', data, {
+    .post('http://localhost:4000/api/createstore', data, {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })
     .then((res) => {
       alert('저장이 완료되었습니다.');
-      window.parent.location.href = `http://localhost:4000/owner-main.html?id=${res.data.data.id}`;
+      window.parent.location.href = `/owner-main.html?id=${res.data.data.id}`;
     })
     .catch((error) => {
       console.error('오류 발생:', error);
@@ -72,8 +102,9 @@ function submitUpdateForm() {
   const data = {
     name: document.getElementById('name').value,
     storedescription: document.getElementById('description').value,
-    foodtype: document.getElementById('foodtype').value,
-    storeaddresses: document.getElementById('storeaddresses').value,
+    categoryId: document.getElementById('food_category').value,
+    foodtype: document.getElementById('food_category').value, // 추후 삭제 예정
+    storeaddresses: document.getElementById('storeaddresses').value, // 추후 삭제 예정
     businesslicense: document.getElementById('businesslicense').value,
   };
 

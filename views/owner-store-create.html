@@ -12,35 +12,18 @@
       integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
       crossorigin="anonymous"
     />
+    <!-- 헤더/푸터 출력-->
+    <script defer src="./script/tag-load.js"></script>
   </head>
   <body>
-    <!-- 헤더 를 하나만 만들고 갖다 붙이는 식으로 하면 될 것 같은데 어케함 ? -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <!-- 로고 -->
-        <a class="navbar-brand" href="#">오죠사마 앙냥냥</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <!-- 로그인 버튼 -->
-        <button>로그인</button>
-      </div>
-    </nav>
+    <div id="header"></div>
     <iframe
       id="main_iframe"
       src="owner-store-edit.html"
       width="100%"
       height="1000px"
     ></iframe>
+    <div id="footer"></div>
   </body>
   <!-- axios CDN -->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

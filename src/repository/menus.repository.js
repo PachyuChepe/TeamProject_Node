@@ -18,7 +18,6 @@ class MenusRepository {
         storeId,
         price: +price,
         imageUrl,
-        categoryId: 1,
       },
     });
     return createdMenu;
@@ -93,6 +92,12 @@ class MenusRepository {
     await prisma.Menu.delete({
       where: { id: +id },
     });
+  };
+
+  // 업종 전체 조회
+  getFoodCategory = async () => {
+    const foodCategory = await prisma.FoodCategory.findMany();
+    return foodCategory;
   };
 }
 

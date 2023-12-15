@@ -26,5 +26,8 @@ menusRouter.put("/menu/:id", validateEditMenu, isLoggedIn, menusController.updat
 menusRouter.delete("/menu/:id", isLoggedIn, menusController.deleteMenu);
 // menusRouter.delete("/menu/:id/:ownerId", menusController.deleteMenu);
 
+// 업종 전체 조회
+menusRouter.get("/food-category", menusController.getFoodCategory);
+
 export default menusRouter;
 

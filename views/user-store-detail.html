@@ -19,26 +19,8 @@
   ></script>
   <body>
     <!-- 헤더 를 하나만 만들고 갖다 붙이는 식으로 하면 될 것 같은데 어케함 ? -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <!-- 로고 -->
-        <a class="navbar-brand" href="#">오죠사마 앙냥냥</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+    <div id="header"></div>
 
-        <!-- 로그인 버튼 -->
-        <button>로그인</button>
-      </div>
-    </nav>
     <!-- 매장 목록 출력 -->
     <div class="store-info-container">
       <h1>매장 정보 조회</h1>
@@ -76,5 +58,7 @@
   <!-- 프론트 비동기처리(?)-->
   <!-- 프론트에서 백으로 데이터 넘겨주기!-->
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
   <script src="script/user-store-api.js"></script>
+  <script src="script/user-store-etc.js"></script>
 </html>

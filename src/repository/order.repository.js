@@ -18,11 +18,11 @@ class OrderRepository {
     const createdOrder = await prisma.Order.create({
       data: {
         customerId,
-        menuId,
-        totalPrice,
-        status,
-        quantity,
-      },
+        menuId: +menuId,
+        quantity: +quantity,
+        totalPrice: +totalPrice,
+        status
+      }
     });
     return createdOrder;
   };

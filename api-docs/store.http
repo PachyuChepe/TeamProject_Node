@@ -17,7 +17,7 @@ Content-Type: application/JSON
 
 ###
 # 업장 정보 수정
-PUT {{domain}}/updatestore/3
+PUT {{domain}}/updatestore/6
 Content-Type: application/JSON
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/JSON
 
 ###
 # 업장 삭제 
-DELETE {{domain}}/deletestore/1
+DELETE {{domain}}/deletestore/2
 
 ### 
 # 업장 전체조회
@@ -38,4 +38,4 @@ GET {{domain}}/store?category=name&order=desc
 
 ###
 # 업장 상세 조회
-GET {{domain}}/store/6
+GET {{domain}}/store/15
