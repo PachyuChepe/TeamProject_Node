@@ -45,9 +45,27 @@
           <th>메뉴명</th>
           <th>총 금액</th>
           <th>주문 취소</th>
-          <th>배달중 / 배달완료</th>
+          <th><button id="btn" onclick="changeBtnName()">배달중</button></th>
+        </tr>
+        <tr>
+          <th>주문 번호</th>
+          <th>고객명</th>
+          <th>메뉴명</th>
+          <th>총 금액</th>
+          <th>주문 취소</th>
+          <th><button id="btn" onclick="changeBtnName()">배달중</button></th>
         </tr>
       </thead>
     </table>
+
+    <script>
+      function changeBtnName() {
+        const btnElement = document.getElementById('btn');
+
+        const html = '<div style="color:red"> 배달완료 </div>';
+
+        btnElement.innerHTML = html;
+      }
+    </script>
   </body>
 </html>

@@ -32,7 +32,6 @@ class UserController {
         // sameSite: 'Strict',
         // }
       );
-      console.log('req.cookies!!!: ', accessToken);
       res
         .status(200)
         .json({ success: true, message: '로그인 성공', accessToken, user });

@@ -16,7 +16,6 @@ POST {{domain}}/menu/
 Content-Type: application/JSON
 
 {
-  "ownerId": 3,
   "name": "menu2",
   "price": "10000",
   "imageUrl": ""
@@ -34,6 +33,9 @@ Content-Type: application/JSON
 }
 
 ###
-
 # 메뉴 삭제 
 DELETE {{domain}}/menu/3
+
+### 
+# 업종 전체 조회
+GET {{domain}}/food-category

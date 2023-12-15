@@ -74,7 +74,12 @@ class MenusService {
 
     // 삭제 : 메뉴 정보
     await this.menusRepository.deleteMenu(id);
+  };
 
+  // //  업종 전체 조회
+  getFoodCategory = async (req, res, next) => {
+    const foodCategory = await this.menusRepository.getFoodCategory();
+    return foodCategory;
   };
 }
 

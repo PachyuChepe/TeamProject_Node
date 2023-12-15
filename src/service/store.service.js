@@ -7,53 +7,50 @@ class StoreService {
     this.storeRepository = new StoreRepository();
   }
 
-  async createStore(
+  createStore = async (
+    categoryId,
     ownerId,
     name,
     storedescription,
     foodtype,
     storeaddresses,
     businesslicense,
-  ) {
+  ) => {
     const store = await this.storeRepository.createStore(
       ownerId,
+      categoryId,
       name,
       storedescription,
       foodtype,
       storeaddresses,
       businesslicense,
     );
-    return store;
-  }
 
-  async updateStore(
+    return store;
+  };
+
+  updateStore = async (
     id,
-    ownerId,
+    categoryId,
     name,
     storedescription,
     foodtype,
     storeaddresses,
-  ) {
-    const store = await this.storeRepository.getStoreById(id);
-    if (!store || store.ownerId !== ownerId) {
-      throw new ApiError(404, '업장을 찾을 수 없거나 권한이 없습니다.');
-    }
-    return await this.storeRepository.updateStore(
+  ) => {
+    const store = await this.storeRepository.updateStore(
       id,
+      categoryId,
       name,
       storedescription,
       foodtype,
       storeaddresses,
     );
-  }
+    return store;
+  };
 
-  async deleteStore(ownerId, id) {
-    const store = await this.storeRepository.getStoreById(id);
-    if (!store || store.ownerId !== ownerId) {
-      throw new ApiError(404, '업장을 찾을 수 없거나 권한이 없습니다.');
-    }
+  deleteStore = async (ownerId, id) => {
     await this.storeRepository.deleteStore(id);
-  }
+  };
 
   async getStores() {
     const stores = await this.storeRepository.getStores();

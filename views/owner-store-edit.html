@@ -19,7 +19,7 @@
       <h1>매장 등록하기</h1>
       <div class="submit-edit-form-wrapper">
         <form id="submitEditForm">
-          <label for="name" >가게명</label>
+          <div>가게명</div>
           <input
             type="text"
             id="name"
@@ -28,28 +28,31 @@
             required
           />
   
-          <label for="description">가게 설명</label>
+          <div>가게 설명</div>
           <input
             type="text"
             id="description"
             class="form-control"
             placeholder="가게 설명을 입력해주세요."
           />
-          <label for="foodtype">메뉴 종류</label>
-          <input
+          <div>업종</div>
+          <select id="food_category">
+            <!-- 콤보박스 -->
+          </select>
+          <!-- <input
             type="text"
             id="foodtype"
             class="form-control"
             placeholder="메뉴 종류를 입력해주세요."
-          />
-          <label for="storeaddresses">영업 상태</label>
+          /> -->
+          <div>영업 상태</div>
           <input
             type="text"
             id="storeaddresses"
             class="form-control"
             placeholder="주소를 입력해주세요."
           />
-          <label for="businesslicense">사업자 번호</label>
+          <div>사업자 번호</div>
           <input
             type="text"
             id="businesslicense"
