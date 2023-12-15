@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', function () {
       withCredentials: true,
     })
     .then((response) => {
-      console.log('response: ', response);
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
         let temp_html = `

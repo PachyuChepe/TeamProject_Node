@@ -6,7 +6,6 @@ document.addEventListener('DOMContentLoaded', function () {
   const url = window.parent.location.href; // 부모 페이지의 url 조회
   const urlArr = url.split("="); // =로 나눠버리기!!(param이 더 있으면 이거 못 씁니다~)
   const id = urlArr[1];
-  console.log('id: ', id);
 
   // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
   // const urlParams = new URLSearchParams(window.location.search);
@@ -33,7 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .then((res) => {
         const store = res.data.data;
-        console.log(res);
         // 기존 input란에 API 반환값 참조
         document.getElementById('name').value = store.name;
         document.getElementById('description').value = store.description;

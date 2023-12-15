@@ -1,4 +1,3 @@
-console.log("스크립트 실.행");
 // 담기 버튼을 눌렀을 때 실행하는 함수
 // 저장 : 주문
 function clickCreateBtn(clickedButton) {
@@ -30,11 +29,9 @@ function clickCreateBtn(clickedButton) {
 }
 
 function clickIncleaseBtn(clickedButton) {
-  console.log("여기 안와?");
   const buttonId = clickedButton.id; // 클릭한 버튼의 ID 가져오기
   const buttonIdArr = buttonId.split('_'); // 버튼 ID 쪼개기
   const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
-  console.log('id: ', id);
 
   var quantityInput = document.getElementById(`quantity_input_${id}`);
   var currentValue = parseInt(quantityInput.value, 10);
@@ -45,7 +42,6 @@ function clickDecreaseBtn(clickedButton) {
   const buttonId = clickedButton.id; // 클릭한 버튼의 ID 가져오기
   const buttonIdArr = buttonId.split('_'); // 버튼 ID 쪼개기
   const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
-  console.log('id: ', id);
 
   var quantityInput = document.getElementById(`quantity_input_${id}`);
   var currentValue = parseInt(quantityInput.value, 10);

@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', function () {
       withCredentials: true,
     })
     .then((res) => {
-      console.log(res);
       // 기존 input란에 API 반환값 참조
       document.getElementById('store_name').textContent = res.data.data.name;
       document.getElementById('store_description').textContent =
@@ -28,7 +27,6 @@ document.addEventListener('DOMContentLoaded', function () {
       withCredentials: true,
     })
     .then((response) => {
-      console.log('response: ', response);
       // API 실행결과를 response로 받아와서 html 그려주기
       // <tr class="hover-effect" onclick="location.href='/owner-menu-detail.html?id=${e.id}'"> // 메뉴 상세정보 조회 기능을 구현할 경우 생성!!!
       response.data.data.forEach((e, idx) => {
