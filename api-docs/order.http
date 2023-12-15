@@ -16,17 +16,17 @@ Content-Type: application/JSON
 
 ###
 # 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-PATCH  {{domain}}/orders/1
+PATCH  {{domain}}/orders/12
 Content-Type: application/JSON
 
 {
-    "orderid": 1,
+    "orderid": 12,
     "status":"배달 완료"
 }
 
 ###
 # 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
-DELETE {{domain}}/orders/1
+DELETE {{domain}}/orders/6
 
 ### 
 # 공통? 고객? : 주문 전체 조회
