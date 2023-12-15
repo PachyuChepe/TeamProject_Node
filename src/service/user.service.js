@@ -101,11 +101,15 @@ class UserService {
       throw ApiError.Unauthorized('현재 비밀번호가 일치하지 않습니다.');
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    return await this.userRepository.updateUser(id, {
-      password: hashedPassword,
-      name,
-    });
+    const updateData = {};
+    if (newPassword) {
+      updateData.password = await bcrypt.hash(newPassword, 10);
+    }
+    if (name) {
+      updateData.name = name;
+    }
+
+    return await this.userRepository.updateUser(id, updateData);
   };
 
   /**
