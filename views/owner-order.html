@@ -4,15 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>[사장님] 주문 내역 조회 페이지</title>
-
-    <style>
-      table#orderInfo th,
-      td {
-        border: solid 1px #e0e0be;
-        text-align: center;
-        padding: 20px 0;
-      }
-    </style>
+    <link rel="stylesheet" href="./css/layout.css" />
   </head>
 
   <body>
@@ -45,7 +37,9 @@
           <th>메뉴명</th>
           <th>총 금액</th>
           <th>주문 취소</th>
-          <th><button id="btn" onclick="changeBtnName()">배달중</button></th>
+          <th>
+            <button class="btn" onclick="changeBtnName(this)">배달중</button>
+          </th>
         </tr>
         <tr>
           <th>주문 번호</th>
@@ -53,15 +47,15 @@
           <th>메뉴명</th>
           <th>총 금액</th>
           <th>주문 취소</th>
-          <th><button id="btn" onclick="changeBtnName()">배달중</button></th>
+          <th>
+            <button class="btn" onclick="changeBtnName(this)">배달중</button>
+          </th>
         </tr>
       </thead>
     </table>
 
     <script>
-      function changeBtnName() {
-        const btnElement = document.getElementById('btn');
-
+      function changeBtnName(btnElement) {
         const html = '<div style="color:red"> 배달완료 </div>';
 
         btnElement.innerHTML = html;
