@@ -8,6 +8,7 @@ POST {{domain}}/orders/
 Content-Type: application/JSON
 
 {
+    "customerId":1,
     "menuId" : 1,
     "totalPrice":2000,
     "status":"배달 완료",
@@ -16,15 +17,16 @@ Content-Type: application/JSON
 
 ###
 # 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-PATCH  {{domain}}/orders/0
+PATCH  {{domain}}/orders/13
 Content-Type: application/JSON
 
 {
+    "status":"배달 완료"
 }
 
 ###
 # 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
-DELETE {{domain}}/orders/0
+DELETE {{domain}}/orders/13
 
 ### 
 # 공통? 고객? : 주문 전체 조회
