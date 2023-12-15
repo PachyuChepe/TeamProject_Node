@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function () {
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
         let temp_html = `
-        <div class="card hover-effect" style="width: 18rem" onclick="location.href='http://localhost:5500/views/user-store-detail.html?id=${e.id}'">
+        <div class="card hover-effect" style="width: 18rem" onclick="location.href='/user-store-detail.html?id=${e.id}'">
           <img
             src="./assets/test-img.jpg"
             class="card-img-top"
