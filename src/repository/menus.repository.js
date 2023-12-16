@@ -30,7 +30,9 @@ class MenusRepository {
       select: {
         id: true,
         name: true,
+        description: true,
         price: true,
+        imageUrl: true,
         store: {
           select: {
             owner: {
@@ -56,7 +58,9 @@ class MenusRepository {
         id: true,
         storeId: true,
         name: true,
+        description: true,
         price: true,
+        imageUrl: true,
         store: {
           select: {
             owner: {
