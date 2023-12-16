@@ -1,6 +1,6 @@
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
-  const $menu_detail = document.getElementById('menu_detail');
+  const $menu_list = document.getElementById('menu_list');
   // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
@@ -15,17 +15,33 @@ document.addEventListener('DOMContentLoaded', function () {
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
         let temp_html = `
-        <tr class="hover-effect" onclick="location.href='/owner-menu-detail.html?id=${e.id}'">
-          <td class="hidden">${e.id}</td>
-          <td>이미지</td>
-          <td>${e.name}</td>
-          <td>${e.price}</td>
-          <td>
-            <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickDeleteBtn(this)">삭제하기</button>
-          </td>
-        </tr>
+        <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 flex">
+          <img src="https://source.unsplash.com/random/?wine" alt="Wine" class="w-80 h-48 object-cover" />
+          <div class="flex flex-col justify-between p-4 w-full">
+            <div class="flex justify-between">
+              <div class="w-full">
+                <div class="flex justify-between">
+                  <h3 class="font-semibold text-gray-700 text-2xl font-bold">${e.name}</h3>
+                  <div class="flex">
+                    <button id="edit_btn_${e.id}" type="button" onclick="clickCreateBtn(this)" 
+                    class="text-lg bg-white text-blue-500 mr-2 pt-0">
+                      수정하기
+                    </button>
+                    <button id="delete_btn_${e.id}" type="button" onclick="clickDeleteBtn(this)" 
+                    class="text-lg bg-white text-red-500 pt-0">
+                      삭제하기
+                    </button>
+                  </div>
+                </div>
+                <p id="description_${e.id}" class="text-gray-600 text-lg">${e.description}(설명 기능 추가 필요)</p>
+                <p id="price_${e.id}" class="text-gray-600 text-lg">${e.price.toLocaleString('ko-KR')}원</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      
         `;
-        $menu_detail.insertAdjacentHTML('beforeend', temp_html);
+        $menu_list.insertAdjacentHTML('beforeend', temp_html);
       });
     })
     .catch((error) => {
