@@ -8,19 +8,11 @@ POST {{domain}}/signup
 Content-Type: application/JSON
 
 {
-<<<<<<< HEAD
   "email": "skrwlqhrdma0@naver.com",
   "password": "Qkrtlsdnr12!",
   "confirmPassword": "Qkrtlsdnr12!",
   "name": "박신욱",
   "role": "고객"
-=======
-  "email": "1q2w3e@gamil.com",
-  "password": "!1Q2w3e4r",
-  "confirmPassword": "!1Q2w3e4r",
-  "name": "이상권",
-  "role": "사장"
->>>>>>> aa6f4aee1ed49c370652f41d056b49dec4e11499
 }
 
 ###
