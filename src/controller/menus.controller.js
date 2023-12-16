@@ -7,7 +7,7 @@ class MenusController {
   createMenu = async (req, res, next) => {
     try {
       const { name, price } = req.body; // body 값 조회
-      const imageUrl = req.file.path;
+      // const imageUrl = req.file.path;
       const ownerId = res.locals.user.id;
 
       // 조회 : 메뉴 정보
@@ -15,7 +15,7 @@ class MenusController {
         ownerId,
         name,
         price,
-        imageUrl,
+        // imageUrl,
       );
 
       // response 반환
@@ -67,7 +67,9 @@ class MenusController {
   updateMenu = async (req, res, next) => {
     try {
       const { id } = req.params; // params 값 조회
-      const { name, price, imageUrl } = req.body; // body 값 조회
+      const { name, price,
+        // imageUrl
+      } = req.body; // body 값 조회
       const ownerId = res.locals.user.id;
 
       // 조회 : 메뉴 정보
@@ -76,7 +78,7 @@ class MenusController {
         id,
         name,
         price,
-        imageUrl,
+        // imageUrl,
       );
 
       // response 반환

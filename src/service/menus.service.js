@@ -5,12 +5,16 @@ class MenusService {
   menusRepository = new MenusRepository();
 
   // 메뉴 저장
-  createMenu = async (ownerId, name, price, imageUrl) => {
+  createMenu = async (ownerId, name, price,
+    // imageUrl
+  ) => {
     // 조회 : 매장 번호  
     const storeId = await this.menusRepository.getStoreId(ownerId);
 
     // 저장 : 메뉴 정보
-    const menu = await this.menusRepository.createMenu(storeId, name, price, imageUrl);
+    const menu = await this.menusRepository.createMenu(storeId, name, price,
+      // imageUrl
+    );
     return menu;
   };
 
@@ -35,7 +39,9 @@ class MenusService {
   };
 
   // 메뉴 수정
-  updateMenu = async (ownerId, id, name, price, imageUrl) => {
+  updateMenu = async (ownerId, id, name, price,
+    // imageUrl
+  ) => {
     // 조회 : 회원 번호 
     const storeId = await this.menusRepository.getStoreId(ownerId);
     // 조회 : 메뉴 정보
@@ -52,7 +58,9 @@ class MenusService {
     }
 
     // 수정 : 메뉴 정보
-    const menu = await this.menusRepository.updateMenu(id, name, price, imageUrl);
+    const menu = await this.menusRepository.updateMenu(id, name, price,
+      // imageUrl
+    );
     return menu;
   };
 

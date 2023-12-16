@@ -11,13 +11,16 @@ class MenusRepository {
   };
 
   // 상품 저장
-  createMenu = async (storeId, name, price, imageUrl) => {
+  createMenu = async (storeId, name, price,
+    // imageUrl
+  ) => {
+
     const createdMenu = await prisma.Menu.create({
       data: {
         name,
         storeId,
         price: +price,
-        imageUrl,
+        // imageUrl,
       },
     });
     return createdMenu;
@@ -72,12 +75,14 @@ class MenusRepository {
   };
 
   // 상품 수정
-  updateMenu = async (id, name, price, imageUrl) => {
+  updateMenu = async (id, name, price,
+    // imageUrl
+  ) => {
     const menu = await prisma.Menu.update({
       data: {
         name,
         price: +price,
-        imageUrl,
+        // imageUrl,
         updatedAt: new Date(),
       },
       where: {
