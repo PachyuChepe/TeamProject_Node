@@ -6,7 +6,8 @@ class MenusController {
   // // 메뉴 정보 저장
   createMenu = async (req, res, next) => {
     try {
-      const { name, price, imageUrl } = req.body; // body 값 조회
+      const { name, price } = req.body; // body 값 조회
+      const imageUrl = req.file.path;
       const ownerId = res.locals.user.id;
 
       // 조회 : 메뉴 정보
@@ -106,7 +107,6 @@ class MenusController {
   // //  업종 전체 조회
   getFoodCategory = async (req, res, next) => {
     try {
-      // console.log("컨트롤러 통과");
       // 조회 : 모든 메뉴 정보
       const foodCategory = await this.menusService.getFoodCategory();
 
