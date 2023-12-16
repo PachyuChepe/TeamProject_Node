@@ -6,21 +6,24 @@ import {
   validateUpdatestore,
 } from '../middleware/storeValidation.middleware.js';
 import StoreController from '../controller/store.controller.js';
+import uploadImage from '../middleware/multer.middleware.js';
 
 const storeController = new StoreController();
 
 // 업장 등록
 router.post(
   '/createstore',
-  validatecreatestore,
   isLoggedIn,
+  uploadImage.single('imageUrl'),
+  validatecreatestore,
   storeController.createStore,
 );
 // 업장 정보 수정
 router.put(
   '/updatestore/:id',
-  validateUpdatestore,
   isLoggedIn,
+  uploadImage.single('imageUrl'),
+  validateUpdatestore,
   storeController.updateStore,
 );
 // 업장 삭제

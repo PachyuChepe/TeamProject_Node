@@ -6,7 +6,7 @@ class StoreController {
     this.storeService = new StoreService();
   }
 
-  // 업장 등록 
+  // 업장 등록
   createStore = async (req, res, next) => {
     try {
       const {
@@ -19,6 +19,9 @@ class StoreController {
       } = req.body;
       const ownerId = res.locals.user.id;
 
+      // 업로드된 이미지 URL 추출
+      const imageUrl = req.file ? req.file.location : null;
+
       const store = await this.storeService.createStore(
         categoryId,
         ownerId,
@@ -27,6 +30,7 @@ class StoreController {
         foodtype,
         storeaddresses,
         businesslicense,
+        imageUrl,
       );
       res
         .status(201)
@@ -40,7 +44,12 @@ class StoreController {
   updateStore = async (req, res, next) => {
     try {
       const { id } = req.params; // params 값 조회
-      const { categoryId, name, storedescription, foodtype, storeaddresses } = req.body; // body 값 조회
+      const { categoryId, name, storedescription, foodtype, storeaddresses } =
+        req.body; // body 값 조회
+
+      // 업로드된 이미지 URL 추출
+      const imageUrl = req.file ? req.file.location : null;
+
       const store = await this.storeService.updateStore(
         id,
         categoryId,
@@ -48,14 +57,13 @@ class StoreController {
         storedescription,
         foodtype,
         storeaddresses,
+        imageUrl,
       );
-      res
-        .status(200)
-        .json({
-          success: true,
-          message: '업장 정보 업데이트 완료',
-          data: store,
-        });
+      res.status(200).json({
+        success: true,
+        message: '업장 정보 업데이트 완료',
+        data: store,
+      });
     } catch (error) {
       next(error);
     }

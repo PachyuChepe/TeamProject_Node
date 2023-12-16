@@ -15,6 +15,7 @@ class StoreService {
     foodtype,
     storeaddresses,
     businesslicense,
+    imageUrl,
   ) => {
     const store = await this.storeRepository.createStore(
       ownerId,
@@ -24,6 +25,7 @@ class StoreService {
       foodtype,
       storeaddresses,
       businesslicense,
+      imageUrl,
     );
 
     return store;
@@ -36,6 +38,7 @@ class StoreService {
     storedescription,
     foodtype,
     storeaddresses,
+    imageUrl,
   ) => {
     const store = await this.storeRepository.updateStore(
       id,
@@ -44,6 +47,7 @@ class StoreService {
       storedescription,
       foodtype,
       storeaddresses,
+      imageUrl,
     );
     return store;
   };

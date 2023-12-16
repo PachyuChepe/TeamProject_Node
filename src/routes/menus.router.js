@@ -5,14 +5,14 @@ const menusRouter = Router();
 import { isLoggedIn } from '../middleware/verifyToken.middleware.js';
 import { validateEditMenu } from '../middleware/menuValidation.middleware.js';
 import MenusController from '../controller/menus.controller.js';
-import upload from '../config/multerConfig.js';
+// import upload from '../config/multerConfig.js';
 
 const menusController = new MenusController();
 
 // 메뉴 저장
 menusRouter.post(
   '/menu',
-  upload.single('image'),
+  // upload.single('image'),
   validateEditMenu,
   isLoggedIn,
   menusController.createMenu,
