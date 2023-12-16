@@ -6,11 +6,10 @@ class MenusController {
   // // 메뉴 정보 저장
   createMenu = async (req, res, next) => {
     try {
-      const { name, price } = req.body; // body 값 조회
-      const imageUrl = req.file.path;
+      const { name, price } = req.body;
+      const imageUrl = req.file ? req.file.location : null; // 이미지 URL 추출
       const ownerId = res.locals.user.id;
 
-      // 조회 : 메뉴 정보
       const menu = await this.menusService.createMenu(
         ownerId,
         name,
@@ -18,7 +17,6 @@ class MenusController {
         imageUrl,
       );
 
-      // response 반환
       res
         .status(201)
         .json({ message: '메뉴 등록이 완료되었습니다.', data: menu });
@@ -26,7 +24,6 @@ class MenusController {
       next(error);
     }
   };
-
   // //  메뉴 정보 전체 조회
   getMenus = async (req, res, next) => {
     try {
@@ -66,11 +63,11 @@ class MenusController {
   // //  메뉴 정보 수정
   updateMenu = async (req, res, next) => {
     try {
-      const { id } = req.params; // params 값 조회
-      const { name, price, imageUrl } = req.body; // body 값 조회
+      const { id } = req.params;
+      const { name, price } = req.body;
+      const imageUrl = req.file ? req.file.location : req.body.imageUrl; // 이미지 URL 추출 및 기존 imageUrl 대체
       const ownerId = res.locals.user.id;
 
-      // 조회 : 메뉴 정보
       const menu = await this.menusService.updateMenu(
         ownerId,
         id,
@@ -79,7 +76,6 @@ class MenusController {
         imageUrl,
       );
 
-      // response 반환
       res
         .status(200)
         .json({ message: '메뉴 수정이 완료되었습니다.', data: menu });
