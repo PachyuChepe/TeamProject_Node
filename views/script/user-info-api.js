@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
       withCredentials: true,
     })
     .then((res) => {
-      console.log(res.data.data);
+      // console.log(res.data.data);
       const user = res.data.data;
 
       // 기존 input란에 API 반환값 참조
