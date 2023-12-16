@@ -6,13 +6,14 @@ class MenusController {
   // // 메뉴 정보 저장
   createMenu = async (req, res, next) => {
     try {
-      const { name, price } = req.body;
+      const { name, description, price } = req.body;
       const imageUrl = req.file ? req.file.location : null; // 이미지 URL 추출
       const ownerId = res.locals.user.id;
 
       const menu = await this.menusService.createMenu(
         ownerId,
         name,
+        description,
         price,
         imageUrl,
       );
@@ -64,7 +65,7 @@ class MenusController {
   updateMenu = async (req, res, next) => {
     try {
       const { id } = req.params;
-      const { name, price } = req.body;
+      const { name, description, price } = req.body;
       const imageUrl = req.file ? req.file.location : req.body.imageUrl; // 이미지 URL 추출 및 기존 imageUrl 대체
       const ownerId = res.locals.user.id;
 
@@ -72,6 +73,7 @@ class MenusController {
         ownerId,
         id,
         name,
+        description,
         price,
         imageUrl,
       );
