@@ -42,3 +42,9 @@
   font-size: 20px;
   margin: 0 5px;
 }
+
+.user-review-img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
