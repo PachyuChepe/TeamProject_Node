@@ -21,6 +21,9 @@ function createRestaurantCard(restaurant) {
   const card = document.createElement('div');
   card.className = 'bg-white shadow rounded overflow-hidden';
   card.innerHTML = `
+  <div id="main-card" onclick="location.href='/user-store-detail.html?id=${
+    restaurant.id
+  }'">
   <img src="https://source.unsplash.com/random/400x300?restaurant&sig=${
     restaurant.id
   }" 
@@ -48,6 +51,7 @@ function createRestaurantCard(restaurant) {
         Favorite
       </button>
     </div>
+</div>
 </div>
 `;
   return card;
