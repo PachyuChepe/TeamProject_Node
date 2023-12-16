@@ -47,6 +47,7 @@ model Menu {
   id          Int       @id @default(autoincrement())
   storeId     Int
   name        String
+  description String
   price       Int
   imageUrl    String?   @db.Text
   createdAt   DateTime? @default(now())

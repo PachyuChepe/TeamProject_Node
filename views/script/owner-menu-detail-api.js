@@ -1,102 +1,138 @@
-// 조회 : 메뉴 정보 (메뉴 수정일 경우)
-// 브라우저가 열렸을 때 실행
+// 메뉴 정보 조회 (수정 시)
+let storeId;
 document.addEventListener('DOMContentLoaded', function () {
-  // 쿼리 스트링 id 받아오기
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
 
-  // 조회 : 메뉴 정보 (메뉴 수정일 경우)
   if (id) {
     axios
-      .get(`/api/menu/${id}`, {
-        withCredentials: true,
-      })
+      .get(`/api/menu/${id}`, { withCredentials: true })
       .then((res) => {
-        // 기존 input란에 API 반환값 참조
-        document.getElementById('name').value = res.data.data[0].name;
-        document.getElementById('description').value =
-          res.data.data[0].description;
-        document.getElementById('price').value = res.data.data[0].price;
+        const menu = res.data.data[0];
+        storeId = menu.storeId;
+        document.getElementById('name').value = menu.name;
+        document.getElementById('description').value = menu.description;
+        document.getElementById('price').value = menu.price;
+
+        // 이미지 미리보기
+        if (menu.imageUrl) {
+          const imagePreview = document.getElementById('imagePreview');
+          imagePreview.style.backgroundImage = `url(${menu.imageUrl})`;
+          imagePreview.style.backgroundSize = 'cover';
+          imagePreview.style.backgroundPosition = 'center';
+        }
       })
-      .catch((error) => {
-        console.error('오류 발생:', error);
-      });
+      .catch((error) => console.error('오류 발생:', error));
   }
 });
 
-// 저장 : 메뉴 정보
-function submitCreateForm() {
-  // 쿼리 스트링 post_id 받아오기
+// 메뉴 정보 조회 (수정 시)
+document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
 
-  // API로 전달할 값 JSON으로 설정
-  const data = {
-    name: document.getElementById('name').value,
-    description: document.getElementById('description').value,
-    price: document.getElementById('price').value,
-    ownerId: 3,
+  if (id) {
+    axios
+      .get(`/api/menu/${id}`, { withCredentials: true })
+      .then((res) => {
+        const menu = res.data.data[0];
+        document.getElementById('name').value = menu.name;
+        document.getElementById('description').value = menu.description;
+        document.getElementById('price').value = menu.price;
+        // 이미지 미리보기 (이미지 URL이 제공된 경우)
+        if (menu.imageUrl) {
+          const imagePreview = document.getElementById('imagePreview');
+          imagePreview.style.backgroundImage = `url(${menu.imageUrl})`;
+          imagePreview.style.backgroundSize = 'cover';
+          imagePreview.style.backgroundPosition = 'center';
+        }
+      })
+      .catch((error) => console.error('오류 발생:', error));
+  }
+});
+
+// 이미지 미리보기 함수
+function previewImage(event) {
+  const reader = new FileReader();
+  reader.onload = function () {
+    const output = document.getElementById('imagePreview');
+    output.style.backgroundImage = `url(${reader.result})`;
+    output.style.backgroundSize = 'cover';
+    output.style.backgroundPosition = 'center';
   };
+  reader.readAsDataURL(event.target.files[0]);
+}
+
+// 메뉴 저장 함수
+function submitCreateForm() {
+  const formData = new FormData();
+  const imageFile = document.getElementById('imageUpload').files[0];
+
+  // 이미지 파일 추가
+  if (imageFile) {
+    formData.append('imageUrl', imageFile);
+  }
+
+  // 다른 필드도 formData 객체에 추가
+  formData.append('name', document.getElementById('name').value);
+  formData.append('description', document.getElementById('description').value);
+  formData.append('price', document.getElementById('price').value);
 
   axios
-    .post('/api/menu', data, {
-      headers: { 'Content-Type': 'application/json' },
+    .post('/api/menu', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
       withCredentials: true,
     })
     .then((res) => {
-      // 게시글 조회 화면으로 이동시키기!
       alert('저장이 완료되었습니다.');
       window.location.href = `/owner-menu-detail.html?id=${res.data.data.id}`;
     })
-    .catch((error) => {
-      console.error('오류 발생:', error);
-    });
+    .catch((error) => console.error('오류 발생:', error));
 }
 
-// 수정 : 메뉴 정보
+// 메뉴 수정 함수
 function submitUpdateForm() {
-  // 쿼리 스트링 post_id 받아오기
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
+  const formData = new FormData();
+  const imageFile = document.getElementById('imageUpload').files[0];
 
-  // API로 전달할 값 JSON으로 설정
-  const data = {
-    name: document.getElementById('name').value,
-    description: document.getElementById('description').value,
-    price: document.getElementById('price').value,
-    ownerId: 3,
-  };
+  // 이미지 파일이 있으면 추가
+  if (imageFile) {
+    formData.append('imageUrl', imageFile);
+  }
+
+  // 다른 필드 추가
+  formData.append('name', document.getElementById('name').value);
+  formData.append('description', document.getElementById('description').value);
+  formData.append('price', document.getElementById('price').value);
 
   axios
-    .put(`/api/menu/${id}`, data, {
-      headers: { 'Content-Type': 'application/json' },
+    .put(`/api/menu/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
       withCredentials: true,
     })
     .then((res) => {
       alert('수정이 완료되었습니다.');
       location.reload(); // 페이지 새로고침
     })
-    .catch((error) => {
-      console.error('오류 발생:', error);
-    });
+    .catch((error) => console.error('오류 발생:', error));
 }
 
-// 삭제 : 메뉴 정보
-// 메뉴가 존재할 경우에만 동작하도록 수정 필요
+// 메뉴 삭제
 function submitDeleteForm() {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
 
   axios
-    .delete(`/api/menu/${id}`, {
-      withCredentials: true,
-    })
+    .delete(`/api/menu/${id}`, { withCredentials: true })
     .then((res) => {
-      // 삭제하기 전에 정말 삭제할거에요? 알림창으로 할까.. 너무 번거롭낭
       alert('삭제가 완료되었습니다.');
-      window.location.href = '/owner-menu.html?';
+      window.location.href = `/owner-menu-list.html?id=${storeId}`;
     })
-    .catch((error) => {
-      console.error('오류 발생:', error);
-    });
+    .catch((error) => console.error('오류 발생:', error));
 }
