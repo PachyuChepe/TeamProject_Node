@@ -8,17 +8,32 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then((response) => {
       const reviews = response.data.data;
-      console.log('reviews: ', reviews);
+      // console.log('reviews: ', reviews);
       let count;
       // API 실행결과를 response로 받아와서 html 그려주기
       reviews.forEach((e, idx) => {
         count++;
         let temp_html = `
-        <div id="review_wrapper_${e.id}" class="review-wrapper">
-          <div class="hidden">${e.id}</div>
-          <div id="store_name">매장명</div>
-          <div class="form-control">${e.store.name}</div>
-          <div id="rating">별점</div>
+        <div class="p-4 border-b border-gray-200">
+          <div class="flex justify-between items-center px-2 py-0 sm:px-6"> 
+            <div>
+              <div class="font-semibold" style="font-size: 30px;">${e.store.name}</div>
+              <div class="text-xs text-gray-500">${formatDateString(e.createdAt)}</div>
+            </div>
+            <div class="flex">
+            <button id="review_edit_btn_${e.id}" onclick="location.href='/user-review-edit.html?id=${e.id}'" 
+            class="text-blue-600 hover:text-blue-800 transition-colors duration-150 mr-4">
+              수정하기
+            </button>
+            <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickDeleteBtn(this)"
+            class="text-red-600 hover:text-red-800 transition-colors duration-150">
+              삭제하기
+            </button>
+            </div>
+          </div>
+        </div>
+        <div id="review_wrapper_${e.id}" class="flex items-center px-4">
+          <div id="rating"></div>
           <div class="star_grade">
             <div class="review_comment_star_grade_wrapper${count}">
               <input type="radio" name="review_star_grade${count}" id="star1${count}" class="hidden_radio" value="1" />
@@ -33,13 +48,19 @@ document.addEventListener('DOMContentLoaded', function () {
               <label for="star5" class="custom_star"></label>
             </div>  
           </div>
-          <div id="menu_id">리뷰</div>
-          <div class="form-control">${e.comment}</div>
-          <div id="review_img">이미지</div>
-          <div class="form-control">이미지이이이이이</div>
         </div>
-        <button id="review_edit_btn_${e.id}" onclick="location.href='/user-review-edit.html?id=${e.id}'">수정하기</button>
-        <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickDeleteBtn(this)">삭제하기</button>
+
+        <div class="flex items-center px-4 text-sm mt-2">
+          <p>${e.comment}</p>
+        </div>
+        <div class="mt-2 user-review-img mb-20">
+          <img
+            src="https://source.unsplash.com/featured/?food"
+            alt="Food"
+            class="rounded-lg"
+            style="height: 400px;"
+          />
+        </div>
         `;
         $reviewContainer.insertAdjacentHTML('beforeend', temp_html);
 
@@ -86,4 +107,25 @@ function clickDeleteBtn(clickedButton) {
     .catch((error) => {
       console.error('오류 발생:', error);
     });
+}
+
+// 날짜 변환 함수
+function formatDateString(dateString) {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  let month = date.getMonth() + 1;
+  let day = date.getDate();
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  const ampm = hours >= 12 ? '오후' : '오전';
+
+  hours = hours % 12;
+  hours = hours ? hours : 12; // 0시는 12시로 표시
+
+  // 두 자리 숫자로 맞추기
+  month = month < 10 ? '0' + month : month;
+  day = day < 10 ? '0' + day : day;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+
+  return `${year}년 ${month}월 ${day}일 ${ampm} ${hours}시 ${minutes}분`;
 }

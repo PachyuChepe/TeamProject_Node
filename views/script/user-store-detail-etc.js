@@ -1,10 +1,12 @@
-// 담기 버튼을 눌렀을 때 실행하는 함수
+// 주문하기 버튼을 눌렀을 때 실행하는 함수
 // 저장 : 주문
 function clickCreateBtn(clickedButton) {
+  console.log('실행됨?');
   event.stopPropagation(); // tr에 설정된 onclick 이벤트 실행 중단
   const buttonId = clickedButton.id; // 클릭한 버튼의 ID 가져오기
   const buttonIdArr = buttonId.split('_'); // 버튼 ID 쪼개기
   const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
+
   const $price = document.getElementById(`price_${id}`).textContent;
   const $quantity = document.getElementById(`quantity_input_${id}`).value;
   // API로 전달할 값 JSON으로 설정

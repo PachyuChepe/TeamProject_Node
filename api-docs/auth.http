@@ -27,3 +27,13 @@ Content-Type: application/JSON
   "email": "test2@test.com",
   "password": "1234A!"
 }
+
+### 
+# 로그인-상권
+POST {{domain}}/login
+Content-Type: application/JSON
+
+{
+  "email": "1q2w3e@gamil.com",
+  "password": "!1Q2w3e4r"
+}
