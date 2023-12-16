@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>[사장님] 주문 내역 조회 페이지</title>
+    <link rel="stylesheet" href="./css/layout.css" />
+  </head>
+
+  <body>
+    <!-- 뒤로 가기 버튼 (직전 페이지) -->
+
+    <!-- 주문 상품 정보 -->
+
+    <!-- 1. 주문번호 (공통 : 클릭하면 상세 페이지로 이동) -->
+    <!-- 2. 고객명 (공통 : 클릭하면 상세 페이지로 이동) -->
+    <!-- 3. 메뉴명 (공통 : 클릭하면 상세 페이지로 이동) -->
+    <!-- 4. 총 금액 (공통 : 클릭하면 상세 페이지로 이동) -->
+    <!-- A. 주문 취소 btn 사장님의 일방적 주문 취소 -->
+    <!-- 5. status 변경 (배달중 / 배달완료) -->
+    <!-- 배달중 일때만 빨간색 btn, 완료 시 버튼 제어 불가능하게끔 -->
+    <div id="orderBox">
+      <span id="orderListName">주문 전체 조회</span>
+      <table id="orderInfo">
+        <thead>
+          <tr>
+            <th style="margin: 5px 10px">주문 번호</th>
+            <th style="margin: 5px 10px">고객명</th>
+            <th style="margin: 5px 10px">메뉴명</th>
+            <th style="margin: 5px 10px">총 금액</th>
+            <th style="margin: 5px 210px">주문 취소</th>
+            <th>
+              <button
+                class="btn"
+                style="height: auto"
+                onclick="changeBtnName(this)"
+              >
+                배달중
+              </button>
+            </th>
+          </tr>
+          <tr>
+            <th style="margin: 5px 10px">주문 번호</th>
+            <th style="margin: 5px 10px">고객명</th>
+            <th style="margin: 5px 10px">메뉴명</th>
+            <th style="margin: 5px 10px">총 금액</th>
+            <th style="margin: 5px 210px">주문 취소</th>
+            <th>
+              <button
+                class="btn"
+                style="height: auto"
+                onclick="changeBtnName(this)"
+              >
+                배달중
+              </button>
+            </th>
+          </tr>
+          <tr>
+            <th style="margin: 5px 10px">주문 번호</th>
+            <th style="margin: 5px 10px">고객명</th>
+            <th style="margin: 5px 10px">메뉴명</th>
+            <th style="margin: 5px 10px">총 금액</th>
+            <th style="margin: 5px 210px">주문 취소</th>
+            <th>
+              <button
+                class="btn"
+                style="height: auto"
+                onclick="changeBtnName(this)"
+              >
+                배달중
+              </button>
+            </th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+  </body>
+  <script defer src="./ownerOrder.js"></script>
+</html>
