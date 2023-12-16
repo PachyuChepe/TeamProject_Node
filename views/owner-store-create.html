@@ -47,12 +47,23 @@
         <div class="flex flex-col md:flex-row items-center justify-center">
           <!-- Profile Image Section -->
           <div class="flex flex-col items-center justify-center md:w-1/3">
-            <div class="w-48 h-48 bg-gray-300 rounded-full mb-4"></div>
-            <button
-              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+            <!-- 이미지 미리보기 -->
+            <div
+              id="imagePreview"
+              class="w-48 h-48 bg-gray-300 rounded-full mb-4 overflow-hidden"
+            ></div>
+            <input
+              type="file"
+              id="imageUpload"
+              class="hidden"
+              onchange="previewImage(event)"
+            />
+            <label
+              for="imageUpload"
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
             >
               Upload New Picture
-            </button>
+            </label>
           </div>
 
           <!-- Form Section -->

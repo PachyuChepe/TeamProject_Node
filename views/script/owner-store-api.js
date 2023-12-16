@@ -21,9 +21,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 조회 : 매장 정보 (매장 수정일 경우)
   if (id) {
     axios
-      .get(`/api/store/${id}`, {
-        withCredentials: true,
-      })
+      .get(`/api/store/${id}`, { withCredentials: true })
       .then((res) => {
         const store = res.data.data;
         // 기존 input란에 API 반환값 참조
@@ -33,6 +31,14 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('storeaddresses').value = store.storeaddresses;
         document.getElementById('businesslicense').value =
           store.businesslicense;
+
+        // 이미지 미리보기 설정
+        if (store.imageUrl) {
+          const imagePreview = document.getElementById('imagePreview');
+          imagePreview.style.backgroundImage = `url(${store.imageUrl})`;
+          imagePreview.style.backgroundSize = 'cover';
+          imagePreview.style.backgroundPosition = 'center';
+        }
       })
       .catch((error) => {
         console.error('오류 발생:', error);
@@ -57,52 +63,93 @@ function updateComboBox(foodCategory) {
 
 // 저장 : 매장 정보
 function submitCreateForm() {
-  // API로 전달할 값 JSON으로 설정
-  const data = {
-    name: document.getElementById('name').value,
-    storedescription: document.getElementById('description').value,
-    categoryId: document.getElementById('food_category').value,
-    foodtype: document.getElementById('food_category').value, // 추후 삭제 예정
-    storeaddresses: document.getElementById('storeaddresses').value, // 추후 삭제 예정
-    businesslicense: document.getElementById('businesslicense').value,
-  };
+  const formData = new FormData();
+  const imageFile = document.getElementById('imageUpload').files[0];
+
+  // 이미지 파일 추가
+  formData.append('imageUrl', imageFile);
+
+  // 다른 필드도 formData 객체에 추가
+  formData.append('name', document.getElementById('name').value);
+  formData.append(
+    'storedescription',
+    document.getElementById('description').value,
+  );
+  formData.append('categoryId', document.getElementById('food_category').value);
+  formData.append('foodtype', document.getElementById('food_category').value);
+  formData.append(
+    'storeaddresses',
+    document.getElementById('storeaddresses').value,
+  );
+  formData.append(
+    'businesslicense',
+    document.getElementById('businesslicense').value,
+  );
 
   axios
-    .post('/api/createstore', data, {
-      headers: { 'Content-Type': 'application/json' },
+    .post('/api/createstore', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
       withCredentials: true,
     })
-    .then((res) => {
+    .then((response) => {
       alert('저장이 완료되었습니다.');
-      window.parent.location.href = `/owner-store-edit.html?id=${res.data.data.id}`;
+      window.parent.location.href = `/owner-store-edit.html?id=${response.data.data.id}`;
     })
     .catch((error) => {
       console.error('오류 발생:', error);
     });
 }
 
+// 이미지 미리보기 함수
+function previewImage(event) {
+  const reader = new FileReader();
+  reader.onload = function () {
+    const output = document.getElementById('imagePreview');
+    output.style.backgroundImage = `url(${reader.result})`;
+    output.style.backgroundSize = 'cover';
+    output.style.backgroundPosition = 'center';
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}
+
 // 수정 : 매장 정보
 function submitUpdateForm() {
-  // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
+  const imageFile = document.getElementById('imageUpload').files[0];
 
-  // API로 전달할 값 JSON으로 설정
-  const data = {
-    name: document.getElementById('name').value,
-    storedescription: document.getElementById('description').value,
-    categoryId: document.getElementById('food_category').value,
-    foodtype: document.getElementById('food_category').value, // 추후 삭제 예정
-    storeaddresses: document.getElementById('storeaddresses').value, // 추후 삭제 예정
-    businesslicense: document.getElementById('businesslicense').value,
-  };
+  const formData = new FormData();
+  if (imageFile) {
+    formData.append('imageUrl', imageFile); // 이미지 파일 추가
+  }
+
+  // 다른 필드 추가
+  formData.append('name', document.getElementById('name').value);
+  formData.append(
+    'storedescription',
+    document.getElementById('description').value,
+  );
+  formData.append('categoryId', document.getElementById('food_category').value);
+  formData.append('foodtype', document.getElementById('food_category').value); // 추후 삭제 예정
+  formData.append(
+    'storeaddresses',
+    document.getElementById('storeaddresses').value,
+  ); // 추후 삭제 예정
+  formData.append(
+    'businesslicense',
+    document.getElementById('businesslicense').value,
+  );
 
   axios
-    .put(`/api/updatestore/${id}`, data, {
-      headers: { 'Content-Type': 'application/json' },
+    .put(`/api/updatestore/${id}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
       withCredentials: true,
     })
-    .then((res) => {
+    .then((response) => {
       alert('수정이 완료되었습니다.');
       location.reload(); // 페이지 새로고침
     })

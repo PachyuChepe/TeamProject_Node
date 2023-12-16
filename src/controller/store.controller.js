@@ -47,8 +47,15 @@ class StoreController {
       const { categoryId, name, storedescription, foodtype, storeaddresses } =
         req.body; // body 값 조회
 
+      const existingStore = await this.storeService.getStore(id);
+      if (!existingStore) {
+        return res
+          .status(404)
+          .json({ success: false, message: '매장을 찾을 수 없습니다.' });
+      }
+
       // 업로드된 이미지 URL 추출
-      const imageUrl = req.file ? req.file.location : null;
+      const imageUrl = req.file ? req.file.location : existingStore.imageUrl;
 
       const store = await this.storeService.updateStore(
         id,
