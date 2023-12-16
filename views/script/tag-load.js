@@ -81,9 +81,9 @@ function toggleMenu() {
 
 function showCustomerMenu() {
   profileMenu.innerHTML = `
-    <button onclick="location.href='profile-edit.html'">회원 정보 수정</button>
+    <button onclick="location.href='user-info-edit.html'">회원 정보 수정</button>
     <button onclick="location.href='my-page.html'">주문 목록 조회</button>
-    <button onclick="location.href='my-page.html'">리뷰 조회</button>
+    <button onclick="location.href='user-review-list.html'">리뷰 조회</button>
     <button class="logout-button">로그아웃</button>
   `;
   profileMenu.classList.toggle('hidden');
@@ -92,10 +92,10 @@ function showCustomerMenu() {
 
 function showOwnerMenu() {
   profileMenu.innerHTML = `
-    <button onclick="location.href='store-edit.html'">가게 정보 수정</button>
-    <button onclick="location.href='menu-management.html'">메뉴 관리</button>
-    <button onclick="location.href='order-management.html'">주문 관리</button>
-    <button onclick="location.href='review-management.html'">리뷰 관리</button>
+    <button onclick="location.href='owner-store-edit.html'">가게 정보 수정</button>
+    <button onclick="location.href='owner-menu-list.html'">메뉴 관리</button>
+    <button onclick="location.href='owner-order.html'">주문 관리</button>
+    <button onclick="location.href='owner-review-list.html'">리뷰 관리</button>
     <button class="logout-button">로그아웃</button>
   `;
   profileMenu.classList.toggle('hidden');
