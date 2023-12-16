@@ -1,34 +1,29 @@
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
+  // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
+
   const $reviewContainer = document.getElementById('review_container');
 
   axios
-    .get(`/api/reviews/client`, {
+    .get(`/api/reviews/store/${id}`, {
       withCredentials: true,
     })
     .then((response) => {
       const reviews = response.data.data;
-      // console.log('reviews: ', reviews);
+      console.log('reviews: ', reviews);
       let count;
       // API 실행결과를 response로 받아와서 html 그려주기
       reviews.forEach((e, idx) => {
         count++;
         let temp_html = `
+
         <div class="p-4 border-b border-gray-200">
           <div class="flex justify-between items-center px-2 py-0 sm:px-6"> 
             <div>
-              <div class="font-semibold" style="font-size: 30px;">${e.store.name}</div>
+              <div class="font-semibold" style="font-size: 30px;">${e.customer.name}님</div>
               <div class="text-xs text-gray-500">4시간 전(기능 추가 필요)</div>
-            </div>
-            <div class="flex">
-            <button id="review_edit_btn_${e.id}" onclick="location.href='/user-review-edit.html?id=${e.id}'" 
-            class="text-blue-600 hover:text-blue-800 transition-colors duration-150 mr-4">
-              수정하기
-            </button>
-            <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickDeleteBtn(this)"
-            class="text-red-600 hover:text-red-800 transition-colors duration-150">
-              삭제하기
-            </button>
             </div>
           </div>
         </div>
@@ -87,24 +82,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// 삭제 버튼을 눌렀을 때 실행하는 함수
-// 삭제 : 메뉴
-function clickDeleteBtn(clickedButton) {
-  event.stopPropagation(); // tr에 설정된 onclick 이벤트 실행 중단
-  const buttonId = clickedButton.id; // 클릭한 버튼의 ID 가져오기
-  const buttonIdArr = buttonId.split('_'); // 버튼 ID 쪼개기
-  const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
-
-  axios
-    .delete(`/api/reviews/${id}`, {
-      withCredentials: true,
-    })
-    .then((res) => {
-      // 삭제하기 전에 정말 삭제할거에요? 알림창으로 할까.. 근데 번거로운거같으니까 일단 클릭 시 바로 삭제되게 고!!!!
-      alert('삭제가 완료되었습니다.');
-      location.reload(); // 페이지 새로고침
-    })
-    .catch((error) => {
-      console.error('오류 발생:', error);
-    });
-}
