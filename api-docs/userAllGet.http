@@ -1,0 +1,19 @@
+@domain = http://localhost:4000/api
+#http://localhost:5608
+#http://3.36.72.57:5608
+
+###
+# [사장] 조회
+GET {{domain}}/user-info
+Content-Type: application/JSON
+
+
+###
+# [고객] 조회
+GET {{domain}}//customer-details
+Content-Type: application/JSON
+
+
+###
+# [고객] 조회
+GET {{domain}}//customer-details
