@@ -10,10 +10,10 @@ Content-Type: application/JSON
 
 ###
 # [고객] 조회
-GET {{domain}}//customer-details
+GET {{domain}}/customer-details
 Content-Type: application/JSON
 
 
 ###
 # [고객] 조회
-GET {{domain}}//customer-details
+GET {{domain}}/customer-details

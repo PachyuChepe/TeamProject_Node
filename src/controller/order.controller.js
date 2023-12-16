@@ -20,6 +20,7 @@ class OrderController {
         totalPrice,
         status,
       );
+      console.log(newOrder, 'co');
 
       res.status(201).json({
         success: true,

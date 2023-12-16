@@ -3,79 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<<<<<<< HEAD
     <title>Document</title>
   </head>
   <body></body>
-=======
-    <title>[사장님] 주문 내역 조회 페이지</title>
-    <link rel="stylesheet" href="./css/tag-load-page.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="./script/tag-load.js"></script>
-    <style>
-      table#orderInfo th,
-      td {
-        border: solid 1px #e0e0be;
-        text-align: center;
-        padding: 20px 0;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div id="header"></div>
-    <!-- 뒤로 가기 버튼 (직전 페이지) -->
-
-    <!-- 주문 상품 정보 -->
-
-    <!-- 1. 주문번호 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- 2. 고객명 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- 3. 메뉴명 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- 4. 총 금액 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- A. 주문 취소 btn 사장님의 일방적 주문 취소 -->
-    <!-- 5. status 변경 (배달중 / 배달완료) -->
-    <!-- 배달중 일때만 빨간색 btn, 완료 시 버튼 제어 불가능하게끔 -->
-
-    <span
-      style="
-        font-size: 10pt;
-        font-weight: bold;
-        display: inline-block;
-        padding: 10px 10px;
-      "
-      >주문 전체 조회</span
-    >
-    <table id="orderInfo">
-      <thead>
-        <tr>
-          <th>주문 번호</th>
-          <th>고객명</th>
-          <th>메뉴명</th>
-          <th>총 금액</th>
-          <th>주문 취소</th>
-          <th><button id="btn" onclick="changeBtnName()">배달중</button></th>
-        </tr>
-        <tr>
-          <th>주문 번호</th>
-          <th>고객명</th>
-          <th>메뉴명</th>
-          <th>총 금액</th>
-          <th>주문 취소</th>
-          <th><button id="btn" onclick="changeBtnName()">배달중</button></th>
-        </tr>
-      </thead>
-    </table>
-
-    <script>
-      function changeBtnName() {
-        const btnElement = document.getElementById('btn');
-
-        const html = '<div style="color:red"> 배달완료 </div>';
-
-        btnElement.innerHTML = html;
-      }
-    </script>
-    <div id="footer"></div>
-  </body>
->>>>>>> d11b37cd133133effb5dcb2bdd76d5fe7f5dc931
 </html>

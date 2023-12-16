@@ -19,12 +19,11 @@ Content-Type: application/JSON
 ###
 # 업장 정보 수정
 # 업장 번호가 없을 경우 500 에러 발생
-PUT {{domain}}/updatestore/17
+PUT {{domain}}/updatestore/3
 Content-Type: application/JSON
 
 {
   "categoryId": 1,
-  "id": "1",
   "name": "파스타집",
   "storedescription": "봉골레",
   "foodtype": "양식",
@@ -34,7 +33,7 @@ Content-Type: application/JSON
 ###
 # 업장 삭제 
 # 업장에 메뉴, 리뷰가 작성되어 있을 경우 "Foreign key constraint failed on the field: `storeId`" 에러 발생 -> 보강 예정
-DELETE {{domain}}/deletestore/16
+DELETE {{domain}}/deletestore/3
 
 ### 
 # 업장 전체조회
@@ -43,4 +42,4 @@ GET {{domain}}/store?category=name&order=desc
 ###
 # 업장 상세 조회
 # 업장 번호가 없을 경우 500 에러 발생
-GET {{domain}}/store/16
+GET {{domain}}/store/3

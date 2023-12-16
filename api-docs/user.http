@@ -8,7 +8,7 @@ POST {{domain}}/signup
 Content-Type: application/JSON
 
 {
-  "email": "skrwlqhrdma1@naver.com",
+  "email": "skrwlqhrdma0@naver.com",
   "password": "Qkrtlsdnr12!",
   "confirmPassword": "Qkrtlsdnr12!",
   "name": "박신욱",

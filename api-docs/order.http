@@ -17,7 +17,7 @@ Content-Type: application/JSON
 
 ###
 # 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-PATCH  {{domain}}/orders/13
+PATCH  {{domain}}/orders/2
 Content-Type: application/JSON
 
 {
