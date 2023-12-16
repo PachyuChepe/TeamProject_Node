@@ -18,7 +18,15 @@ class UserService {
    * @param {object} signUpData - 등록할 사용자 데이터
    * @returns {Promise<object>} 생성된 사용자 정보
    */
-  signUp = async ({ email, password, confirmPassword, name, role, points }) => {
+  signUp = async ({
+    email,
+    password,
+    confirmPassword,
+    name,
+    role,
+    points,
+    address,
+  }) => {
     const existingUser = await this.userRepository.findUserByEmail(email);
     if (existingUser) {
       throw ApiError.Conflict('이미 사용 중인 이메일입니다.');
@@ -32,6 +40,7 @@ class UserService {
       name,
       role,
       points: newPoint,
+      address,
     });
   };
 
@@ -87,16 +96,15 @@ class UserService {
    * @param {object} updateData - 업데이트할 사용자 데이터
    * @returns {Promise<object>} 업데이트된 사용자 정보
    */
-  updateUser = async (id, { currentPassword, newPassword, name }) => {
+  updateUser = async (id, { currentPassword, newPassword, name, address }) => {
     const user = await this.userRepository.findUserById(id);
     if (!user) {
       throw ApiError.NotFound('사용자 정보를 찾을 수 없습니다.');
     }
 
-    const isPasswordValid = await bcrypt.compare(
-      currentPassword,
-      user.password,
-    );
+    const isPasswordValid = currentPassword
+      ? await bcrypt.compare(currentPassword, user.password)
+      : true;
     if (!isPasswordValid) {
       throw ApiError.Unauthorized('현재 비밀번호가 일치하지 않습니다.');
     }
@@ -107,6 +115,10 @@ class UserService {
     }
     if (name) {
       updateData.name = name;
+    }
+    if (address !== undefined) {
+      // 주소 값이 제공된 경우에만 업데이트
+      updateData.address = address;
     }
 
     return await this.userRepository.updateUser(id, updateData);
