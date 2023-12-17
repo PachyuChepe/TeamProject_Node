@@ -5,20 +5,18 @@ class MenusRepository {
   getStoreId = async (ownerId) => {
     const storeId = await prisma.Store.findMany({
       select: { id: true },
-      where: { ownerId: +ownerId }
+      where: { ownerId: +ownerId },
     });
     return storeId[0].id;
   };
 
   // 상품 저장
-  createMenu = async (storeId, name, price,
-    // imageUrl
-  ) => {
-
+  createMenu = async (storeId, name, description, price, imageUrl) => {
     const createdMenu = await prisma.Menu.create({
       data: {
         name,
         storeId,
+        description,
         price: +price,
         // imageUrl,
       },
@@ -32,7 +30,9 @@ class MenusRepository {
       select: {
         id: true,
         name: true,
+        description: true,
         price: true,
+        imageUrl: true,
         store: {
           select: {
             owner: {
@@ -44,7 +44,7 @@ class MenusRepository {
         },
       },
       where: {
-        storeId: +storeId
+        storeId: +storeId,
       },
       orderBy,
     });
@@ -58,7 +58,9 @@ class MenusRepository {
         id: true,
         storeId: true,
         name: true,
+        description: true,
         price: true,
+        imageUrl: true,
         store: {
           select: {
             owner: {
@@ -75,14 +77,13 @@ class MenusRepository {
   };
 
   // 상품 수정
-  updateMenu = async (id, name, price,
-    // imageUrl
-  ) => {
+  updateMenu = async (id, name, description, price, imageUrl) => {
     const menu = await prisma.Menu.update({
       data: {
         name,
         price: +price,
-        // imageUrl,
+        description,
+        imageUrl,
         updatedAt: new Date(),
       },
       where: {

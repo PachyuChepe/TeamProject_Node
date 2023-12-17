@@ -47,15 +47,18 @@ class UserController {
     try {
       const user = await this.userService.getUser(res.locals.user.id);
       // const { password, ...data } = user;
-      const userData = {
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        points: user.points,
-        address: user.address,
-      };
+      // const userData = {
+      //   email: user.email,
+      //   name: user.name,
+      //   role: user.role,
+      //   points: user.points,
+      //   address: user.address,
+      //   store: {
+      //     id: user.stores.id,
+      //   },
+      // };
 
-      res.status(200).json({ success: true, data: userData });
+      res.status(200).json({ success: true, data: user });
     } catch (error) {
       next(error);
     }
