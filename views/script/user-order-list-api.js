@@ -16,32 +16,59 @@ document.addEventListener('DOMContentLoaded', function () {
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
         count++;
-        const review = e.review && e.review.length > 0 && e.review[idx] ? e.review[0].id : '';
-        const btnHref = e.review && e.review.length > 0 && e.review[idx] ?
-          `user-review-edit.html?storeId=${e.menu.store.id}&id=${review}` : `user-review-create.html?storeId=${e.menu.store.id}`;
-        const comment = (e.review && e.review.length > 0 && e.review[idx]) ? e.review[idx].comment : "리뷰 작성 전";
-        const editBtnText = comment === '리뷰 작성 전' ? '리뷰 작성하기' : '리뷰 수정하기';
+        const review =
+          e.review && e.review.length > 0 && e.review[idx]
+            ? e.review[0].id
+            : '';
+        const btnHref =
+          e.review && e.review.length > 0 && e.review[idx]
+            ? `user-review-edit.html?storeId=${e.menu.store.id}&id=${review}`
+            : `user-review-create.html?storeId=${e.menu.store.id}`;
+        const comment =
+          e.review && e.review.length > 0 && e.review[idx]
+            ? e.review[idx].comment
+            : '리뷰 작성 전';
+        const editBtnText =
+          comment === '리뷰 작성 전' ? '리뷰 작성하기' : '리뷰 수정하기';
         const editBtnHidden = e.status === '배달완료' ? '' : 'hidden';
         let temp_html = `
         <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 flex">
-          <img src="${e.menu.imageUrl}" alt="Wine" class="w-80 h-48 object-cover" />
+          <img src="${
+            e.menu.imageUrl
+          }" alt="Wine" class="w-80 h-48 object-cover" />
           <div class="flex flex-col justify-between p-4 w-full">
             <div class="flex justify-between">
               <div class="w-full">
                 <div class="flex justify-between">
-                  <h3 class="font-semibold text-gray-700 text-2xl font-bold">${e.menu.store.name}</h3>
+                  <h3 class="font-semibold text-gray-700 text-2xl font-bold">${
+                    e.menu.store.name
+                  }</h3>
                   <div class="flex">
                     <button type="button" class="text-lg bg-white text-blue-500 ${editBtnHidden}" 
                     onclick="location.href='${btnHref}'">
                     ${editBtnText}
                     </button>
-                    <div class="text-lg bg-white text-red-500">${e.status}</div> 
+                    <div class="text-lg bg-white text-red-500">${
+                      e.status
+                    }</div> 
                   </div>
                 </div>
-                <p class="font-semibold text-gray-600 text-lg">메뉴명 : ${e.menu.name}</p>
-                <p id="quantity_${e.id}" class="text-gray-600 text-lg">수량 : ${e.quantity.toLocaleString('ko-KR',)}개</p>
-                <p id="total_price${e.id}" class="text-gray-600 text-lg">총 금액 : ${e.totalPrice.toLocaleString('ko-KR',)}원</p>
-                <p id="total_price${e.id}" class="text-gray-600 text-lg">리뷰</p>
+                <p class="font-semibold text-gray-600 text-lg">메뉴명 : ${
+                  e.menu.name
+                }</p>
+                <p id="quantity_${
+                  e.id
+                }" class="text-gray-600 text-lg">수량 : ${e.quantity.toLocaleString(
+                  'ko-KR',
+                )}개</p>
+                <p id="total_price${
+                  e.id
+                }" class="text-gray-600 text-lg">총 금액 : ${e.totalPrice.toLocaleString(
+                  'ko-KR',
+                )}원</p>
+                <p id="total_price${
+                  e.id
+                }" class="text-gray-600 text-lg">리뷰</p>
                 <div id="review_wrapper_${e.id}" class="flex items-center px-4">
                   <div id="rating"></div>
                   <div class="star_grade">
@@ -59,7 +86,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     </div>  
                   </div>
                 </div>
-                <p id="total_price${e.id}" class="text-gray-600 text-lg">${comment}</p>
+                <p id="total_price${
+                  e.id
+                }" class="text-gray-600 text-lg">${comment}</p>
               </div>
             </div>
           </div>
@@ -68,7 +97,10 @@ document.addEventListener('DOMContentLoaded', function () {
         $menu_list.insertAdjacentHTML('beforeend', temp_html);
 
         // 별점 표시
-        const rating = (e.review && e.review.length > 0 && e.review[idx]) ? e.review[idx].rating : 0;
+        const rating =
+          e.review && e.review.length > 0 && e.review[idx]
+            ? e.review[idx].rating
+            : 0;
         const starScore = rating;
         const reviewId = `review_wrapper_${e.id}`;
         const $starLabels = document.querySelectorAll(
@@ -84,7 +116,6 @@ document.addEventListener('DOMContentLoaded', function () {
           }
           label.style.pointerEvents = 'none';
         });
-
       });
     })
     .catch((error) => {

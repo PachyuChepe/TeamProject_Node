@@ -59,6 +59,7 @@ function displayRestaurants(restaurants) {
 }
 
 function createRestaurantCard(restaurant, commentCount) {
+  console.log(commentCount, 'kkkkkkkkkkkkkkk');
   console.log('뭐뭐들어옴?', restaurant);
   const card = document.createElement('div');
   card.className = 'bg-white shadow rounded overflow-hidden';

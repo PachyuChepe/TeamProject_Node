@@ -94,9 +94,7 @@ class ReviewRepository {
       },
     });
 
-    const commentCount = reviews.length;
-
-    return { reviews, commentCount };
+    return { reviews };
   };
 
   // 고객의 메뉴 ID 조회

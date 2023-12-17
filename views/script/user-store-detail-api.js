@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const storeId = urlParams.get('id');
 
     // user-review-edit.html 페이지로 리디렉션하면서 id 값을 전달
-    window.location.href = `user-review-edit.html?id=${storeId}`;
+    window.location.href = `user-store-review-list.html?storeId=${storeId}`;
   });
 
   // URL에서 매장 ID 추출
