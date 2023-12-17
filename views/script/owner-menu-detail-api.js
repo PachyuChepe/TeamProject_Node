@@ -1,15 +1,23 @@
 // 메뉴 정보 조회 (수정 시)
-let storeId;
 document.addEventListener('DOMContentLoaded', function () {
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
+
+  const createButton = document.getElementById('createButton');
+  const editButton = document.getElementById('editButton');
+  const deleteButton = document.getElementById('deleteButton');
+
+  if (!id) {
+    createButton.style.display = 'inline-block'; // '등록' 버튼 표시
+    editButton.style.display = 'none'; // '수정' 버튼 숨김
+    deleteButton.style.display = 'none'; // '삭제' 버튼 숨김
+  }
 
   if (id) {
     axios
       .get(`/api/menu/${id}`, { withCredentials: true })
       .then((res) => {
         const menu = res.data.data[0];
-        storeId = menu.storeId;
         document.getElementById('name').value = menu.name;
         document.getElementById('description').value = menu.description;
         document.getElementById('price').value = menu.price;
@@ -23,6 +31,11 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       })
       .catch((error) => console.error('오류 발생:', error));
+
+    // 버튼 활성화
+    createButton.style.display = 'none'; // '등록' 버튼 숨김
+    editButton.style.display = 'inline-block'; // '수정' 버튼 표시
+    deleteButton.style.display = 'inline-block'; // '삭제' 버튼 표시
   }
 });
 
