@@ -1,10 +1,11 @@
 // service/user.service.js
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
-import env from "../config/env.config.js";
-import UserRepository from "../repository/user.repository.js";
-import ApiError from "../middleware/apiError.middleware.js";
-import redisClient from "../redis/redisClient.js";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import env from '../config/env.config.js';
+import UserRepository from '../repository/user.repository.js';
+import ApiError from '../middleware/apiError.middleware.js';
+import redisClient from '../config/redisClient.config.js';
+import { sendVerificationEmail } from '../config/nodeMailer.config.js';
 
 // 사용자 관련 비즈니스 로직을 수행하는 서비스 클래스
 class UserService {
@@ -17,17 +18,29 @@ class UserService {
    * @param {object} signUpData - 등록할 사용자 데이터
    * @returns {Promise<object>} 생성된 사용자 정보
    */
-  signUp = async ({ email, password, confirmPassword, name }) => {
+  signUp = async ({
+    email,
+    password,
+    confirmPassword,
+    name,
+    role,
+    points,
+    address,
+  }) => {
     const existingUser = await this.userRepository.findUserByEmail(email);
     if (existingUser) {
-      throw ApiError.Conflict("이미 사용 중인 이메일입니다.");
+      throw ApiError.Conflict('이미 사용 중인 이메일입니다.');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
+    const newPoint = role === '고객' ? 1000000 : 0;
     return await this.userRepository.createUser({
       email,
       password: hashedPassword,
       name,
+      role,
+      points: newPoint,
+      address,
     });
   };
 
@@ -39,18 +52,28 @@ class UserService {
   login = async ({ email, password }) => {
     const user = await this.userRepository.findUserByEmail(email);
     if (!user) {
-      throw ApiError.NotFound("사용자 정보를 찾을 수 없습니다.");
+      throw ApiError.NotFound('사용자 정보를 찾을 수 없습니다.');
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw ApiError.Unauthorized("패스워드가 일치하지 않습니다.");
+      throw ApiError.Unauthorized('패스워드가 일치하지 않습니다.');
     }
 
-    const accessToken = jwt.sign({ userId: user.id }, env.JWT_SECRET, { expiresIn: "15m" });
-    const refreshToken = jwt.sign({ userId: user.id }, env.JWT_REFRESH_SECRET, { expiresIn: "7d" });
-    await redisClient.set(user.id.toString(), refreshToken, "EX", 60 * 60 * 24 * 7);
-
+    const accessToken = jwt.sign({ userId: user.id }, env.JWT_SECRET, {
+      expiresIn: '15m',
+    });
+    const refreshToken = jwt.sign({ userId: user.id }, env.JWT_REFRESH_SECRET, {
+      expiresIn: '7d',
+    });
+    // await redisClient.set(
+    //   user.id.toString(),
+    //   refreshToken,
+    //   'EX',
+    //   60 * 60 * 24 * 7,
+    // );
+    await redisClient.set(user.id.toString(), refreshToken);
+    await redisClient.expire(user.id.toString(), 60 * 60 * 24 * 7);
     return { accessToken, user };
   };
 
@@ -62,7 +85,7 @@ class UserService {
   getUser = async (id) => {
     const user = await this.userRepository.findUserById(id);
     if (!user) {
-      throw ApiError.NotFound("사용자 정보를 찾을 수 없습니다");
+      throw ApiError.NotFound('사용자 정보를 찾을 수 없습니다');
     }
     return user;
   };
@@ -73,19 +96,32 @@ class UserService {
    * @param {object} updateData - 업데이트할 사용자 데이터
    * @returns {Promise<object>} 업데이트된 사용자 정보
    */
-  updateUser = async (id, { currentPassword, newPassword, name }) => {
+  updateUser = async (id, { currentPassword, newPassword, name, address }) => {
     const user = await this.userRepository.findUserById(id);
     if (!user) {
-      throw ApiError.NotFound("사용자 정보를 찾을 수 없습니다.");
+      throw ApiError.NotFound('사용자 정보를 찾을 수 없습니다.');
     }
 
-    const isPasswordValid = await bcrypt.compare(currentPassword, user.password);
+    const isPasswordValid = currentPassword
+      ? await bcrypt.compare(currentPassword, user.password)
+      : true;
     if (!isPasswordValid) {
-      throw ApiError.Unauthorized("현재 비밀번호가 일치하지 않습니다.");
+      throw ApiError.Unauthorized('현재 비밀번호가 일치하지 않습니다.');
     }
 
-    const hashedPassword = await bcrypt.hash(newPassword, 10);
-    return await this.userRepository.updateUser(id, { password: hashedPassword, name });
+    const updateData = {};
+    if (newPassword) {
+      updateData.password = await bcrypt.hash(newPassword, 10);
+    }
+    if (name) {
+      updateData.name = name;
+    }
+    if (address !== undefined) {
+      // 주소 값이 제공된 경우에만 업데이트
+      updateData.address = address;
+    }
+
+    return await this.userRepository.updateUser(id, updateData);
   };
 
   /**
@@ -96,6 +132,53 @@ class UserService {
   deleteUser = async (id) => {
     return await this.userRepository.deleteUser(id);
   };
+
+  updateBusinessLicenseNumber = async (userId, licenseNumber) => {
+    const user = await this.userRepository.findUserById(userId);
+    if (!user) {
+      throw ApiError.NotFound('사용자 정보를 찾을 수 없습니다.');
+    }
+
+    if (user.role !== '사장') {
+      throw ApiError.Unauthorized('사업자 등록은 사장만 가능합니다.');
+    }
+
+    const business = await this.userRepository.findBusinessByOwnerId(userId);
+    if (business && business.businessLicenseNumber) {
+      throw ApiError.Conflict('사업자 등록번호는 이미 등록되어 있습니다.');
+    }
+
+    return await this.userRepository.createOrUpdateBusiness({
+      ownerId: userId,
+      businessLicenseNumber: licenseNumber,
+    });
+  };
+
+  async sendVerificationCode(email) {
+    const verifyCode = Math.floor(Math.random() * (999999 - 100000)) + 100000;
+    await this.userRepository.saveVerificationCode(email, verifyCode);
+    await sendVerificationEmail(email, verifyCode);
+    return verifyCode;
+  }
+
+  async verifyCode(email, code) {
+    const storedCode = await this.userRepository.getVerificationCode(email);
+
+    // Redis에서 인증 코드를 찾을 수 없는 경우
+    if (storedCode === null) {
+      throw ApiError.BadRequest(
+        '인증 번호의 유효 기간이 만료되었습니다. 다시 요청해주세요.',
+      );
+    }
+
+    // 인증 코드가 일치하지 않는 경우
+    if (code !== storedCode) {
+      throw ApiError.BadRequest('인증번호가 일치하지 않습니다.');
+    }
+
+    // return code === storedCode;
+    return true;
+  }
 }
 
 export default UserService;

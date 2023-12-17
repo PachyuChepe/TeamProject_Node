@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./css/tag-load.css" />
+    <script defer src="./script/tag-load.js"></script>
+    <script defer src="./script/user-login.js"></script>
+    <style></style>
+  </head>
+  <body class="bg-gray-50">
+    <div id="header"></div>
+    <div class="min-h-screen flex items-center justify-center">
+      <div
+        class="flex w-2/4 h-96 mx-auto bg-white shadow-lg rounded-lg overflow-hidden"
+      >
+        <div
+          class="w-1/2 bg-cover"
+          style="
+            background-image: url('https://source.unsplash.com/random/800x600?food');
+          "
+        ></div>
+        <div class="w-1/2 p-8 flex flex-col justify-center">
+          <form id="login-form">
+            <div class="mb-14">
+              <label for="email" class="block text-sm font-medium text-gray-700"
+                >이메일</label
+              >
+              <input
+                type="email"
+                id="email"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Enter your email"
+              />
+            </div>
+            <div class="mb-6">
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700"
+                >패스워드</label
+              >
+              <input
+                type="password"
+                id="password"
+                class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                placeholder="Enter your password"
+              />
+            </div>
+            <div class="flex justify-end">
+              <button
+                type="submit"
+                class="px-6 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                login
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="footer"></div>
+  </body>
+</html>

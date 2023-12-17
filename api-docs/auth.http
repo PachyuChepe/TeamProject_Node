@@ -1,0 +1,39 @@
+@domain = http://localhost:4000/api
+#http://localhost:5608
+#http://3.36.72.57:5608
+
+### 
+# 로그인
+POST {{domain}}/login
+Content-Type: application/JSON
+
+{
+  "email": "skrwlqhrdma123@naver.com",
+  "password": "Qkrtlsdnr123!"
+}
+
+###
+# 로그아웃
+POST {{domain}}/logout
+Content-Type: application/JSON
+
+
+### 
+# 로그인-아영
+POST {{domain}}/login
+Content-Type: application/JSON
+
+{
+  "email": "test2@test.com",
+  "password": "1234A!"
+}
+
+### 
+# 로그인-상권
+POST {{domain}}/login
+Content-Type: application/JSON
+
+{
+  "email": "1q2w3e@gamil.com",
+  "password": "!1Q2w3e4r"
+}

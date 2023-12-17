@@ -7,6 +7,11 @@ import fs from 'fs';
 // import swaggerUi from "swagger-ui-express";
 import morganConfig from './config/morgan.config.js';
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 // 환경 설정 및 데이터베이스 설정
 import env from './config/env.config.js';
 import { checkDatabaseConnection } from './config/db.config.js';
@@ -19,22 +24,45 @@ morganConfig(app);
 
 // CORS 설정
 app.use(
+  // 아영님 cors 설정(localhost 원활한 동작을 위함)
+  // cors({
+  //   credentials: true,
+  //   origin: ['http://localhost:5500'],
+  // }),
+  // 윤호님 cors 설정
   cors({
-    origin: [`https://localhost:${env.SERVER_PORT}`, 'https://www.vitahub.xyz'],
+    origin: [
+      `https://localhost:${env.SERVER_PORT}`,
+      `http://localhost:${env.SERVER_PORT}`,
+      'https://www.vitahub.site',
+      'http://www.vitahub.site',
+    ],
     credentials: true,
   }),
 );
 
 // 라우터 설정
 import userRouter from './routes/user.router.js';
+import storeRouter from './routes/store.router.js';
+import menusRouter from './routes/menus.router.js';
+import orderRouter from './routes/order.router.js';
+import reviewRouter from './routes/reviews.router.js';
+import userAllGetRouter from './routes/userAllGet.router.js';
 import errorHandler from './middleware/errorHandler.middleware.js';
-app.use('/api', [userRouter]);
+app.use('/api', [
+  userRouter,
+  storeRouter,
+  orderRouter,
+  reviewRouter,
+  userAllGetRouter,
+]);
+app.use('/api', [menusRouter]);
 app.use(errorHandler);
 
 // 프론트엔드 파일 서빙
 app.use(express.static('views'));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  res.sendFile(path.join(__dirname, 'views', 'user-login.html'));
 });
 
 // 데이터베이스 연결 확인 및 HTTPS/HTTP 서버 시작

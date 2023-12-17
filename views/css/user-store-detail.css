@@ -1,0 +1,9 @@
+.store-info-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.store_menu_wrapper {
+  display: flex;
+  flex-direction: column;
+}

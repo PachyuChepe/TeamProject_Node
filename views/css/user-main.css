@@ -1,0 +1,5 @@
+.slide-show {
+  background-image: url('https://source.unsplash.com/random/1920x1080?food');
+  background-size: cover;
+  background-position: center;
+}
