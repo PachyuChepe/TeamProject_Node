@@ -42,30 +42,14 @@ class OrderService {
   getStoreOrders = async (storeId) => {
     const orders = await this.orderRepository.getStoreOrders(storeId);
     orders.sort((a, b) => b.createdAt - a.createdAt);
-
-    return orders.map((order) => {
-      return {
-        id: order.id,
-        quantity: order.quantity,
-        totalPrice: order.totalPrice,
-        status: order.status,
-      };
-    });
+    return orders;
   };
 
   // 고객 : 주문 전체 조회
   getUserOrders = async (customerId) => {
     const orders = await this.orderRepository.getUserOrders(customerId);
     orders.sort((a, b) => b.createdAt - a.createdAt);
-
-    return orders.map((order) => {
-      return {
-        id: order.id,
-        quantity: order.quantity,
-        totalPrice: order.totalPrice,
-        status: order.status,
-      };
-    });
+    return orders;
   };
 
   // 공통? 사장? : 주문 상세 조회 customerId? --menuId

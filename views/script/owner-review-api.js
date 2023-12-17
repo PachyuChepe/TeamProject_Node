@@ -22,14 +22,14 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="p-4 border-b border-gray-200">
           <div class="flex justify-between items-center px-2 py-0 sm:px-6"> 
             <div>
-              <div class="font-semibold" style="font-size: 30px;">${e.customer.name}님</div>
+              <div class="font-semibold" style="font-size: 30px;">${e.order.customer.name}님</div>
               <div class="text-xs text-gray-500">${formatDateString(e.createdAt)}</div>
             </div>
 
           </div>
         </div>
         <div id="review_wrapper_${e.id}" class="flex items-center px-4">
-          <div id="rating"></div>
+          <div id="rating"></div>  
           <div class="star_grade">
             <div class="review_comment_star_grade_wrapper${count}">
               <input type="radio" name="review_star_grade${count}" id="star1${count}" class="hidden_radio" value="1" />
