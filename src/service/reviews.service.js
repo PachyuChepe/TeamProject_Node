@@ -17,13 +17,16 @@ class ReviewService {
 
   // 특정 가게의 리뷰 조회
   getStoreReviews = async (storeId) => {
-    const reviews = await this.reviewRepository.getStoreReviews(storeId);
+    const menuIds = await this.reviewRepository.getStoreMenuIds(storeId);
+    const orderIds = await this.reviewRepository.getStoreOrderIds(menuIds);
+    const reviews = await this.reviewRepository.getStoreReviews(orderIds);
     return reviews;
   };
 
   // 특정 고객의 리뷰 조회
   getUserReviews = async (customerId) => {
-    const reviews = await this.reviewRepository.getUserReviews(customerId);
+    const orderIds = await this.reviewRepository.getUserOrderIds(customerId);
+    const reviews = await this.reviewRepository.getUserReviews(orderIds);
     return reviews;
   };
 
