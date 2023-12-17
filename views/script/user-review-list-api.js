@@ -17,49 +17,51 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="p-4 border-b border-gray-200">
           <div class="flex justify-between items-center px-2 py-0 sm:px-6"> 
             <div>
-              <div class="font-semibold" style="font-size: 30px;">${e.order.menu.store.name}</div>
+              <div class="font-semibold text-2xl" ">${e.order.menu.store.name}</div>
+              <div class="font-semibold text-lg text-gray-600">${e.order.menu.name}</div>
               <div class="text-xs text-gray-500">${formatDateString(e.createdAt)}</div>
             </div>
             <div class="flex">
-            <button id="review_edit_btn_${e.id}" onclick="location.href='/user-review-edit.html?id=${e.id}'" 
-            class="text-blue-600 hover:text-blue-800 transition-colors duration-150 mr-4 ${editBtnHidden}">
-              수정하기
-            </button>
-            <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickDeleteBtn(this)"
-            class="text-red-600 hover:text-red-800 transition-colors duration-150">
-              삭제하기
-            </button>
+              <button id="review_edit_btn_${e.id}" onclick="location.href='/user-review-edit.html?id=${e.id}'" 
+              class="text-blue-600 hover:text-blue-800 transition-colors duration-150 mr-4 ${editBtnHidden}">
+                수정하기
+              </button>
+              <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickDeleteBtn(this)"
+              class="text-red-600 hover:text-red-800 transition-colors duration-150">
+                삭제하기
+              </button>
             </div>
           </div>
         </div>
-        <div id="review_wrapper_${e.id}" class="flex items-center px-4">
-          <div id="rating"></div>
-          <div class="star_grade">
-            <div class="review_comment_star_grade_wrapper${count}">
-              <input type="radio" name="review_star_grade${count}" id="star1${count}" class="hidden_radio" value="1" />
-              <label for="star1" class="custom_star"></label>
-              <input type="radio" name="review_star_grade${count}" id="star2${count}" class="hidden_radio" value="2" />
-              <label for="star2" class="custom_star"></label>
-              <input type="radio" name="review_star_grade${count}" id="star3${count}" class="hidden_radio" value="3" />
-              <label for="star3" class="custom_star"></label>
-              <input type="radio" name="review_star_grade${count}" id="star4${count}" class="hidden_radio" value="4" />
-              <label for="star4" class="custom_star"></label>
-              <input type="radio" name="review_star_grade${count}" id="star5${count}" class="hidden_radio" value="5" />
-              <label for="star5" class="custom_star"></label>
-            </div>  
+          <div id="review_wrapper_${e.id}" class="flex items-center pl-7">
+            <div id="rating"></div>
+            <div class="star_grade">
+              <div class="review_comment_star_grade_wrapper${count}">
+                <input type="radio" name="review_star_grade${count}" id="star1${count}" class="hidden_radio" value="1" />
+                <label for="star1" class="custom_star"></label>
+                <input type="radio" name="review_star_grade${count}" id="star2${count}" class="hidden_radio" value="2" />
+                <label for="star2" class="custom_star"></label>
+                <input type="radio" name="review_star_grade${count}" id="star3${count}" class="hidden_radio" value="3" />
+                <label for="star3" class="custom_star"></label>
+                <input type="radio" name="review_star_grade${count}" id="star4${count}" class="hidden_radio" value="4" />
+                <label for="star4" class="custom_star"></label>
+                <input type="radio" name="review_star_grade${count}" id="star5${count}" class="hidden_radio" value="5" />
+                <label for="star5" class="custom_star"></label>
+              </div>  
+            </div>
           </div>
-        </div>
 
-        <div class="flex items-center px-4 text-sm mt-2">
-          <p>${e.comment}</p>
-        </div>
-        <div class="mt-2 user-review-img mb-20">
-          <img
-            src="https://source.unsplash.com/featured/?food"
-            alt="Food"
-            class="rounded-lg"
-            style="height: 400px;"
-          />
+          <div class="flex items-center px-9 text-sm mt-2">
+            <p>${e.comment}</p>
+          </div>
+          <div class="mt-2 user-review-img mb-20">
+            <img
+              src="${e.imageUrl}"
+              alt="Food"
+              class="rounded-lg"
+              style="height: 400px;"
+            />
+          </div>
         </div>
         `;
         $reviewContainer.insertAdjacentHTML('beforeend', temp_html);

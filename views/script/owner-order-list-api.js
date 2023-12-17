@@ -20,10 +20,10 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="flex justify-between">
               <div class="w-full">
                 <div class="flex justify-between">
-                  <h3 class="font-semibold text-gray-700 text-2xl font-bold">메뉴명 : ${e.menu.name}</h3>
+                  <h3 class="font-semibold text-gray-700 text-2xl font-bold mr-2">메뉴명 : ${e.menu.name}</h3>
                   <div class="flex">
                     <button id="edit_btn_${e.id}" type="button" onclick="changeBtnName(this)"" 
-                    class="text-lg bg-white text-red-500 pt-0">
+                    class="text-lg bg-white text-red-500">
                       ${e.status}
                     </button>
                   </div>

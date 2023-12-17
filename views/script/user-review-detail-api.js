@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .catch((error) => {
       console.error('오류 발생:', error);
-    });;
+    });
   // 조회 : 리뷰 (리뷰 수정일 경우)
   if (id) {
     axios
