@@ -5,14 +5,21 @@ const prisma = new PrismaClient();
 
 class StoreRepository {
   getStores = async () => {
-    const stores = await prisma.Store.findMany();
+    const stores = await prisma.Store.findMany({
+      include: {
+        category: true, // FoodCategory 정보 포함
+      },
+    });
 
     return stores;
   };
 
   getStore = async (id) => {
-    const store = await prisma.Store.findFirst({
+    const store = await prisma.Store.findUnique({
       where: { id: +id },
+      include: {
+        category: true, // FoodCategory 정보 포함
+      },
     });
     return store;
   };
