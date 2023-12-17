@@ -19,6 +19,11 @@ class StoreRepository {
       where: { id: +id },
       include: {
         category: true, // FoodCategory 정보 포함
+        owner: {
+          select: {
+            points: true
+          }
+        }
       },
     });
     return store;

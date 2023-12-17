@@ -15,8 +15,8 @@ class OrderController {
       const customerId = res.locals.user.id; // 인증된 사용자의 ID
 
       const newOrder = await this.orderService.createOrder(
-        customerId,
         menuId,
+        customerId,
         quantity,
         totalPrice,
         status,
@@ -37,7 +37,6 @@ class OrderController {
     try {
       const { orderId } = req.params;
       const { status } = req.body;
-      // const orderId = res.locals.User.id;
 
       const newOrder = await this.orderService.updateOrder(orderId, status);
 

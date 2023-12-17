@@ -24,14 +24,15 @@ document.addEventListener('DOMContentLoaded', function () {
       .get(`/api/store/${id}`, { withCredentials: true })
       .then((res) => {
         const store = res.data.data;
-        // 기존 input란에 API 반환값 참조
+        // 기존 input란에 API 반환값 참조  
         document.getElementById('name').value = store.name;
         document.getElementById('description').value = store.description;
         document.getElementById('food_category').value = store.categoryId;
         document.getElementById('storeaddresses').value = store.storeaddresses;
         document.getElementById('businesslicense').value =
           store.businesslicense;
-
+        document.getElementById('points').value =
+          Number(store.owner.points).toLocaleString();
         // 이미지 미리보기 설정
         if (store.imageUrl) {
           const imagePreview = document.getElementById('imagePreview');
