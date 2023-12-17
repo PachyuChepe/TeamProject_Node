@@ -13,9 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
     .then((response) => {
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
+        const imgHref = e.imageUrl === null ? '../img/temp-img.png' : e.imageUrl;
         let temp_html = `
         <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 flex">
-          <img src="${e.imageUrl}" alt="Wine" class="w-80 h-48 object-cover" />
+          <img src="${imgHref}" alt="Wine" class="w-80 h-48 object-cover" />
           <div class="flex flex-col justify-between p-4 w-full">
             <div class="flex justify-between">
               <div class="w-full">
