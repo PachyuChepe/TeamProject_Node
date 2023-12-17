@@ -4,24 +4,11 @@ const prisma = new PrismaClient();
 
 class ReviewRepository {
 
-  // 리뷰 생성 시 사용할 주문 ID 조회
-  getOrderId = async (customerId) => {
-    const orderId = await prisma.order.findFirst({
-      where: {
-        customerId: +customerId,
-      },
-      select: {
-        id: true
-      }
-    });
-    return orderId.id;
-  };
-
   // 리뷰 생성
   createReview = async (orderId, rating, comment, imageUrl) => {
     const review = await prisma.review.create({
       data: {
-        orderId,
+        orderId: +orderId,
         rating: +rating,
         comment,
         imageUrl
