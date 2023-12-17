@@ -22,6 +22,20 @@ app.use(express.json());
 app.use(cookieParser());
 morganConfig(app);
 
+// 웹 소켓 서버 설정
+import WebSocket, { WebSocketServer } from 'ws';
+
+const wss = new WebSocketServer({ port: 8080 });
+
+wss.on('connection', ws => {
+  ws.on('message', message => {
+    console.log('received: %s', message);
+  });
+
+  ws.send('message');
+});
+
+
 // CORS 설정
 app.use(
   // 아영님 cors 설정(localhost 원활한 동작을 위함)
