@@ -1,79 +1,194 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>[사장님] 주문 내역 조회 페이지</title>
-    <link rel="stylesheet" href="./css/layout.css" />
+    <title>[사장님] 주문 전체 조회</title>
+    <style>
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 20px auto;
+        overflow-y: auto;
+      }
+      .order-box {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+      }
+      .order-item {
+        flex: 1;
+        text-align: center;
+        margin: 0 5px;
+        padding: 10px;
+        border: 1px solid #848383;
+        box-sizing: border-box;
+      }
+      .spacer {
+        flex-grow: 1;
+      }
+      /* 특정 항목에 대한 스타일을 더욱 세밀하게 조정하고 싶다면, 추가 클래스 또는 ID를 사용할 수 있습니다. */
+      .order-item.orderNumber {
+        flex: 0 0 120px; /* 주문번호 항목의 너비를 고정시킵니다. */
+      }
+
+      .order-item.customerName {
+        flex: 0 0 120px; /* 고객명 항목이 다른 항목들보다 더 넓은 공간을 차지하도록 합니다. */
+      }
+
+      .order-item.menuName {
+        flex: 0 0 120px; /* 메뉴명 항목이 가장 넓은 공간을 차지하도록 합니다. */
+      }
+
+      .order-item.amount {
+        flex: 0 0 120px; /* 금액 항목에 대한 설정을 다시 정의할 수 있습니다. */
+      }
+
+      .order-item.orderStatus {
+        flex: 0 0 100px; /* 주문 상태 항목에 대한 설정을 다시 정의할 수 있습니다. */
+        border: none;
+      }
+      .order-item.orderStatus button {
+        background-color: #007bff; /* 푸른색 배경 */
+        color: white; /* 흰색 텍스트 */
+        border: 2px solid #007bff;
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 4px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        width: 110px;
+      }
+
+      .order-item.orderStatus button.completed {
+        background-color: white; /* 클릭 시 흰색 배경 */
+        color: black; /* 클릭 시 검은색 텍스트 */
+      }
+      .order-item.cancelOrder {
+        flex: 0 0 auto; /* flex-grow, flex-shrink, flex-basis 값을 설정 */
+        width: 150px; /* 원하는 너비로 설정 */
+        margin-left: auto;
+        border: none; /* 테두리 제거 */
+      }
+      .order-item.cancelOrder button {
+        background-color: #ff0000; /* 붉은색 배경 */
+        color: white; /* 흰색 텍스트 */
+        /* border: none; 테두리 제거 */
+        padding: 10px 20px; /* 버튼 내부 여백 */
+        cursor: pointer; /* 마우스 오버 시 커서 변경 */
+        border-radius: 4px; /* 버튼 모서리 둥글게 */
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+      }
+
+      .scrollable {
+        max-height: 500px;
+        overflow-y: auto;
+      }
+    </style>
   </head>
-
   <body>
-    <!-- 뒤로 가기 버튼 (직전 페이지) -->
-
-    <!-- 주문 상품 정보 -->
-
-    <!-- 1. 주문번호 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- 2. 고객명 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- 3. 메뉴명 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- 4. 총 금액 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- A. 주문 취소 btn 사장님의 일방적 주문 취소 -->
-    <!-- 5. status 변경 (배달중 / 배달완료) -->
-    <!-- 배달중 일때만 빨간색 btn, 완료 시 버튼 제어 불가능하게끔 -->
-    <div id="orderBox">
-      <span id="orderListName">주문 전체 조회</span>
-      <table id="orderInfo">
-        <thead>
-          <tr>
-            <th style="margin: 5px 10px">주문 번호</th>
-            <th style="margin: 5px 10px">고객명</th>
-            <th style="margin: 5px 10px">메뉴명</th>
-            <th style="margin: 5px 10px">총 금액</th>
-            <th style="margin: 5px 210px">주문 취소</th>
-            <th>
-              <button
-                class="btn"
-                style="height: auto"
-                onclick="changeBtnName(this)"
-              >
-                배달중
-              </button>
-            </th>
-          </tr>
-          <tr>
-            <th style="margin: 5px 10px">주문 번호</th>
-            <th style="margin: 5px 10px">고객명</th>
-            <th style="margin: 5px 10px">메뉴명</th>
-            <th style="margin: 5px 10px">총 금액</th>
-            <th style="margin: 5px 210px">주문 취소</th>
-            <th>
-              <button
-                class="btn"
-                style="height: auto"
-                onclick="changeBtnName(this)"
-              >
-                배달중
-              </button>
-            </th>
-          </tr>
-          <tr>
-            <th style="margin: 5px 10px">주문 번호</th>
-            <th style="margin: 5px 10px">고객명</th>
-            <th style="margin: 5px 10px">메뉴명</th>
-            <th style="margin: 5px 10px">총 금액</th>
-            <th style="margin: 5px 210px">주문 취소</th>
-            <th>
-              <button
-                class="btn"
-                style="height: auto"
-                onclick="changeBtnName(this)"
-              >
-                배달중
-              </button>
-            </th>
-          </tr>
-        </thead>
-      </table>
+    <div class="container scrollable" id="orderContainer">
+      <!-- Order boxes will be inserted here -->
     </div>
+
+    <script>
+      // Example data array (This should be dynamically generated or fetched from a server in a real application)
+      const orders = [
+        {
+          orderNumber: '0001',
+          customerName: '홍길동',
+          menuName: '김치볶음밥',
+          amount: '8000원',
+          orderStatus: '',
+          cancelOrder: '주문취소',
+        },
+        {
+          orderNumber: '0002',
+          customerName: '최순애',
+          menuName: '팥빙수',
+          amount: '8000원',
+          cancelOrder: '주문취소',
+        },
+        {
+          orderNumber: '0003',
+          customerName: '심청이',
+          menuName: '돼지불백',
+          amount: '7500원',
+          cancelOrder: '주문취소',
+        },
+        {
+          orderNumber: '0004',
+          customerName: '김첨지',
+          menuName: '순대국',
+          amount: '7500원',
+          cancelOrder: '주문취소',
+        },
+        {
+          orderNumber: '0005',
+          customerName: '죄인',
+          menuName: '사약',
+          amount: '0원',
+          cancelOrder: '주문취소',
+        },
+        // ... more order data ...
+      ];
+
+      // Function to create an order box
+      function createOrderBox(order) {
+        const box = document.createElement('div');
+        box.className = 'order-box';
+        box.innerHTML = `
+                    <div class="order-item orderNumber">${
+                      order.orderNumber
+                    }</div>
+                    <div class="order-item customerName">${
+                      order.customerName
+                    }</div>
+                    <div class="order-item menuName">${order.menuName}</div>
+                    <div class="order-item amount">${order.amount}</div>
+                    <div class="order-item orderStatus"><button type="button" class="
+                      ${order.orderStatus === '배달완료' ? 'completed' : ''}">
+                      ${
+                        order.orderStatus !== '배달완료'
+                          ? '배달중'
+                          : order.orderStatus
+                      }</button></div>
+                    <div class="spacer"></div>
+                    <div class="order-item cancelOrder"><button type="button">${
+                      order.cancelOrder
+                    }</button></div>`;
+
+        const statusButton = box.querySelector('.orderStatus button');
+        if (order.orderStatus !== '배달완료') {
+          statusButton.addEventListener('click', function () {
+            this.innerText = '배달완료';
+            this.classList.add('completed');
+            this.disabled = true; // 버튼을 비활성화하여 추가 클릭 방지
+          });
+          return box;
+        }
+      }
+
+      // Insert order boxes into the container
+      const orderContainer = document.getElementById('orderContainer');
+      orders.forEach((order) => {
+        orderContainer.appendChild(createOrderBox(order));
+      });
+    </script>
   </body>
-  <script defer src="./script/owner-orders.js"></script>
 </html>

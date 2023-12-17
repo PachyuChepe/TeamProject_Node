@@ -1,9 +1,53 @@
 <!doctype html>
-<html lang="en">
+<html lang="ko">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>[사장님] 주문 상세 조회</title>
+    <link rel="stylesheet" href="./css/layout.css" />
   </head>
-  <body></body>
+  <body>
+    <div class="page-container">
+      <div class="header">
+        <div>주문 번호: 1234</div>
+        <div>고객명: 홍길동</div>
+      </div>
+
+      <div class="menu-list-container">
+        <div class="menu-list" id="menuList">
+          <!-- Menu items will be added here dynamically -->
+        </div>
+        <div class="total-amount" id="totalAmount">
+          <!-- Total amount will be added here dynamically -->
+        </div>
+      </div>
+
+      <div class="details">
+        <div class="details-row">
+          <div class="details-box"><label>별점:</label> <span>4.5</span></div>
+          <div class="details-box">
+            <label>고객이 작성한 리뷰:</label> <span>맛있었습니다!</span>
+          </div>
+        </div>
+        <div class="details-row">
+          <div class="details-box">
+            <label>주문 시간:</label> <span>2023-12-17 12:34</span>
+          </div>
+          <div class="details-box">
+            <label>배달 완료 시간:</label> <span>2023-12-17 13:20</span>
+          </div>
+        </div>
+        <div class="details-box">
+          <label>주문 요청사항:</label> <span>문 앞에 두고 벨 눌러주세요.</span>
+        </div>
+        <div class="details-box">
+          <label>배달 요청사항:</label> <span>빠른 배달 부탁드립니다.</span>
+        </div>
+        <div class="details-box">
+          <label>고객이 작성한 배달지:</label> <span>서울시 강남구 역삼동</span>
+        </div>
+      </div>
+    </div>
+  </body>
+  <script defer src="./script/owner-order.js"></script>
 </html>
