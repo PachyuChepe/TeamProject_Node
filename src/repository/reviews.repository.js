@@ -80,6 +80,11 @@ class ReviewRepository {
       include: {
         order: {
           select: {
+            menu: {
+              select: {
+                name: true,
+              }
+            },
             customer: {
               select: {
                 name: true,
@@ -119,6 +124,7 @@ class ReviewRepository {
           select: {
             menu: {
               select: {
+                name: true,
                 store: {
                   select: {
                     name: true // Store의 이름
