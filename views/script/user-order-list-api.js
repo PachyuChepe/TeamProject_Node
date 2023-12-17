@@ -1,6 +1,11 @@
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
+  // 쿼리 스트링 id 받아오기
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = urlParams.get('id');
+
   const $menu_list = document.getElementById('menu_list');
+
   axios
     .get(`/api/orders/user`, {
       withCredentials: true,
@@ -12,6 +17,8 @@ document.addEventListener('DOMContentLoaded', function () {
       response.data.data.forEach((e, idx) => {
         count++;
         const comment = (e.review && e.review.length > 0 && e.review[idx]) ? e.review[idx].comment : "리뷰 작성 전";
+        const editBtnText = comment === '리뷰 작성 전' ? '리뷰 작성하기' : '리뷰 수정하기';
+        const editBtnHidden = e.status === '배달완료' ? '' : 'hidden';
         let temp_html = `
         <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 flex">
           <img src="${e.menu.imageUrl}" alt="Wine" class="w-80 h-48 object-cover" />
@@ -21,9 +28,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 <div class="flex justify-between">
                   <h3 class="font-semibold text-gray-700 text-2xl font-bold">${e.menu.store.name}</h3>
                   <div class="flex">
-                    <button type="button" class="text-lg bg-white text-blue-500"
+                    <button type="button" class="text-lg bg-white text-blue-500 ${editBtnHidden}" 
                     onclick="location.href='user-review-edit.html?id=${e.id}'">
-                    리뷰 작성하기
+                    ${editBtnText}
                     </button>
                     <div class="text-lg bg-white text-red-500">${e.status}</div> 
                   </div>
