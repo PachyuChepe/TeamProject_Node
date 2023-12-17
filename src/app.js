@@ -62,7 +62,7 @@ app.use(errorHandler);
 // 프론트엔드 파일 서빙
 app.use(express.static('views'));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  res.sendFile(path.join(__dirname, 'views', 'user-login.html'));
 });
 
 // 데이터베이스 연결 확인 및 HTTPS/HTTP 서버 시작
