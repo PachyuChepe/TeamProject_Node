@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
-  console.log(id);
+
   axios
     .get(`/api/orders/store/${id}`, {
       withCredentials: true,
@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', function () {
       response.data.data.forEach((e, idx) => {
         let temp_html = `
         <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 flex">
-          <img src="${
-            e.menu.imageUrl
+          <img src="${e.menu.imageUrl
           }" alt="Wine" class="w-80 h-48 object-cover" />
           <div class="flex flex-col justify-between p-4 w-full">
             <div class="flex justify-between">
@@ -30,24 +29,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     </button>
                   </div>
                 </div>
-                <p id="user_name_${
-                  e.id
-                }" class="text-gray-600 text-lg">고객명 : ${e.customer.name}</p>
-                <p id="address_${
-                  e.id
-                }" class="text-gray-600 text-lg">고객 주소 : ${
-                  e.customer.address
-                }</p>
-                <p id="quantity_${
-                  e.id
-                }" class="text-gray-600 text-lg">수량 : ${e.quantity.toLocaleString(
-                  'ko-KR',
-                )}개</p>
-                <p id="total_price${
-                  e.id
-                }" class="text-gray-600 text-lg">총 금액 : ${e.totalPrice.toLocaleString(
-                  'ko-KR',
-                )}원</p>
+                <p id="user_name_${e.id
+          }" class="text-gray-600 text-lg">고객명 : ${e.customer.name}</p>
+                <p id="address_${e.id
+          }" class="text-gray-600 text-lg">고객 주소 : ${e.customer.address
+          }</p>
+                <p id="quantity_${e.id
+          }" class="text-gray-600 text-lg">수량 : ${e.quantity.toLocaleString(
+            'ko-KR',
+          )}개</p>
+                <p id="total_price${e.id
+          }" class="text-gray-600 text-lg">총 금액 : ${e.totalPrice.toLocaleString(
+            'ko-KR',
+          )}원</p>
               </div>
             </div>
           </div>
@@ -104,3 +98,5 @@ function changeBtnName(btnElement) {
       .catch((error) => alert(error.response.data.message));
   }
 }
+
+

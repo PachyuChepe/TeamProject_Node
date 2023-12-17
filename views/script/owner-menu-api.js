@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // 쿼리 스트링 id 받아오기
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
+  sessionStorage.setItem('storeId', id);// 세션 스토리지에 'id' 값을 저장 (메뉴 수정 화면에서 메뉴 목록으로 이동을 위함)
 
   axios
     .get(`/api/menu?storeId=${id}&category=name&order=desc`, {
@@ -19,32 +20,27 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="flex justify-between">
               <div class="w-full">
                 <div class="flex justify-between">
-                  <h3 class="font-semibold text-gray-700 text-2xl font-bold">${
-                    e.name
-                  }</h3>
+                  <h3 class="font-semibold text-gray-700 text-2xl font-bold">${e.name
+          }</h3>
                   <div class="flex">
-                    <button id="edit_btn_${
-                      e.id
-                    }" type="button" onclick="clickEditBtn(this)" 
+                    <button id="edit_btn_${e.id
+          }" type="button" onclick="clickEditBtn(this)" 
                     class="text-lg bg-white text-blue-500 mr-2 pt-0">
                       수정하기
                     </button>
-                    <button id="delete_btn_${
-                      e.id
-                    }" type="button" onclick="clickDeleteBtn(this)" 
+                    <button id="delete_btn_${e.id
+          }" type="button" onclick="clickDeleteBtn(this)" 
                     class="text-lg bg-white text-red-500 pt-0">
                       삭제하기
                     </button>
                   </div>
                 </div>
-                <p id="description_${e.id}" class="text-gray-600 text-lg">${
-                  e.description
-                }</p>
-                <p id="price_${
-                  e.id
-                }" class="text-gray-600 text-lg">${e.price.toLocaleString(
-                  'ko-KR',
-                )}원</p>
+                <p id="description_${e.id}" class="text-gray-600 text-lg">${e.description
+          }</p>
+                <p id="price_${e.id
+          }" class="text-gray-600 text-lg">${e.price.toLocaleString(
+            'ko-KR',
+          )}원</p>
               </div>
             </div>
           </div>
