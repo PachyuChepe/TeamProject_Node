@@ -15,7 +15,7 @@ class MenusController {
         name,
         description,
         price,
-        // imageUrl,
+        imageUrl,
       );
 
       res
