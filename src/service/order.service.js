@@ -10,15 +10,17 @@ class OrderService {
   // 고객 : 주문 생성 및 저장 post / menuid Int , quantity Int / 고객 1 : 주문 N
   createOrder = async (
     menuId,
-    // orderId,
     customerId,
     quantity,
     totalPrice,
     status,
   ) => {
+    // 포인트 관리 
+    await this.orderRepository.updatePoint(menuId, customerId, totalPrice);
+
+    // 주문 저장
     const order = await this.orderRepository.createOrder(
       menuId,
-      // orderId,
       customerId,
       quantity,
       totalPrice,
@@ -45,7 +47,7 @@ class OrderService {
     return orders;
   };
 
-  // 고객 : 주문 전체 조회
+  // 고객 : 주문 전체 조회  
   getUserOrders = async (customerId) => {
     const orders = await this.orderRepository.getUserOrders(customerId);
     orders.sort((a, b) => b.createdAt - a.createdAt);
