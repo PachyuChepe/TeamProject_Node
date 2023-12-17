@@ -29,8 +29,8 @@ function clickCreateBtn(clickedButton) {
       headers: { 'Content-Type': 'application/json; charset=UTF-8' },
       withCredentials: true,
     })
-    .then(() => alert('주문이 완료되었습니다.'))
-    .catch((error) => console.error('오류 발생:', error));
+    .then((response) => alert(response.data.message))
+    .catch((error) => alert(error.response.data.message));
 }
 
 // 수량 증가 버튼 함수

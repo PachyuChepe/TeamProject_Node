@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .catch((error) => {
       console.error('오류 발생:', error);
-    });;
+    });
   // 조회 : 리뷰 (리뷰 수정일 경우)
   if (id) {
     axios
@@ -81,8 +81,10 @@ function submitCreateForm() {
   // 다른 필드도 formData 객체에 추가
   formData.append('storeId', storeId);
   formData.append('comment', document.getElementById('comment').value);
-  formData.append('rating', document.querySelector('input[name="review_star_grade"]:checked')
-    .value);
+  formData.append(
+    'rating',
+    document.querySelector('input[name="review_star_grade"]:checked').value,
+  );
 
   axios
     .post('/api/reviews', formData, {
@@ -91,12 +93,12 @@ function submitCreateForm() {
       },
       withCredentials: true,
     })
-    .then((res) => {
-      alert('저장이 완료되었습니다.');
+    .then((response) => {
+      alert(response.data.message);
       window.location.href = `/user-review-edit.html?storeId=${storeId}&id=${res.data.data.id}`;
     })
     .catch((error) => {
-      console.error('오류 발생:', error);
+      alert(error.response.data.message);
     });
 }
 
@@ -116,8 +118,10 @@ function submitUpdateForm() {
 
   // 다른 필드도 formData 객체에 추가
   formData.append('comment', document.getElementById('comment').value);
-  formData.append('rating', document.querySelector('input[name="review_star_grade"]:checked')
-    .value);
+  formData.append(
+    'rating',
+    document.querySelector('input[name="review_star_grade"]:checked').value,
+  );
 
   axios
     .put(`/api/reviews/${id}`, formData, {
@@ -126,12 +130,12 @@ function submitUpdateForm() {
       },
       withCredentials: true,
     })
-    .then((res) => {
-      alert('수정이 완료되었습니다.');
+    .then((response) => {
+      alert(response.data.message);
       location.reload(); // 페이지 새로고침
     })
     .catch((error) => {
-      console.error('오류 발생:', error);
+      alert(error.response.data.message);
     });
 }
 
@@ -146,11 +150,11 @@ function submitDeleteForm() {
     .delete(`/api/reviews/${id}`, {
       withCredentials: true,
     })
-    .then((res) => {
-      alert('삭제가 완료되었습니다.');
+    .then((response) => {
+      alert(response.data.message);
       window.parent.location.href = 'user-order-list.html'; // 사장 가게 등록 페이지 이동
     })
     .catch((error) => {
-      console.error('오류 발생:', error);
+      alert(error.response.data.message);
     });
 }
