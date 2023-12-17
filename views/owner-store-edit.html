@@ -6,7 +6,6 @@
     <title>Profile Settings</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/tag-load.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="./script/tag-load.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
@@ -139,6 +138,21 @@
                 />
               </div>
 
+              <!-- 수익금 -->
+              <div class="mb-4">
+                <label
+                  for="points"
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  >수익금</label
+                >
+                <input
+                  type="text"
+                  id="points"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  disabled
+                />
+              </div>
+
               <!-- 저장 버튼 -->
               <div class="flex items-center justify-end">
                 <button
@@ -161,7 +175,7 @@
         </div>
       </div>
     </div>
-    <script src="script/owner-store-api.js"></script>
+    <script src="./script/owner-store-api.js"></script>
     <div id="footer"></div>
   </body>
 </html>
