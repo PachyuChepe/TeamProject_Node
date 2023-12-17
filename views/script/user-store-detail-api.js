@@ -1,5 +1,16 @@
 // 페이지 로드 시 실행되는 함수
 document.addEventListener('DOMContentLoaded', function () {
+  // 리뷰 버튼에 클릭 이벤트 추가
+  const reviewButton = document.getElementById('reviewButton');
+  reviewButton.addEventListener('click', function () {
+    // 현재 URL에서 id 쿼리 파라미터 추출
+    const urlParams = new URLSearchParams(window.location.search);
+    const storeId = urlParams.get('id');
+
+    // user-review-edit.html 페이지로 리디렉션하면서 id 값을 전달
+    window.location.href = `user-review-edit.html?id=${storeId}`;
+  });
+
   // URL에서 매장 ID 추출
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
