@@ -35,12 +35,12 @@ class OrderController {
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
   updateOrder = async (req, res, next) => {
     try {
-      const { orderid } = req.params;
+      const { orderId } = req.params;
 
       const { status } = req.body;
       // const orderId = res.locals.User.id;
 
-      const newOrder = await this.orderService.updateOrder(orderid, status);
+      const newOrder = await this.orderService.updateOrder(orderId, status);
 
       res
         .status(200)
@@ -53,9 +53,9 @@ class OrderController {
   // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
   cancelOrder = async (req, res, next) => {
     try {
-      const { orderid } = req.params;
+      const { orderId } = req.params;
 
-      await this.orderService.cancelOrder(orderid);
+      await this.orderService.cancelOrder(orderId);
 
       res.status(200).json({ message: '주문을 취소하였습니다.' });
     } catch (error) {
@@ -63,10 +63,28 @@ class OrderController {
     }
   };
 
-  // 공통? 고객? : 주문 전체 조회 (우선)
-  getOrders = async (req, res, next) => {
+  // 사장 : 주문 전체 조회 (우선)
+  getStoreOrders = async (req, res, next) => {
     try {
-      const orders = await this.orderService.getOrders();
+      const { storeId } = req.params;
+      console.log('storeId: ', storeId);
+      const orders = await this.orderService.getStoreOrders(storeId);
+
+      res.status(200).json({
+        success: true,
+        message: '전체 주문 조회에 성공하였습니다.',
+        data: orders,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  // 고객 : 주문 전체 조회 (우선)
+  getUserOrders = async (req, res, next) => {
+    try {
+      const customerId = res.locals.user.id;
+      const orders = await this.orderService.getUserOrders(customerId);
 
       res.status(200).json({
         success: true,
@@ -81,9 +99,9 @@ class OrderController {
   // 공통? 사장? : 주문 상세 조회
   getOrder = async (req, res, next) => {
     try {
-      const { orderid } = req.params;
+      const { orderId } = req.params;
 
-      const order = await this.orderService.getOrder(orderid, res);
+      const order = await this.orderService.getOrder(orderId, res);
 
       return res.status(200).json({
         success: true,

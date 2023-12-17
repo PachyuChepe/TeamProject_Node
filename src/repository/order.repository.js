@@ -16,8 +16,16 @@ class OrderRepository {
   ) => {
     const createdOrder = await prisma.Order.create({
       data: {
-        customerId,
-        menuId: +menuId,
+        menu: {
+          connect: {
+            id: +menuId,
+          },
+        },
+        customer: {
+          connect: {
+            id: +customerId,
+          },
+        },
         quantity: +quantity,
         totalPrice: +totalPrice,
         status,
@@ -27,38 +35,63 @@ class OrderRepository {
   };
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-  updateOrder = async (orderid, status) => {
+  updateOrder = async (orderId, status) => {
     const order = await prisma.order.update({
       data: { status },
-      where: { id: +orderid },
+      where: { id: +orderId },
     });
 
     return order;
   };
 
   // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
-  cancelOrder = async (orderid) => {
+  cancelOrder = async (orderId) => {
     await prisma.Order.delete({
-      where: { id: +orderid },
+      where: { id: +orderId },
     });
   };
 
-  // 공통? 고객? : 주문 전체 조회
-  getOrders = async () => {
-    const orders = await prisma.Order.findMany();
+  // 사장 : 주문 전체 조회
+  getStoreId = async (storeId) => {
+    const orders = await prisma.Order.findMany(
+      { where: { storeId: +storeId } }
+    );
+    return orders;
+  };
 
+  // 사장 : 주문 전체 조회
+  getStoreOrders = async (storeId) => {
+    const orders = await prisma.order.findMany({
+      where: {
+        menu: {
+          storeId: +storeId
+        }
+      },
+      include: {
+        menu: true
+      }
+    });
+    return orders;
+  };
+
+
+  // 고객 : 주문 전체 조회
+  getUserOrders = async (customerId) => {
+    const orders = await prisma.Order.findMany(
+      { where: { customerId } }
+    );
     return orders;
   };
 
   // 공통? 사장? : 주문 상세 조회
-  getOrder = async (orderid) => {
+  getOrder = async (orderId) => {
     const order = await prisma.order.findFirst({
       select: {
         quantity: true,
         totalPrice: true,
         status: true,
       },
-      where: { id: +orderid },
+      where: { id: +orderId },
     });
     return order;
   };
