@@ -7,9 +7,8 @@ const prisma = new PrismaClient();
 class OrderRepository {
   // 고객 : 주문 생성 및 저장 post / menuid Int , quantity Int / 고객 1 : 주문 N
   createOrder = async (
-    // orderId,
-    customerId,
     menuId,
+    customerId,
     quantity,
     totalPrice,
     status,
@@ -33,6 +32,54 @@ class OrderRepository {
     });
     return createdOrder;
   };
+
+  // 포인트 관리
+  updatePoint = async (menuId, customerId, totalPrice) => {
+    // 매장 id 조회
+    const storeId = await prisma.menu.findUnique({
+      where: { id: +menuId },
+      include: { store: { select: { id: true } } }
+    });
+
+    // 사장 id 조회
+    const ownerId = await prisma.store.findUnique({
+      where: { id: +storeId.store.id },
+      include: { owner: { select: { id: true } } }
+    });
+
+    // 고객 포인트 조회
+    const user = await prisma.user.findUnique({
+      where: { id: +customerId },
+      select: { points: true }
+    });
+
+    if (user.points < totalPrice) {
+      throw new Error("잔액이 부족합니다.");
+    }
+
+    // 고객 포인트 차감
+    const decreasePoint = await prisma.user.update({
+      data: { points: +user.points - totalPrice },
+      where: { id: +customerId },
+    });
+
+    // 사장 포인트 조회
+    const ownerPoint = await prisma.user.findUnique({
+      where: { id: +ownerId.id },
+      select: { points: true }
+    });
+
+    if (!ownerPoint) {
+      throw new Error('Owner not found');
+    }
+
+    // 사장 포인트 추가
+    const increasePoint = await prisma.user.update({
+      data: { points: +ownerPoint.points + totalPrice },
+      where: { id: +ownerId.id },
+    });
+  };
+
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
   updateOrder = async (orderId, status) => {
@@ -83,9 +130,6 @@ class OrderRepository {
     });
     return orders;
   };
-
-
-
 
   // 고객 : 주문 전체 조회
   getUserOrders = async (customerId) => {

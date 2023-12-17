@@ -6,7 +6,6 @@
     <title>Profile Settings</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/tag-load.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
     <script defer src="./script/tag-load.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
@@ -109,6 +108,7 @@
 
               <div class="flex items-center justify-end">
                 <button
+                  id="createButton"
                   class="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-blue-600"
                   type="button"
                   onclick="submitCreateForm()"
@@ -116,6 +116,7 @@
                   등록
                 </button>
                 <button
+                  id="editButton"
                   class="ml-4 bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-blue-600"
                   type="button"
                   onclick="submitUpdateForm()"
@@ -123,6 +124,7 @@
                   수정
                 </button>
                 <button
+                  id="deleteButton"
                   class="ml-4 bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-blue-600"
                   type="button"
                   onclick="submitDeleteForm()"
@@ -135,7 +137,8 @@
         </div>
       </div>
     </div>
-    <script src="script/owner-menu-detail-api.js"></script>
+    <script src="./script/owner-menu-detail-api.js"></script>
+    <script src="./script/owner-menu-detail-etc.js"></script>
     <div id="footer"></div>
   </body>
 </html>
