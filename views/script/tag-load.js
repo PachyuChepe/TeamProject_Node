@@ -13,17 +13,13 @@ function loadHTML(url, id) {
 // 로그아웃 버튼에 대한 이벤트 리스너 추가
 function addLogoutEventListener() {
   const logoutButton = document.querySelector('.logout-button');
-  // console.log('로그아웃 버튼 찾기:', logoutButton); // 디버깅을 위한 콘솔 로그
-
   if (logoutButton) {
     logoutButton.addEventListener('click', logout);
-    // console.log('로그아웃 이벤트 리스너 추가됨'); // 디버깅을 위한 콘솔 로그
   }
 }
 
 // 로그아웃 요청을 서버에 보내는 함수
 function logout() {
-  // console.log('로그아웃 함수 호출됨');
   fetch('/api/logout', {
     method: 'POST',
     headers: {
@@ -33,8 +29,6 @@ function logout() {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.message);
-      // 로그아웃 후 처리, 예를 들어 로그인 페이지로 리다이렉트
       window.location.href = 'user-login.html';
     })
     .catch((error) => console.error('Error:', error));
@@ -56,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function () {
       console.error('프로필 이미지가 페이지에 존재하지 않습니다.');
     }
 
-    setLogoLink(); // 사용자 역할에 따라 로고 링크 설정
+    setLogoLink();
   });
 });
 
@@ -65,29 +59,52 @@ function setLogoLink() {
   const logoLink = document.querySelector('a[href="user-main.html"]');
 
   if (!accessToken) {
-    // 사용자가 로그인하지 않은 경우
     logoLink.setAttribute('href', 'user-login.html');
   } else {
-    // 사용자가 로그인한 경우
     fetchUserDetails(accessToken)
       .then((data) => {
         if (data.role === '사장') {
-          // 사장의 가게 수정 페이지로 리다이렉션
-          const storeId = data.stores[0]?.id || 'defaultStoreId';
-          logoLink.setAttribute('href', `owner-store-edit.html?id=${storeId}`);
+          if (data.stores && data.stores.length > 0) {
+            logoLink.setAttribute(
+              'href',
+              `owner-store-edit.html?id=${data.stores[0].id}`,
+            );
+          } else {
+            logoLink.setAttribute(
+              'href',
+              `owner-store-create.html?id=${data.id}`,
+            );
+          }
         } else if (data.role === '고객') {
-          // 고객용 메인 페이지로 리다이렉션
           logoLink.setAttribute('href', 'user-main.html');
         } else {
-          // 다른 역할이나 역할이 설정되지 않은 경우 기본값으로 설정
           logoLink.setAttribute('href', 'user-login.html');
         }
       })
       .catch((error) => {
-        console.error('로고 링크 설정 오류:', error);
-        logoLink.setAttribute('href', 'user-login.html');
+        console.error('Error fetching user details:', error);
+        alert('사용자 정보를 가져오는 데 실패했습니다. 다시 시도해 주세요.');
       });
   }
+}
+
+function fetchUserDetails(accessToken) {
+  return fetch('/api/user', {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.json();
+    })
+    .then((data) => {
+      return data.data;
+    })
+    .catch((error) => {
+      console.error('Error fetching user details:', error);
+      throw error; // 오류를 상위로 전파
+    });
 }
 
 function toggleMenu() {
@@ -167,7 +184,7 @@ function fetchUserDetails(accessToken) {
 
 function getCookie(name) {
   let cookie = {};
-  document.cookie.split(';').forEach(function (el) {
+  document.cookie.split(';').forEach((el) => {
     let [k, v] = el.split('=');
     cookie[k.trim()] = v;
   });
