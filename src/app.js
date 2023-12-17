@@ -36,6 +36,8 @@ app.use(
       `http://localhost:${env.SERVER_PORT}`,
       'https://www.vitahub.site',
       'http://www.vitahub.site',
+      'https://www.aidori.shop',
+      'http://www.aidori.shop',
     ],
     credentials: true,
   }),
