@@ -19,7 +19,17 @@ $starLabels.forEach((label, index) => {
       $starLabels[i].style.backgroundImage = 'url("../img/star_y.png")';
       $id_select_star_grade.innerText = index + 1;
     }
-    const starScore = index + 1;
-    // console.log(starScore);
   });
 });
+
+// 이미지 미리보기 함수;
+function previewImage(event) {
+  const reader = new FileReader();
+  reader.onload = function () {
+    const output = document.getElementById('imagePreview');
+    output.style.backgroundImage = `url(${reader.result})`;
+    output.style.backgroundSize = 'cover';
+    output.style.backgroundPosition = 'center';
+  };
+  reader.readAsDataURL(event.target.files[0]);
+}

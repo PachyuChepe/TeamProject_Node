@@ -3,17 +3,42 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class ReviewRepository {
+
+  // 리뷰 생성 시 사용할 주문 ID 조회
+  getOrderId = async (customerId) => {
+    const orderId = await prisma.order.findFirst({
+      where: {
+        customerId: +customerId,
+      },
+      select: {
+        id: true
+      }
+    });
+    return orderId.id;
+  };
+
   // 리뷰 생성
-  createReview = async (customerId, storeId, rating, comment) => {
+  createReview = async (orderId, rating, comment, imageUrl) => {
     const review = await prisma.review.create({
       data: {
-        customerId: +customerId,
-        storeId: +storeId,
+        orderId,
         rating: +rating,
         comment,
-      },
+        imageUrl
+      }
     });
     return review;
+  };
+
+  // 매장 정보 조회
+  getStoreName = async (storeId) => {
+    const store = await prisma.Store.findUnique({
+      where: { id: +storeId },
+      select: {
+        name: true
+      }
+    });
+    return store;
   };
 
   // 매장의 메뉴 ID 조회
@@ -116,17 +141,19 @@ class ReviewRepository {
         id: +reviewId,
       },
       include: {
-        customer: {
+        order: {
           select: {
-            name: true,
-            email: true,
-          },
-        },
-        store: {
-          select: {
-            name: true,
-          },
-        },
+            menu: {
+              select: {
+                store: {
+                  select: {
+                    name: true
+                  }
+                }
+              }
+            }
+          }
+        }
       },
     });
 
@@ -134,12 +161,13 @@ class ReviewRepository {
   };
 
   // 리뷰 수정
-  updateReview = async (reviewId, rating, comment) => {
+  updateReview = async (reviewId, rating, comment, imageUrl) => {
     const updatedReview = await prisma.review.update({
       where: { id: +reviewId },
       data: {
         rating: +rating,
-        comment
+        comment,
+        imageUrl
       },
     });
 

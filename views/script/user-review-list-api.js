@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
       let count;
       // API 실행결과를 response로 받아와서 html 그려주기
       reviews.forEach((e, idx) => {
-        count++;
+        const editBtnHidden =
+          count++;
         let temp_html = `
         <div class="p-4 border-b border-gray-200">
           <div class="flex justify-between items-center px-2 py-0 sm:px-6"> 
@@ -21,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </div>
             <div class="flex">
             <button id="review_edit_btn_${e.id}" onclick="location.href='/user-review-edit.html?id=${e.id}'" 
-            class="text-blue-600 hover:text-blue-800 transition-colors duration-150 mr-4">
+            class="text-blue-600 hover:text-blue-800 transition-colors duration-150 mr-4 ${editBtnHidden}">
               수정하기
             </button>
             <button id="delete_btn_${e.id}" class="delete_btn" type="button" onclick="clickDeleteBtn(this)"
