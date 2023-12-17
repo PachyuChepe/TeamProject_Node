@@ -34,7 +34,8 @@ app.use(
     origin: [
       `https://localhost:${env.SERVER_PORT}`,
       `http://localhost:${env.SERVER_PORT}`,
-      'https://www.vitahub.xyz',
+      'https://www.vitahub.site',
+      'http://www.vitahub.site',
     ],
     credentials: true,
   }),
