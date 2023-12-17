@@ -24,7 +24,7 @@ function fetchRestaurants() {
   axios
     .get('/api/store')
     .then((response) => {
-      displayRestaurants(response.data.data);
+      displayRestaurants(response.data.data.stores);
     })
     .catch((error) => console.error('Error fetching restaurants:', error));
 }
@@ -50,16 +50,12 @@ function displayRestaurants(restaurants) {
   const container = document.getElementById('restaurants-container');
   container.innerHTML = ''; // Clear existing content
   restaurants.forEach((restaurant) => {
-    const restaurantCard = createRestaurantCard(
-      restaurant,
-      restaurant.commentCount,
-    );
+    const restaurantCard = createRestaurantCard(restaurant);
     container.appendChild(restaurantCard);
   });
 }
 
-function createRestaurantCard(restaurant, commentCount) {
-  console.log(commentCount, 'kkkkkkkkkkkkkkk');
+function createRestaurantCard(restaurant) {
   console.log('뭐뭐들어옴?', restaurant);
   const card = document.createElement('div');
   card.className = 'bg-white shadow rounded overflow-hidden';
@@ -87,9 +83,6 @@ function createRestaurantCard(restaurant, commentCount) {
       }</span>
       <span class="text-sm text-gray-600">${
         restaurant.comments ? restaurant.comments + ' Comments' : 'No Comments'
-      }</span>
-      <span class="text-sm text-gray-600">${
-        commentCount > 0 ? commentCount + ' Reviews' : 'No Reviews'
       }</span>
       <button class="text-blue-500 hover:text-blue-700">
         Favorite
