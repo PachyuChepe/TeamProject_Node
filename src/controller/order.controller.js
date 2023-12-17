@@ -41,9 +41,15 @@ class OrderController {
 
       const newOrder = await this.orderService.updateOrder(orderId, status);
 
-      res
-        .status(200)
-        .json({ message: '배달이 완료되었습니다', data: newOrder });
+      if (newOrder.status === '배달중') {
+        res
+          .status(200)
+          .json({ message: `배달이 시작되었습니다.`, data: newOrder });
+      } else if (newOrder.status === '배달완료') {
+        res
+          .status(200)
+          .json({ message: `배달이 완료되었습니다.`, data: newOrder });
+      }
     } catch (error) {
       next(error);
     }

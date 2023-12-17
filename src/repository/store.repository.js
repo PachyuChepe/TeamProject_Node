@@ -24,7 +24,6 @@ class StoreRepository {
 
     // 클라이언트 측에서 각 스토어별로 리뷰 개수 집계
     const storeReviewCounts = stores.map((store) => {
-      //
       const totalReviews = store.menus.reduce((count, menu) => {
         const menuReviews = menu.orders.reduce((menuCount, order) => {
           // order._count.reviews가 정의되어 있고 숫자인지 확인
@@ -32,7 +31,6 @@ class StoreRepository {
         }, 0);
         return count + menuReviews;
       }, 0);
-
       return {
         storeId: store.id,
         reviewCount: totalReviews,

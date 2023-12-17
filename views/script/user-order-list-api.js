@@ -1,9 +1,21 @@
+// 웹 소켓
+const socket = new WebSocket('ws://localhost:8080');
+
+socket.addEventListener('open', function () {
+  console.log('WebSocket connection established');
+});
+
+socket.addEventListener('message', function (event) {
+  console.log('Received message: ', event.data);
+});
+
+socket.addEventListener('error', function (error) {
+  console.log('WebSocket error: ', error);
+});
+
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
   // 쿼리 스트링 id 받아오기
-  const urlParams = new URLSearchParams(window.location.search);
-  const id = urlParams.get('id');
-
   const $menu_list = document.getElementById('menu_list');
 
   axios
@@ -12,30 +24,25 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then((response) => {
       console.log('response: ', response);
-      let count;
+      let count = 0;
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
         count++;
-        const review =
-          e.review && e.review.length > 0 && e.review[idx]
-            ? e.review[0].id
-            : '';
+        const review = e.review.length > 0 ? e.review[0].id : '';
         const btnHref =
-          e.review && e.review.length > 0 && e.review[idx]
+          e.review.length > 0
             ? `user-review-edit.html?storeId=${e.menu.store.id}&id=${review}`
-            : `user-review-create.html?storeId=${e.menu.store.id}`;
+            : `user-review-create.html?storeId=${e.menu.store.id}&orderId=${e.id}`;
         const comment =
-          e.review && e.review.length > 0 && e.review[idx]
-            ? e.review[idx].comment
-            : '리뷰 작성 전';
+          e.review.length > 0 ? e.review[0].comment : '리뷰 작성 전';
         const editBtnText =
           comment === '리뷰 작성 전' ? '리뷰 작성하기' : '리뷰 수정하기';
         const editBtnHidden = e.status === '배달완료' ? '' : 'hidden';
+        const imgHref =
+          e.menu.imageUrl === null ? '../img/temp-img.png' : e.menu.imageUrl;
         let temp_html = `
         <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 flex">
-          <img src="${
-            e.menu.imageUrl
-          }" alt="Wine" class="w-80 h-48 object-cover" />
+          <img src="${imgHref}" alt="Wine" class="w-80 h-48 object-cover" />
           <div class="flex flex-col justify-between p-4 w-full">
             <div class="flex justify-between">
               <div class="w-full">
@@ -97,10 +104,7 @@ document.addEventListener('DOMContentLoaded', function () {
         $menu_list.insertAdjacentHTML('beforeend', temp_html);
 
         // 별점 표시
-        const rating =
-          e.review && e.review.length > 0 && e.review[idx]
-            ? e.review[idx].rating
-            : 0;
+        const rating = e.review.length > 0 ? e.review[0].rating : 0;
         const starScore = rating;
         const reviewId = `review_wrapper_${e.id}`;
         const $starLabels = document.querySelectorAll(

@@ -41,9 +41,10 @@ document.addEventListener('DOMContentLoaded', function () {
       // 메뉴 목록 표시
       response.data.data.forEach((e) => {
         const formattedPrice = Number(e.price).toLocaleString();
+        const imgHref = e.imageUrl === null ? '../img/temp-img.png' : e.imageUrl;
         let temp_html = `
           <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6">
-            <img src=${e.imageUrl} alt="Wine" class="w-full h-48 object-cover" />
+            <img src=${imgHref} alt="Wine" class="w-full h-48 object-cover" />
             <div class="p-4">
               <h3 class="text-lg font-semibold">${e.name}</h3>
               <h3 class="text-lg font-semibold">${e.description}</h3>
