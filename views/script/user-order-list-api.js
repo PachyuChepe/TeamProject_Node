@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
         count++;
+        const review = e.review && e.review.length > 0 && e.review[idx] ? e.review[0].id : '';
+        const btnHref = e.review && e.review.length > 0 && e.review[idx] ?
+          `user-review-edit.html?storeId=${e.menu.store.id}&id=${review}` : `user-review-create.html?storeId=${e.menu.store.id}`;
         const comment = (e.review && e.review.length > 0 && e.review[idx]) ? e.review[idx].comment : "리뷰 작성 전";
         const editBtnText = comment === '리뷰 작성 전' ? '리뷰 작성하기' : '리뷰 수정하기';
         const editBtnHidden = e.status === '배달완료' ? '' : 'hidden';
@@ -29,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
                   <h3 class="font-semibold text-gray-700 text-2xl font-bold">${e.menu.store.name}</h3>
                   <div class="flex">
                     <button type="button" class="text-lg bg-white text-blue-500 ${editBtnHidden}" 
-                    onclick="location.href='user-review-edit.html?id=${e.id}'">
+                    onclick="location.href='${btnHref}'">
                     ${editBtnText}
                     </button>
                     <div class="text-lg bg-white text-red-500">${e.status}</div> 
