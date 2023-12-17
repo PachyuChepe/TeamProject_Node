@@ -30,7 +30,6 @@ export const sendVerificationEmail = async (email, verifyCode) => {
       height: 50%;
       width: 50%;
       '>
-      <img src="cid:aidori-nodeMailer" /><br/><br/><br/>
 
       
       <span style="
@@ -47,13 +46,13 @@ export const sendVerificationEmail = async (email, verifyCode) => {
       &copy; Copyright aidori, 2023 All Rights Reserved.
       </h4>
       </div>`,
-      attachments: [
-        {
-          filename: 'aidori-nodeMailer.png',
-          path: '../TeamProject_Node_Ojyosama/views/img/aidori-nodeMailer.png',
-          cid: 'aidori-nodeMailer',
-        },
-      ],
+      // attachments: [
+      //   {
+      //     filename: 'aidori-nodeMailer.png',
+      //     path: '../TeamProject_Node_Ojyosama/views/img/aidori-nodeMailer.png',
+      //     cid: 'aidori-nodeMailer',
+      //   },
+      // ],
     };
 
     // 이메일 전송
