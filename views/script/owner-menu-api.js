@@ -1,9 +1,10 @@
 // 브라우저가 열렸을 때 실행
 document.addEventListener('DOMContentLoaded', function () {
   const $menu_list = document.getElementById('menu_list');
-  // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
+  // 쿼리 스트링 id 받아오기
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
+
   axios
     .get(`/api/menu?storeId=${id}&category=name&order=desc`, {
       withCredentials: true,
