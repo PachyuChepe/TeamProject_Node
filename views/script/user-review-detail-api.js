@@ -69,6 +69,7 @@ function submitCreateForm() {
   // 쿼리 스트링 id 받아오기(iframe를 사용하지 않을 경우)
   const urlParams = new URLSearchParams(window.location.search);
   const storeId = urlParams.get('storeId');
+  const orderId = urlParams.get('orderId');
 
   const formData = new FormData();
   const imageFile = document.getElementById('imageUpload').files[0];
@@ -80,6 +81,7 @@ function submitCreateForm() {
 
   // 다른 필드도 formData 객체에 추가
   formData.append('storeId', storeId);
+  formData.append('orderId', orderId);
   formData.append('comment', document.getElementById('comment').value);
   formData.append(
     'rating',
@@ -95,7 +97,7 @@ function submitCreateForm() {
     })
     .then((response) => {
       alert(response.data.message);
-      window.location.href = `/user-review-edit.html?storeId=${storeId}&id=${res.data.data.id}`;
+      window.location.href = `/user-review-edit.html?storeId=${storeId}&id=${response.data.data.id}`;
     })
     .catch((error) => {
       alert(error.response.data.message);
