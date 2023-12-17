@@ -18,7 +18,7 @@ class MenusRepository {
         storeId,
         description,
         price: +price,
-        // imageUrl,
+        imageUrl,
       },
     });
     return createdMenu;
