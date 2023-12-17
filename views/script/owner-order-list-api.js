@@ -13,9 +13,10 @@ document.addEventListener('DOMContentLoaded', function () {
       console.log('response: ', response);
       // API 실행결과를 response로 받아와서 html 그려주기
       response.data.data.forEach((e, idx) => {
+        const imgHref = e.menu.imageUrl === null ? '../img/temp-img.png' : e.menu.imageUrl;
         let temp_html = `
         <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 flex">
-          <img src="${e.menu.imageUrl
+          <img src="${imgHref
           }" alt="Wine" class="w-80 h-48 object-cover" />
           <div class="flex flex-col justify-between p-4 w-full">
             <div class="flex justify-between">
@@ -58,45 +59,39 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // status 변경 (버튼 클릭 시 색깔 + 멘트 변경 : 배달중 -> 배달완료)
 function changeBtnName(btnElement) {
-  const buttonId = btnElement.id; // 클릭한 버튼의 ID 가져오기
-  const buttonIdArr = buttonId.split('_'); // 버튼 ID 쪼개기
-  const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
+  const socket = new WebSocket('ws://localhost:8080');
 
-  // 배달 중, 배달 완료로 변경되도록 수정
-  if (btnElement.innerText === '배달중') {
-    const data = {
-      status: '배달완료',
-    };
-    axios
-      .patch(`/api/orders/${id}`, data, {
-        headers: {
-          headers: { 'Content-Type': 'application/json' },
-        },
-        withCredentials: true,
-      })
-      .then((response) => {
-        alert(response.data.message);
-        location.reload();
-      })
-      .catch((error) => alert(error.response.data.message));
-  }
-  if (btnElement.innerText === '배달전') {
-    const data = {
-      status: '배달중',
-    };
-    axios
-      .patch(`/api/orders/${id}`, data, {
-        headers: {
-          headers: { 'Content-Type': 'application/json' },
-        },
-        withCredentials: true,
-      })
-      .then((response) => {
-        alert(response.data.message);
-        location.reload();
-      })
-      .catch((error) => alert(error.response.data.message));
-  }
+  socket.onopen = function () {
+    // 연결이 성공적으로 이루어지면 메시지 전송
+    const buttonId = btnElement.id;
+    const buttonIdArr = buttonId.split('_');
+    const id = buttonIdArr[buttonIdArr.length - 1];
+
+    if (btnElement.innerText === '배달중') {
+      const data = { status: '배달완료' };
+      axios.patch(`/api/orders/${id}`, data, { /* ... */ })
+        .then((response) => {
+          alert(response.data.message);
+          socket.send("배달완료");
+          // location.reload();
+
+        })
+        .catch((error) => alert(error.response.data.message));
+    }
+
+    if (btnElement.innerText === '배달전') {
+      const data = { status: '배달중' };
+      axios.patch(`/api/orders/${id}`, data, { /* ... */ })
+        .then((response) => {
+          alert(response.data.message);
+          socket.send("배달중");
+          // location.reload();
+        })
+        .catch((error) => alert(error.response.data.message));
+    }
+  };
+
+  socket.onerror = function (error) {
+    console.log("WebSocket Error: ", error);
+  };
 }
-
-
