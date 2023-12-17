@@ -42,4 +42,4 @@ GET {{domain}}/reviews/store/2
 ###
 # 리뷰 상세 조회
 # 리뷰 번호가 없을 경우 500 에러 발생
-GET {{domain}}/store/16
+GET {{domain}}/reviews/2

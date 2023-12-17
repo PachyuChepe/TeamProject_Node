@@ -8,14 +8,15 @@ class ReviewController {
   // 리뷰 생성
   createReview = async (req, res, next) => {
     try {
-      const { storeId, rating, comment } = req.body;
+      const { rating, comment } = req.body;
+      const imageUrl = req.file ? req.file.location : null; // 이미지 URL 추출
       const customerId = res.locals.user.id; // 현재 로그인한 사용자의 ID
 
       const review = await this.reviewService.createReview(
         customerId,
-        storeId,
         rating,
-        comment
+        comment,
+        imageUrl,
       );
 
       res.status(201).json({
@@ -28,11 +29,24 @@ class ReviewController {
     }
   };
 
+  getStoreName = async (req, res, next) => {
+    try {
+      const { storeId } = req.params;
+      const storeName = await this.reviewService.getStoreName(storeId);
+      res.status(200).json({
+        success: true,
+        message: '매장명을 성공적으로 가져왔습니다.',
+        data: storeName,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
+
   // 특정 가게의 리뷰 조회
   getStoreReviews = async (req, res, next) => {
     try {
       const { storeId, order } = req.params;
-
       const sortOrder = order === 'desc' ? -1 : 1;
 
       let reviews = await this.reviewService.getStoreReviews(storeId);
@@ -102,7 +116,7 @@ class ReviewController {
     try {
       const { reviewId } = req.params;
       const { rating, comment } = req.body;
-
+      const imageUrl = req.file ? req.file.location : null; // 이미지 URL 추출
       // 수정 사항이 없는 경우
       if (!rating && !comment) {
         return res.status(400).json({
@@ -115,6 +129,7 @@ class ReviewController {
         reviewId,
         rating,
         comment,
+        imageUrl,
       );
 
       res.status(200).json({

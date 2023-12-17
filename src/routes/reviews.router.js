@@ -2,6 +2,7 @@ import express from 'express';
 import { isLoggedIn } from '../middleware/verifyToken.middleware.js';
 import { validateReview } from '../middleware/reviewValidation.middleware.js';
 import ReviewController from '../controller/reviews.controller.js';
+import uploadImage from '../middleware/multer.middleware.js';
 
 const reviewController = new ReviewController();
 const reviewRouter = express.Router();
@@ -10,9 +11,13 @@ const reviewRouter = express.Router();
 reviewRouter.post(
   '/reviews',
   isLoggedIn,
+  uploadImage.single('imageUrl'),
   validateReview,
   reviewController.createReview,
 );
+
+// 가게 이름 조회
+reviewRouter.get('/storeName/:storeId', reviewController.getStoreName);
 
 // 특정 가게 리뷰 조회
 reviewRouter.get(
@@ -34,6 +39,7 @@ reviewRouter.get('/reviews/:reviewId', reviewController.getReviewById);
 reviewRouter.put(
   '/reviews/:reviewId',
   isLoggedIn,
+  uploadImage.single('imageUrl'),
   validateReview,
   reviewController.updateReview,
 );

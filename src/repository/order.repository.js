@@ -67,6 +67,7 @@ class OrderRepository {
             imageUrl: true,
             store: {
               select: {
+                id: true,
                 name: true
               }
             }
@@ -97,6 +98,7 @@ class OrderRepository {
             imageUrl: true,
             store: {
               select: {
+                id: true,
                 name: true
               }
             }
@@ -104,6 +106,7 @@ class OrderRepository {
         },
         review: {
           select: {
+            id: true,
             rating: true,
             comment: true
           }

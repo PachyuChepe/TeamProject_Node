@@ -5,14 +5,21 @@ class ReviewService {
   reviewRepository = new ReviewRepository();
 
   // 리뷰 생성
-  createReview = async (customerId, storeId, rating, comment) => {
+  createReview = async (customerId, rating, comment, imageUrl) => {
+    const orderId = await this.reviewRepository.getOrderId(customerId);
     const review = await this.reviewRepository.createReview(
-      customerId,
-      storeId,
+      orderId,
       rating,
       comment,
+      imageUrl
     );
     return review;
+  };
+
+  // 가게 이름 조회
+  getStoreName = async (storeId) => {
+    const storeName = await this.reviewRepository.getStoreName(storeId);
+    return storeName;
   };
 
   // 특정 가게의 리뷰 조회
@@ -33,19 +40,17 @@ class ReviewService {
   // 특정 리뷰 조회
   getReviewById = async (reviewId) => {
     const review = await this.reviewRepository.getReviewById(reviewId);
-    if (!review) {
-      throw ApiError.NotFound('리뷰를 찾을 수 없습니다.');
-    }
     return review;
   };
 
   // 리뷰 수정
-  updateReview = async (reviewId, rating, comment, userId) => {
+  updateReview = async (reviewId, rating, comment, imageUrl) => {
     // 수정
     const updatedReview = await this.reviewRepository.updateReview(
       reviewId,
       rating,
       comment,
+      imageUrl
     );
 
     return updatedReview;
