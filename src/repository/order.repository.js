@@ -52,14 +52,7 @@ class OrderRepository {
   };
 
   // 사장 : 주문 전체 조회
-  getStoreId = async (storeId) => {
-    const orders = await prisma.Order.findMany(
-      { where: { storeId: +storeId } }
-    );
-    return orders;
-  };
-
-  // 사장 : 주문 전체 조회
+  // 그 머시기냐 배달전 눌렀을 때 배달중, 배달 완료로 변경하는 기능 추가 필요
   getStoreOrders = async (storeId) => {
     const orders = await prisma.order.findMany({
       where: {
@@ -68,18 +61,55 @@ class OrderRepository {
         }
       },
       include: {
-        menu: true
+        menu: {
+          select: {
+            name: true,
+            imageUrl: true,
+            store: {
+              select: {
+                name: true
+              }
+            }
+          }
+        },
+        customer: {
+          select: {
+            name: true,
+            address: true
+          }
+        }
       }
     });
     return orders;
   };
 
 
+
+
   // 고객 : 주문 전체 조회
   getUserOrders = async (customerId) => {
-    const orders = await prisma.Order.findMany(
-      { where: { customerId } }
-    );
+    const orders = await prisma.Order.findMany({
+      where: { customerId },
+      include: {
+        menu: {
+          select: {
+            name: true,
+            imageUrl: true,
+            store: {
+              select: {
+                name: true
+              }
+            }
+          }
+        },
+        review: {
+          select: {
+            rating: true,
+            comment: true
+          }
+        }
+      }
+    });
     return orders;
   };
 

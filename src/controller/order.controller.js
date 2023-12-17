@@ -36,7 +36,6 @@ class OrderController {
   updateOrder = async (req, res, next) => {
     try {
       const { orderId } = req.params;
-
       const { status } = req.body;
       // const orderId = res.locals.User.id;
 
@@ -67,7 +66,6 @@ class OrderController {
   getStoreOrders = async (req, res, next) => {
     try {
       const { storeId } = req.params;
-      console.log('storeId: ', storeId);
       const orders = await this.orderService.getStoreOrders(storeId);
 
       res.status(200).json({
