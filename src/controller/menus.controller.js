@@ -107,7 +107,6 @@ class MenusController {
   // //  업종 전체 조회
   getFoodCategory = async (req, res, next) => {
     try {
-      console.log('컨트롤러 통과');
       // 조회 : 모든 메뉴 정보
       const foodCategory = await this.menusService.getFoodCategory();
 

@@ -2,15 +2,13 @@
   margin: auto;
   display: flex;
   flex-direction: column;
-  width: 50%;
-  border: 1px solid blue;
+  width: 60%;
 }
 .menu-detail-container {
   margin: auto;
   display: flex;
   flex-direction: column;
   width: 50%;
-  border: 1px solid blue;
 }
 
 .hidden {
@@ -34,7 +32,6 @@
 .btn-wraaper {
   margin: auto;
   width: 300px;
-  border: 1px solid red;
 }
 
 .menu-options-wrapper {

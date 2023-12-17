@@ -1,33 +1,36 @@
-// 조회 : 고객 정보
-// 브라우저가 열렸을 때 실행
+// 페이지 로드 시 사용자 데이터 로드
 document.addEventListener('DOMContentLoaded', function () {
-  // 조회 : 고객 정보
   axios
-    .get(`/api/user`, {
-      withCredentials: true,
-    })
+    .get('/api/user', { withCredentials: true })
     .then((res) => {
-      console.log(res.data.data);
       const user = res.data.data;
-
-      // 기존 input란에 API 반환값 참조
       document.getElementById('name').value = user.name;
       document.getElementById('email').value = user.email;
-      document.getElementById('points').textContent = user.points;
+      // document.getElementById('current-password').value = user.currentPassword;
+      // document.getElementById('new-password').value = user.newPassword;
+      document.getElementById('points').value = user.points; // 포인트 표시 변경 (textContent 대신 value 사용)
     })
     .catch((error) => {
       console.error('오류 발생:', error);
     });
 });
 
-// 수정 : 고객 정보
+// 폼 제출 함수
 function submitUpdateForm() {
-  // API로 전달할 값 JSON으로 설정
+  const name = document.getElementById('name').value;
+  const newPassword = document.getElementById('new-password').value;
+
+  // 이름과 새로운 비밀번호 중 하나라도 입력되어 있어야 함
+  if (!name && !newPassword) {
+    alert('이름 또는 새로운 비밀번호 중 하나는 반드시 입력해야 합니다.');
+    return;
+  }
+
   const data = {
-    name: document.getElementById('name').value,
-    email: document.getElementById('email').value,
-    currentPassword: document.getElementById('current_password').value,
-    newPassword: document.getElementById('new_password').value,
+    name: name,
+    email: document.getElementById('email').value, // 이메일은 readonly로 설정되어 있음
+    currentPassword: document.getElementById('current-password').value,
+    newPassword: newPassword,
   };
 
   axios
@@ -36,10 +39,11 @@ function submitUpdateForm() {
       withCredentials: true,
     })
     .then((res) => {
-      alert('수정이 완료되었습니다.');
-      location.reload(); // 페이지 새로고침
+      alert(res.data.message);
+      location.reload();
     })
     .catch((error) => {
+      alert(error.response.data.message);
       console.error('오류 발생:', error);
     });
 }

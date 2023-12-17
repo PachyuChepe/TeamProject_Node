@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', function () {
               <div class="font-semibold" style="font-size: 30px;">${e.customer.name}님</div>
               <div class="text-xs text-gray-500">${formatDateString(e.createdAt)}</div>
             </div>
-
           </div>
         </div>
         <div id="review_wrapper_${e.id}" class="flex items-center px-4">
