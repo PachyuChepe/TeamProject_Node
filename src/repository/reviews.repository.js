@@ -16,51 +16,98 @@ class ReviewRepository {
     return review;
   };
 
-  // 특정 가게의 리뷰 조회
-  getStoreReviews = async (storeId) => {
-    const reviews = await prisma.review.findMany({
+  // 매장의 메뉴 ID 조회
+  getStoreMenuIds = async (storeId) => {
+    const menuIds = await prisma.menu.findMany({
       where: {
         storeId: +storeId
       },
-      include: {
-        customer: {
-          select: {
-            name: true,
-            email: true,
-          },
-        },
-        store: {
-          select: {
-            name: true,
-          },
-        },
+      select: {
+        id: true
+      }
+    }).then(menus => menus.map(menu => menu.id));
+    return menuIds;
+  };
+
+  // 주문 ID 조회
+  getStoreOrderIds = async (menuIds) => {
+    const orderIds = await prisma.order.findMany({
+      where: {
+        menuId: {
+          in: menuIds // 숫자 배열 사용
+        }
       },
+      select: {
+        id: true
+      }
+    }).then(orders => orders.map(order => order.id));
+    return orderIds;
+  };
+
+  // 특정 가게의 리뷰 조회
+  getStoreReviews = async (orderIds) => {
+    const reviews = await prisma.review.findMany({
+      where: {
+        orderId: {
+          in: orderIds
+        }
+      },
+      include: {
+        order: {
+          select: {
+            customer: {
+              select: {
+                name: true,
+                email: true
+              }
+            }
+          }
+        }
+      }
     });
     return reviews;
   };
 
+  // 고객의 메뉴 ID 조회
+  getUserOrderIds = async (customerId) => {
+    const orders = await prisma.order.findMany({
+      where: {
+        customerId
+      },
+      select: {
+        id: true
+      }
+    });
+    return orders.map(order => order.id);
+  };
+
   // 특정 고객의 리뷰 조회
-  getUserReviews = async (customerId) => {
+  getUserReviews = async (orderIds) => {
     const reviews = await prisma.review.findMany({
       where: {
-        customerId,
+        orderId: {
+          in: orderIds
+        }
       },
       include: {
-        customer: {
+        order: {
           select: {
-            name: true,
-            email: true,
-          },
-        },
-        store: {
-          select: {
-            name: true,
-          },
-        },
-      },
+            menu: {
+              select: {
+                store: {
+                  select: {
+                    name: true // Store의 이름
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     });
     return reviews;
   };
+
 
   // 특정 리뷰 조회
   getReviewById = async (reviewId) => {

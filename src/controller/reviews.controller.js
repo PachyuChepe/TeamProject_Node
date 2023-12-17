@@ -58,7 +58,7 @@ class ReviewController {
   getUserReviews = async (req, res, next) => {
     try {
       const { order } = req.params;
-      const customerId = res.locals.id;
+      const customerId = res.locals.user.id;
       const sortOrder = order === 'desc' ? -1 : 1;
 
       let reviews = await this.reviewService.getUserReviews(customerId);
