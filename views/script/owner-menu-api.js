@@ -19,20 +19,32 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="flex justify-between">
               <div class="w-full">
                 <div class="flex justify-between">
-                  <h3 class="font-semibold text-gray-700 text-2xl font-bold">${e.name}</h3>
+                  <h3 class="font-semibold text-gray-700 text-2xl font-bold">${
+                    e.name
+                  }</h3>
                   <div class="flex">
-                    <button id="edit_btn_${e.id}" type="button" onclick="clickEditBtn(this)" 
+                    <button id="edit_btn_${
+                      e.id
+                    }" type="button" onclick="clickEditBtn(this)" 
                     class="text-lg bg-white text-blue-500 mr-2 pt-0">
                       수정하기
                     </button>
-                    <button id="delete_btn_${e.id}" type="button" onclick="clickDeleteBtn(this)" 
+                    <button id="delete_btn_${
+                      e.id
+                    }" type="button" onclick="clickDeleteBtn(this)" 
                     class="text-lg bg-white text-red-500 pt-0">
                       삭제하기
                     </button>
                   </div>
                 </div>
-                <p id="description_${e.id}" class="text-gray-600 text-lg">${e.description}</p>
-                <p id="price_${e.id}" class="text-gray-600 text-lg">${e.price.toLocaleString('ko-KR',)}원</p>
+                <p id="description_${e.id}" class="text-gray-600 text-lg">${
+                  e.description
+                }</p>
+                <p id="price_${
+                  e.id
+                }" class="text-gray-600 text-lg">${e.price.toLocaleString(
+                  'ko-KR',
+                )}원</p>
               </div>
             </div>
           </div>
@@ -68,12 +80,12 @@ function clickDeleteBtn(clickedButton) {
     .delete(`/api/menu/${id}`, {
       withCredentials: true,
     })
-    .then((res) => {
+    .then((response) => {
       // 삭제하기 전에 정말 삭제할거에요? 알림창으로 할까.. 근데 번거로운거같으니까 일단 클릭 시 바로 삭제되게 고!!!!
-      alert('삭제가 완료되었습니다.');
+      alert(response.data.message);
       location.reload(); // 페이지 새로고침
     })
     .catch((error) => {
-      console.error('오류 발생:', error);
+      alert(error.response.data.message);
     });
 }

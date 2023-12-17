@@ -94,11 +94,11 @@ function submitCreateForm() {
       withCredentials: true,
     })
     .then((response) => {
-      alert('저장이 완료되었습니다.');
+      alert(response.data.message);
       window.parent.location.href = `/owner-store-edit.html?id=${response.data.data.id}`;
     })
     .catch((error) => {
-      console.error('오류 발생:', error);
+      alert(error.response.data.message);
     });
 }
 
@@ -150,11 +150,11 @@ function submitUpdateForm() {
       withCredentials: true,
     })
     .then((response) => {
-      alert('수정이 완료되었습니다.');
+      alert(response.data.message);
       location.reload(); // 페이지 새로고침
     })
     .catch((error) => {
-      console.error('오류 발생:', error);
+      alert(error.response.data.message);
     });
 }
 
@@ -168,12 +168,12 @@ function submitDeleteForm() {
     .delete(`/api/deletestore/${id}`, {
       withCredentials: true,
     })
-    .then((res) => {
+    .then((response) => {
       // 삭제하기 전에 정말 삭제할거에요? 알림창으로 하자!
-      alert('삭제가 완료되었습니다.');
+      alert(response.data.message);
       window.parent.location.href = 'owner-store-create.html'; // 사장 가게 등록 페이지 이동
     })
     .catch((error) => {
-      console.error('오류 발생:', error);
+      alert(error.response.data.message);
     });
 }
