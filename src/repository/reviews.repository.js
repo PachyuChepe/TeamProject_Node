@@ -3,7 +3,6 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 class ReviewRepository {
-
   // 리뷰 생성 시 사용할 주문 ID 조회
   getOrderId = async (customerId) => {
     const orderId = await prisma.order.findFirst({
@@ -11,8 +10,8 @@ class ReviewRepository {
         customerId: +customerId,
       },
       select: {
-        id: true
-      }
+        id: true,
+      },
     });
     return orderId.id;
   };
@@ -24,8 +23,8 @@ class ReviewRepository {
         orderId,
         rating: +rating,
         comment,
-        imageUrl
-      }
+        imageUrl,
+      },
     });
     return review;
   };
@@ -35,37 +34,41 @@ class ReviewRepository {
     const store = await prisma.Store.findUnique({
       where: { id: +storeId },
       select: {
-        name: true
-      }
+        name: true,
+      },
     });
     return store;
   };
 
   // 매장의 메뉴 ID 조회
   getStoreMenuIds = async (storeId) => {
-    const menuIds = await prisma.menu.findMany({
-      where: {
-        storeId: +storeId
-      },
-      select: {
-        id: true
-      }
-    }).then(menus => menus.map(menu => menu.id));
+    const menuIds = await prisma.menu
+      .findMany({
+        where: {
+          storeId: +storeId,
+        },
+        select: {
+          id: true,
+        },
+      })
+      .then((menus) => menus.map((menu) => menu.id));
     return menuIds;
   };
 
   // 주문 ID 조회
   getStoreOrderIds = async (menuIds) => {
-    const orderIds = await prisma.order.findMany({
-      where: {
-        menuId: {
-          in: menuIds // 숫자 배열 사용
-        }
-      },
-      select: {
-        id: true
-      }
-    }).then(orders => orders.map(order => order.id));
+    const orderIds = await prisma.order
+      .findMany({
+        where: {
+          menuId: {
+            in: menuIds, // 숫자 배열 사용
+          },
+        },
+        select: {
+          id: true,
+        },
+      })
+      .then((orders) => orders.map((order) => order.id));
     return orderIds;
   };
 
@@ -74,8 +77,8 @@ class ReviewRepository {
     const reviews = await prisma.review.findMany({
       where: {
         orderId: {
-          in: orderIds
-        }
+          in: orderIds,
+        },
       },
       include: {
         order: {
@@ -83,27 +86,30 @@ class ReviewRepository {
             customer: {
               select: {
                 name: true,
-                email: true
-              }
-            }
-          }
-        }
-      }
+                email: true,
+              },
+            },
+          },
+        },
+      },
     });
-    return reviews;
+
+    const commentCount = reviews.length;
+
+    return { reviews, commentCount };
   };
 
   // 고객의 메뉴 ID 조회
   getUserOrderIds = async (customerId) => {
     const orders = await prisma.order.findMany({
       where: {
-        customerId
+        customerId,
       },
       select: {
-        id: true
-      }
+        id: true,
+      },
     });
-    return orders.map(order => order.id);
+    return orders.map((order) => order.id);
   };
 
   // 특정 고객의 리뷰 조회
@@ -111,8 +117,8 @@ class ReviewRepository {
     const reviews = await prisma.review.findMany({
       where: {
         orderId: {
-          in: orderIds
-        }
+          in: orderIds,
+        },
       },
       include: {
         order: {
@@ -121,18 +127,17 @@ class ReviewRepository {
               select: {
                 store: {
                   select: {
-                    name: true // Store의 이름
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
+                    name: true, // Store의 이름
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
     return reviews;
   };
-
 
   // 특정 리뷰 조회
   getReviewById = async (reviewId) => {
@@ -147,13 +152,13 @@ class ReviewRepository {
               select: {
                 store: {
                   select: {
-                    name: true
-                  }
-                }
-              }
-            }
-          }
-        }
+                    name: true,
+                  },
+                },
+              },
+            },
+          },
+        },
       },
     });
 
@@ -167,7 +172,7 @@ class ReviewRepository {
       data: {
         rating: +rating,
         comment,
-        imageUrl
+        imageUrl,
       },
     });
 

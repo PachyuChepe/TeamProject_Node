@@ -50,12 +50,15 @@ function displayRestaurants(restaurants) {
   const container = document.getElementById('restaurants-container');
   container.innerHTML = ''; // Clear existing content
   restaurants.forEach((restaurant) => {
-    const restaurantCard = createRestaurantCard(restaurant);
+    const restaurantCard = createRestaurantCard(
+      restaurant,
+      restaurant.commentCount,
+    );
     container.appendChild(restaurantCard);
   });
 }
 
-function createRestaurantCard(restaurant) {
+function createRestaurantCard(restaurant, commentCount) {
   console.log('뭐뭐들어옴?', restaurant);
   const card = document.createElement('div');
   card.className = 'bg-white shadow rounded overflow-hidden';
@@ -83,6 +86,9 @@ function createRestaurantCard(restaurant) {
       }</span>
       <span class="text-sm text-gray-600">${
         restaurant.comments ? restaurant.comments + ' Comments' : 'No Comments'
+      }</span>
+      <span class="text-sm text-gray-600">${
+        commentCount > 0 ? commentCount + ' Reviews' : 'No Reviews'
       }</span>
       <button class="text-blue-500 hover:text-blue-700">
         Favorite
