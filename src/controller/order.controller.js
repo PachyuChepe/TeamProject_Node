@@ -11,7 +11,8 @@ class OrderController {
   // 고객 : 주문 생성 및 저장 post / menuid Int , quantity Int / 고객 1 : 주문 N
   createOrder = async (req, res, next) => {
     try {
-      const { customerId, menuId, quantity, totalPrice, status } = req.body;
+      const { menuId, quantity, totalPrice, status } = req.body;
+      const customerId = res.locals.user.id; // 인증된 사용자의 ID
 
       const newOrder = await this.orderService.createOrder(
         customerId,
