@@ -39,8 +39,8 @@ function submitUpdateForm() {
       headers: { 'Content-Type': 'application/json' },
       withCredentials: true,
     })
-    .then((res) => {
-      alert(res.data.message);
+    .then((response) => {
+      alert(response.data.message);
       location.reload();
     })
     .catch((error) => {

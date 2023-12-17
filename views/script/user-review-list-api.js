@@ -11,8 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
       let count;
       // API 실행결과를 response로 받아와서 html 그려주기
       reviews.forEach((e, idx) => {
-        const editBtnHidden =
-          count++;
+        const editBtnHidden = count++;
         let temp_html = `
         <div class="p-4 border-b border-gray-200">
           <div class="flex justify-between items-center px-2 py-0 sm:px-6"> 
@@ -101,13 +100,13 @@ function clickDeleteBtn(clickedButton) {
     .delete(`/api/reviews/${id}`, {
       withCredentials: true,
     })
-    .then((res) => {
+    .then((response) => {
       // 삭제하기 전에 정말 삭제할거에요? 알림창으로 할까.. 근데 번거로운거같으니까 일단 클릭 시 바로 삭제되게 고!!!!
-      alert('삭제가 완료되었습니다.');
+      alert(response.data.message);
       location.reload(); // 페이지 새로고침
     })
     .catch((error) => {
-      console.error('오류 발생:', error);
+      alert(error.response.data.message);
     });
 }
 

@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
       response.data.data.forEach((e, idx) => {
         let temp_html = `
         <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 flex">
-          <img src="${e.menu.imageUrl}" alt="Wine" class="w-80 h-48 object-cover" />
+          <img src="${
+            e.menu.imageUrl
+          }" alt="Wine" class="w-80 h-48 object-cover" />
           <div class="flex flex-col justify-between p-4 w-full">
             <div class="flex justify-between">
               <div class="w-full">
@@ -28,10 +30,24 @@ document.addEventListener('DOMContentLoaded', function () {
                     </button>
                   </div>
                 </div>
-                <p id="user_name_${e.id}" class="text-gray-600 text-lg">고객명 : ${e.customer.name}</p>
-                <p id="address_${e.id}" class="text-gray-600 text-lg">고객 주소 : ${e.customer.address}</p>
-                <p id="quantity_${e.id}" class="text-gray-600 text-lg">수량 : ${e.quantity.toLocaleString('ko-KR',)}개</p>
-                <p id="total_price${e.id}" class="text-gray-600 text-lg">총 금액 : ${e.totalPrice.toLocaleString('ko-KR',)}원</p>
+                <p id="user_name_${
+                  e.id
+                }" class="text-gray-600 text-lg">고객명 : ${e.customer.name}</p>
+                <p id="address_${
+                  e.id
+                }" class="text-gray-600 text-lg">고객 주소 : ${
+                  e.customer.address
+                }</p>
+                <p id="quantity_${
+                  e.id
+                }" class="text-gray-600 text-lg">수량 : ${e.quantity.toLocaleString(
+                  'ko-KR',
+                )}개</p>
+                <p id="total_price${
+                  e.id
+                }" class="text-gray-600 text-lg">총 금액 : ${e.totalPrice.toLocaleString(
+                  'ko-KR',
+                )}원</p>
               </div>
             </div>
           </div>
@@ -53,9 +69,9 @@ function changeBtnName(btnElement) {
   const id = buttonIdArr[buttonIdArr.length - 1]; // 버튼 ID 쪼갠거에서 마지막 값인 id 값 가져오기
 
   // 배달 중, 배달 완료로 변경되도록 수정
-  if (btnElement.innerText === "배달중") {
+  if (btnElement.innerText === '배달중') {
     const data = {
-      status: "배달완료"
+      status: '배달완료',
     };
     axios
       .patch(`/api/orders/${id}`, data, {
@@ -64,15 +80,15 @@ function changeBtnName(btnElement) {
         },
         withCredentials: true,
       })
-      .then((res) => {
-        alert('배달이 완료되었습니다.');
+      .then((response) => {
+        alert(response.data.message);
         location.reload();
       })
-      .catch((error) => console.error('오류 발생:', error));
+      .catch((error) => alert(error.response.data.message));
   }
-  if (btnElement.innerText === "배달전") {
+  if (btnElement.innerText === '배달전') {
     const data = {
-      status: "배달중"
+      status: '배달중',
     };
     axios
       .patch(`/api/orders/${id}`, data, {
@@ -81,13 +97,10 @@ function changeBtnName(btnElement) {
         },
         withCredentials: true,
       })
-      .then((res) => {
-        alert('배달이 시작되었습니다.');
+      .then((response) => {
+        alert(response.data.message);
         location.reload();
       })
-      .catch((error) => console.error('오류 발생:', error));
+      .catch((error) => alert(error.response.data.message));
   }
-
-
-
 }
