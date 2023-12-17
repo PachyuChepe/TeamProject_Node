@@ -22,7 +22,8 @@ reviewRouter.get(
 
 // 특정 고객 리뷰 조회
 reviewRouter.get(
-  '/reviews/client',
+  '/reviews/user',
+  isLoggedIn,
   reviewController.getUserReviews,
 );
 

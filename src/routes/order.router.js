@@ -44,16 +44,19 @@ const orderController = new OrderController();
 router.post('/orders', isLoggedIn, orderController.createOrder);
 
 // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-router.patch('/orders/:orderid', isLoggedIn, orderController.updateOrder);
+router.patch('/orders/:orderId', isLoggedIn, orderController.updateOrder);
 
 // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
-router.delete('/orders/:orderid', isLoggedIn, orderController.cancelOrder);
+router.delete('/orders/:orderId', isLoggedIn, orderController.cancelOrder);
 
-// 공통? 고객? : 주문 전체 조회
-router.get('/orders/user/:userid', isLoggedIn, orderController.getOrders);
+// 사장 : 주문 전체 조회
+router.get('/orders/store/:storeId', isLoggedIn, orderController.getStoreOrders);
+
+// 고객 : 주문 전체 조회
+router.get('/orders/user', isLoggedIn, orderController.getUserOrders);
 
 // 공통? 사장? : 주문 상세 조회
-router.get('/orders/:orderid', isLoggedIn, orderController.getOrder);
+router.get('/orders/:orderId', isLoggedIn, orderController.getOrder);
 
 // 주문 전체 조회
 // {

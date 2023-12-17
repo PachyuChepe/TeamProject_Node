@@ -89,11 +89,11 @@ class StoreRepository {
   };
 
   getStoreById = async (ownerId) => {
-    const storeid = await prisma.Store.findMany({
+    const storeId = await prisma.Store.findMany({
       select: { id: true },
       where: { ownerId: +ownerId },
     });
-    return storeid.id;
+    return storeId.id;
   };
 }
 

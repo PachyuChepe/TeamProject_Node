@@ -28,39 +28,38 @@ class OrderService {
   };
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
-  updateOrder = async (orderid, status) => {
-    const order = await this.orderRepository.updateOrder(orderid, status);
+  updateOrder = async (orderId, status) => {
+    const order = await this.orderRepository.updateOrder(orderId, status);
     return order;
   };
 
   // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)
-  cancelOrder = async (orderid) => {
-    await this.orderRepository.cancelOrder(orderid);
+  cancelOrder = async (orderId) => {
+    await this.orderRepository.cancelOrder(orderId);
   };
 
-  // 공통? 고객? : 주문 전체 조회
-  getOrders = async () => {
-    const orders = await this.orderRepository.getOrders();
+  // 사장 : 주문 전체 조회
+  getStoreOrders = async (storeId) => {
+    const orders = await this.orderRepository.getStoreOrders(storeId);
     orders.sort((a, b) => b.createdAt - a.createdAt);
+    return orders;
+  };
 
-    return orders.map((order) => {
-      return {
-        id: order.id,
-        quantity: order.quantity,
-        totalPrice: order.totalPrice,
-        status: order.status,
-      };
-    });
+  // 고객 : 주문 전체 조회
+  getUserOrders = async (customerId) => {
+    const orders = await this.orderRepository.getUserOrders(customerId);
+    orders.sort((a, b) => b.createdAt - a.createdAt);
+    return orders;
   };
 
   // 공통? 사장? : 주문 상세 조회 customerId? --menuId
-  getOrder = async (orderid) => {
-    const existsOrder = await this.orderRepository.getOrder(orderid);
+  getOrder = async (orderId) => {
+    const existsOrder = await this.orderRepository.getOrder(orderId);
     if (existsOrder.length === 0) {
       throw ApiError.Noutfound('주문이 존재하지 않습니다.');
     }
 
-    const order = await this.orderRepository.getOrder(orderid);
+    const order = await this.orderRepository.getOrder(orderId);
     return order;
   };
 }
