@@ -43,10 +43,10 @@ document.addEventListener('DOMContentLoaded', function () {
                   <h3 class="font-semibold text-gray-700 text-2xl font-bold">${
                     e.menu.store.name
                   }</h3>
-                  <div class="flex">
-                    <button type="button" class="text-lg bg-white text-blue-500 ${editBtnHidden}" 
+                  <div class="flex items-center">
+                    <button type="button" class="text-lg bg-white text-blue-500 ${editBtnHidden} mr-4" 
                     onclick="location.href='${btnHref}'">
-                    ${editBtnText}
+                      ${editBtnText}
                     </button>
                     <div class="text-lg bg-white text-red-500">${
                       e.status
