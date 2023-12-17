@@ -37,7 +37,7 @@ function changeTab(tabName) {
 document.addEventListener('DOMContentLoaded', function () {
   // 초기 상태 설정: 모든 입력 필드와 버튼을 비활성화
   setVerificationAndSignupFieldsEnabled(false);
-
+  changeTab('normal');
   // 인증번호 전송 버튼 이벤트
   document.querySelectorAll('.send-verification-button').forEach((button) => {
     button.addEventListener('click', function (event) {
@@ -97,7 +97,14 @@ document.addEventListener('DOMContentLoaded', function () {
         '.password-confirm-input',
       ).value;
       const name = currentTab.querySelector('.name-input').value;
+      let address = ''; // 주소 초기값
       const role = getCurrentRole();
+
+      // '일반 회원'일 경우에만 주소 값을 가져옴
+      if (role === '고객') {
+        address = currentTab.querySelector('.address-input').value;
+      }
+
       axios
         .post('/api/signup', {
           email,
@@ -105,10 +112,11 @@ document.addEventListener('DOMContentLoaded', function () {
           confirmPassword,
           name,
           role,
+          address,
         })
         .then((response) => {
           alert(response.data.message);
-          window.location.href = '../index.html'; // 로그인 성공 시 페이지 이동
+          window.location.href = '../user-login.html'; // 로그인 성공 시 페이지 이동
         })
         .catch((error) => {
           alert(error.response.data.message);
@@ -138,7 +146,7 @@ function setVerificationAndSignupFieldsEnabled(
   if (!isVerificationOnly) {
     document
       .querySelectorAll(
-        '.password-input, .password-confirm-input, .name-input, .signup-button',
+        '.password-input, .password-confirm-input, .name-input, .signup-button, .address-input',
       )
       .forEach((el) => {
         el.disabled = !isEnabled;
@@ -176,7 +184,7 @@ function resetOnSignupFailure() {
   // 모든 필드 초기화 및 비활성화
   document
     .querySelectorAll(
-      '.email-input, .verification-input, .password-input, .password-confirm-input, .name-input',
+      '.email-input, .verification-input, .password-input, .password-confirm-input, .name-input, .address-input',
     )
     .forEach((el) => {
       el.value = '';

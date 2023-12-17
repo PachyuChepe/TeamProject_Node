@@ -25,7 +25,9 @@ class UserController {
   login = async (req, res, next) => {
     try {
       const { accessToken, user } = await this.userService.login(req.body); // 로그인 시 페이지 이동을 위해 user 값 받아오기 추가(이아영)
-      res.cookie('Authorization', `Bearer ${accessToken}`,
+      res.cookie(
+        'Authorization',
+        `Bearer ${accessToken}`,
         // {
         // httpOnly: true,
         // secure: false,
@@ -45,14 +47,18 @@ class UserController {
     try {
       const user = await this.userService.getUser(res.locals.user.id);
       // const { password, ...data } = user;
-      const userData = {
-        email: user.email,
-        name: user.name,
-        role: user.role,
-        points: user.points,
-      };
+      // const userData = {
+      //   email: user.email,
+      //   name: user.name,
+      //   role: user.role,
+      //   points: user.points,
+      //   address: user.address,
+      //   store: {
+      //     id: user.stores.id,
+      //   },
+      // };
 
-      res.status(200).json({ success: true, data: userData });
+      res.status(200).json({ success: true, data: user });
     } catch (error) {
       next(error);
     }
@@ -61,7 +67,13 @@ class UserController {
   // 사용자 정보를 업데이트하고 결과를 반환
   updateUser = async (req, res, next) => {
     try {
-      await this.userService.updateUser(res.locals.user.id, req.body);
+      const { currentPassword, newPassword, name, address } = req.body; // 주소 정보를 받아옴
+      await this.userService.updateUser(res.locals.user.id, {
+        currentPassword,
+        newPassword,
+        name,
+        address,
+      });
 
       res.status(200).json({
         success: true,

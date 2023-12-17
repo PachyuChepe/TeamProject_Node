@@ -5,14 +5,21 @@ const prisma = new PrismaClient();
 
 class StoreRepository {
   getStores = async () => {
-    const stores = await prisma.Store.findMany();
+    const stores = await prisma.Store.findMany({
+      include: {
+        category: true, // FoodCategory 정보 포함
+      },
+    });
 
     return stores;
   };
 
   getStore = async (id) => {
-    const store = await prisma.Store.findFirst({
+    const store = await prisma.Store.findUnique({
       where: { id: +id },
+      include: {
+        category: true, // FoodCategory 정보 포함
+      },
     });
     return store;
   };
@@ -25,6 +32,7 @@ class StoreRepository {
     foodtype,
     storeaddresses,
     businesslicense,
+    imageUrl,
   ) => {
     const createdStore = await prisma.Store.create({
       data: {
@@ -43,6 +51,7 @@ class StoreRepository {
         foodtype: foodtype,
         storeaddresses,
         businesslicense,
+        imageUrl,
       },
     });
     return createdStore;
@@ -55,6 +64,7 @@ class StoreRepository {
     storedescription,
     foodtype,
     storeaddresses,
+    imageUrl,
   ) => {
     const store = await prisma.Store.update({
       data: {
@@ -63,6 +73,7 @@ class StoreRepository {
         description: storedescription,
         foodtype,
         storeaddresses,
+        imageUrl,
       },
       where: {
         id: +id,
