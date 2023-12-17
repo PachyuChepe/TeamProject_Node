@@ -1,11 +1,13 @@
-const multer = require("multer");
-const multerS3 = require("multer-s3");
-const path = require("path");
-const jwt = require("jsonwebtoken");
-const s3Client = require("../config/awsS3.config");
+// middleware/multer.middleware.js
+
+import multer from 'multer';
+import multerS3 from 'multer-s3';
+import path from 'path';
+import jwt from 'jsonwebtoken';
+import { s3Client } from '../config/awsS3.config.js';
 
 // 허용되는 파일 확장자 목록
-const allowedExtensions = [".png", ".jpg", ".jpeg", ".bmp", ".gif"];
+const allowedExtensions = ['.png', '.jpg', '.jpeg', '.bmp', '.gif'];
 
 // multer와 AWS S3를 이용한 이미지 업로드 설정
 const uploadImage = multer({
@@ -17,9 +19,9 @@ const uploadImage = multer({
       let token = req.cookies.Authorization; // 쿠키에서 토큰 추출
       if (token) {
         // Bearer 토큰 형식인 경우 실제 토큰만 추출
-        if (token.startsWith("Bearer ")) {
+        if (token.startsWith('Bearer ')) {
           token = token.slice(7, token.length);
-        }sq
+        }
 
         // JWT 토큰 검증 및 디코딩
         try {
@@ -27,30 +29,30 @@ const uploadImage = multer({
           const userId = decoded.userId; // 사용자 ID 추출
 
           // 파일명을 위한 날짜와 랜덤 번호 생성
-          const date = new Date().toISOString().split("T")[0];
+          const date = new Date().toISOString().split('T')[0];
           const randomNumber = Math.random().toString(36).substr(2, 8);
 
           // 파일 확장자 검사
           const extension = path.extname(file.originalname).toLowerCase();
           if (!allowedExtensions.includes(extension)) {
-            return callback(new Error("Invalid file type"));
+            return callback(new Error('Invalid file type'));
           }
 
           // 최종 파일명 생성 및 저장
           const filename = `folder/${userId}_${date}_${randomNumber}${extension}`;
           callback(null, filename);
         } catch (error) {
-          return callback(new Error("Invalid or expired token"));
+          return callback(new Error('Invalid or expired token'));
         }
       } else {
-        return callback(new Error("No token provided"));
+        return callback(new Error('No token provided'));
       }
     },
-    acl: "public-read-write", // 파일 접근 권한 설정
+    acl: 'public-read-write', // 파일 접근 권한 설정
   }),
   limits: {
     fileSize: 5 * 1024 * 1024, // 파일 크기 제한 (5MB)
   },
 });
 
-module.exports = uploadImage; // 모듈로 내보내기
+export default uploadImage;

@@ -3,102 +3,237 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="./css/layout.css" />
-    <link rel="stylesheet" href="./css/tag-load-page.css" />
+    <title>Profile Settings</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- bootscrap CDN-->
-    <!-- <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="./css/layout.css" /> -->
-    <!-- 헤더/푸터 출력-->
+    <link rel="stylesheet" href="./css/tag-load.css" />
     <script defer src="./script/tag-load.js"></script>
-    <script defer src="./script/user-paging.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+      .background-image::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-image: url('./assets/image-sakura.png');
+        background-size: cover;
+        background-position: center 75%;
+        background-repeat: no-repeat;
+        opacity: 0.5; /* 투명도 조정 */
+        z-index: -1;
+      }
+
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        position: relative;
+      }
+
+      /* 추가되는 모든 내용은 가상 요소 뒤에 표시되도록 z-index 설정 */
+      .content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .review-container {
+        width: 50%;
+        margin: auto;
+      }
+
+      .review-wrapper {
+        border: 1px solid blue;
+      }
+
+      /* 별점 */
+      .review_star_line {
+        width: 97.5%;
+        height: 1px;
+        border: none;
+        background-color: rgb(200, 200, 200);
+      }
+
+      .review_star_grade_wrapper {
+        margin: 5px;
+        display: flex;
+        align-items: center;
+      }
+
+      .hidden_radio {
+        display: none;
+      }
+
+      .custom_star {
+        width: 30px;
+        height: 30px;
+        margin: 0 2px;
+        background-size: cover;
+        display: inline-block;
+        cursor: pointer;
+        background-image: url('../img/star_y.png');
+      }
+
+      #review_select_star_grade {
+        font-size: 20px;
+        margin: 0 5px;
+      }
+    </style>
   </head>
-  <body>
+  <body class="background-image bg-white text-black">
     <div id="header"></div>
-    <!-- 상단 바 -->
-    <!-- <div id="user_top_menu"></div> -->
-    <!-- 내 정보 수정 영역-->
-    <div class="body-container">
-      <h1>리뷰 수정</h1>
-      <div class="submit-edit-form-wrapper">
-        <form id="submitEditForm">
-          <div>매장명</div>
-          <div id="store_name" class="form-control">마라탕</div>
-          <div>평점</div>
-          <!-- 별점 -->
-          <div id="review_star_grade_wrapper" class="review_star_grade_wrapper">
+    <div class="min-h-screen flex flex-col items-center justify-center">
+      <div class="w-full max-w-4xl bg-gray-100 p-8 rounded-lg shadow-md">
+        <!-- 폼 섹션 -->
+        <div class="flex flex-col md:flex-row items-center justify-center">
+          <!-- 이미지 업로드 섹션 -->
+          <div class="flex flex-col items-center justify-center md:w-1/3">
+            <div
+              id="imagePreview"
+              class="w-48 h-48 bg-gray-300 rounded-full mb-4 overflow-hidden"
+            ></div>
             <input
-              type="radio"
-              name="review_star_grade"
-              id="star1"
-              class="hidden_radio"
-              value="1"
-              checked
+              type="file"
+              id="imageUpload"
+              class="hidden"
+              onchange="previewImage(event)"
             />
-            <label for="star1" class="custom_star"></label
-            ><input
-              type="radio"
-              name="review_star_grade"
-              id="star2"
-              class="hidden_radio"
-              value="2"
-            />
-            <label for="star2" class="custom_star"></label>
-            <input
-              type="radio"
-              name="review_star_grade"
-              id="star3"
-              class="hidden_radio"
-              value="3"
-            />
-            <label for="star3" class="custom_star"></label>
-            <input
-              type="radio"
-              name="review_star_grade"
-              id="star4"
-              class="hidden_radio"
-              value="4"
-            />
-            <label for="star4" class="custom_star"></label>
-            <input
-              type="radio"
-              name="review_star_grade"
-              id="star5"
-              class="hidden_radio"
-              value="5"
-              checked
-            />
-            <label for="star5" class="custom_star"></label>
-            <span id="review_select_star_grade">5</span>
+            <label
+              for="imageUpload"
+              class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 cursor-pointer"
+              >Upload New Picture</label
+            >
           </div>
-          <!-- /별점 -->
-          <div>리뷰</div>
-          <input
-            type="text"
-            id="comment"
-            class="form-control"
-            placeholder="리뷰를 입력해주세요."
-          />
-          <div>이미지</div>
-          <div class="form-control">이미지</div>
-        </form>
-      </div>
-      <div class="btn-wraaper">
-        <button type="button" onclick="submitCreateForm()">저장하기</button>
-        <button type="button" onclick="submitUpdateForm()">수정하기</button>
-        <button type="button" onclick="submitDeleteForm()">삭제하기</button>
+
+          <!-- 입력 폼 -->
+          <div class="flex-1 md:ml-8">
+            <form>
+              <div class="mb-4">
+                <label
+                  for="name"
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  >매장명</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+
+              <div class="mb-4">
+                <label
+                  for="description"
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  >음식명</label
+                >
+                <input
+                  type="text"
+                  id="description"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+
+              <div class="mb-4">
+                <label
+                  for="price"
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  >평점</label
+                >
+                <div
+                  id="review_star_grade_wrapper"
+                  class="review_star_grade_wrapper"
+                >
+                  <input
+                    type="radio"
+                    name="review_star_grade"
+                    id="star1"
+                    class="hidden_radio"
+                    value="1"
+                    checked
+                  />
+                  <label for="star1" class="custom_star"></label
+                  ><input
+                    type="radio"
+                    name="review_star_grade"
+                    id="star2"
+                    class="hidden_radio"
+                    value="2"
+                  />
+                  <label for="star2" class="custom_star"></label>
+                  <input
+                    type="radio"
+                    name="review_star_grade"
+                    id="star3"
+                    class="hidden_radio"
+                    value="3"
+                  />
+                  <label for="star3" class="custom_star"></label>
+                  <input
+                    type="radio"
+                    name="review_star_grade"
+                    id="star4"
+                    class="hidden_radio"
+                    value="4"
+                  />
+                  <label for="star4" class="custom_star"></label>
+                  <input
+                    type="radio"
+                    name="review_star_grade"
+                    id="star5"
+                    class="hidden_radio"
+                    value="5"
+                    checked
+                  />
+                  <label for="star5" class="custom_star"></label>
+                  <span id="review_select_star_grade">5</span>
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label
+                  for="price"
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  >리뷰</label
+                >
+                <input
+                  type="text"
+                  id="price"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+
+              <div class="flex items-center justify-end">
+                <button
+                  class="bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-blue-600"
+                  type="button"
+                  onclick="submitCreateForm()"
+                >
+                  등록
+                </button>
+                <button
+                  class="ml-4 bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-blue-600"
+                  type="button"
+                  onclick="submitUpdateForm()"
+                >
+                  수정
+                </button>
+                <button
+                  class="ml-4 bg-blue-500 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline hover:bg-blue-600"
+                  type="button"
+                  onclick="submitDeleteForm()"
+                >
+                  삭제
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
+    <script src="script/user-review-detail-api.js"></script>
+    <script src="script/user-review-detail-etc.js"></script>
     <div id="footer"></div>
   </body>
-  <!-- axios CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="script/user-review-detail-api.js"></script>
-  <script src="script/user-review-detail-etc.js"></script>
 </html>

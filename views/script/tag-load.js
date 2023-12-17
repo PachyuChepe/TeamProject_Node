@@ -64,7 +64,7 @@ function toggleMenu() {
     fetchUserDetails(accessToken)
       .then((data) => {
         if (data.role === '사장') {
-          showOwnerMenu();
+          showOwnerMenu(data);
         } else if (data.role === '고객') {
           showCustomerMenu();
         } else {
@@ -82,7 +82,7 @@ function toggleMenu() {
 function showCustomerMenu() {
   profileMenu.innerHTML = `
     <button onclick="location.href='user-info-edit.html'">회원 정보 수정</button>
-    <button onclick="location.href='my-page.html'">주문 목록 조회</button>
+    <button onclick="location.href='user-order-list.html'">주문 목록 조회</button>
     <button onclick="location.href='user-review-list.html'">리뷰 조회</button>
     <button class="logout-button">로그아웃</button>
   `;
@@ -90,15 +90,15 @@ function showCustomerMenu() {
   addLogoutEventListener();
 }
 
-function showOwnerMenu() {
+function showOwnerMenu(data) {
   // 현재 URL에서 파라미터 추출
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get('id');
 
   profileMenu.innerHTML = `
     <button onclick="location.href='owner-store-edit.html?id=${id}'">가게 정보 수정</button>
-    <button onclick="location.href='owner-menu-list.html?id=${id}'">메뉴 관리</button>
-    <button onclick="location.href='owner-order.html?id=${id}'">주문 관리</button>
+    <button onclick="location.href='owner-menu-list.html?id=${data.stores[0].id}'">메뉴 관리</button>
+    <button onclick="location.href='owner-order-list.html?id=${id}'">주문 관리</button>
     <button onclick="location.href='owner-review-list.html?id=${id}'">리뷰 관리</button>
     <button class="logout-button">로그아웃</button>
   `;

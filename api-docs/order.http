@@ -8,8 +8,7 @@ POST {{domain}}/orders/
 Content-Type: application/JSON
 
 {
-    "customerId":1,
-    "menuId" : 1,
+    "menuId" : 3,
     "totalPrice":2000,
     "status":"배달중",
     "quantity": 3
@@ -29,8 +28,13 @@ Content-Type: application/JSON
 DELETE {{domain}}/orders/13
 
 ### 
-# 공통? 고객? : 주문 전체 조회
-GET {{domain}}/orders/user/0
+# 사장 : 주문 전체 조회
+GET {{domain}}/orders/store/1
+
+
+### 
+# 고객 : 주문 전체 조회
+GET {{domain}}/orders/user
 
 ###
 # 공통? 사장? : 주문 상세 조회

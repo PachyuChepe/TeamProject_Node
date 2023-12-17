@@ -3,12 +3,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const $reviewContainer = document.getElementById('review_container');
 
   axios
-    .get(`/api/reviews/client`, {
+    .get(`/api/reviews/user`, {
       withCredentials: true,
     })
     .then((response) => {
       const reviews = response.data.data;
-      // console.log('reviews: ', reviews);
       let count;
       // API 실행결과를 response로 받아와서 html 그려주기
       reviews.forEach((e, idx) => {
@@ -17,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         <div class="p-4 border-b border-gray-200">
           <div class="flex justify-between items-center px-2 py-0 sm:px-6"> 
             <div>
-              <div class="font-semibold" style="font-size: 30px;">${e.store.name}</div>
+              <div class="font-semibold" style="font-size: 30px;">${e.order.menu.store.name}</div>
               <div class="text-xs text-gray-500">${formatDateString(e.createdAt)}</div>
             </div>
             <div class="flex">

@@ -14,13 +14,9 @@ class UserRepository {
   findUserByEmail = async (email) => {
     return await prisma.user.findUnique({
       include: {
-        stores: {
-          select: {
-            id: true // 사장으로 로그인 시 알맞은 페이지 이동을 위해 매장 id 조회(이아영)
-          }
-        }
+        stores: true, // 사장의 경우 매장 정보도 함께 조회
       },
-      where: { email }
+      where: { email },
     });
   };
 
@@ -58,7 +54,12 @@ class UserRepository {
    * @returns {Promise<object>} 조회된 사용자 정보
    */
   findUserById = async (id) => {
-    return await prisma.user.findUnique({ where: { id } });
+    return await prisma.user.findUnique({
+      include: {
+        stores: true, // 사장의 경우 매장 정보도 함께 조회
+      },
+      where: { id },
+    });
   };
 
   findBusinessByOwnerId = async (ownerId) => {
