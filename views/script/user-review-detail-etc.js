@@ -33,3 +33,12 @@ function previewImage(event) {
   };
   reader.readAsDataURL(event.target.files[0]);
 }
+
+// 페이지 로드 시 히스토리 항목 추가
+window.onload = function () {
+  history.pushState(null, null, location.href);
+};
+
+window.onpopstate = function (event) {
+  window.location.href = '/user-order-list.html';
+};
