@@ -85,11 +85,11 @@ function submitCreateForm() {
       },
       withCredentials: true,
     })
-    .then((res) => {
-      alert('저장이 완료되었습니다.');
+    .then((response) => {
+      alert(response.data.message);
       window.location.href = `/owner-menu-detail.html?id=${res.data.data.id}`;
     })
-    .catch((error) => console.error('오류 발생:', error));
+    .catch((error) => alert(error.response.data.message));
 }
 
 // 메뉴 수정 함수
@@ -116,11 +116,11 @@ function submitUpdateForm() {
       },
       withCredentials: true,
     })
-    .then((res) => {
-      alert('수정이 완료되었습니다.');
+    .then((response) => {
+      alert(response.data.message);
       location.reload(); // 페이지 새로고침
     })
-    .catch((error) => console.error('오류 발생:', error));
+    .catch((error) => alert(error.response.data.message));
 }
 
 // 메뉴 삭제
@@ -130,9 +130,9 @@ function submitDeleteForm() {
 
   axios
     .delete(`/api/menu/${id}`, { withCredentials: true })
-    .then((res) => {
-      alert('삭제가 완료되었습니다.');
+    .then((response) => {
+      alert(response.data.message);
       window.location.href = `/owner-menu-list.html?id=${storeId}`;
     })
-    .catch((error) => console.error('오류 발생:', error));
+    .catch((error) => alert(error.response.data.message));
 }
