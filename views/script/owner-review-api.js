@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function () {
         </div>
         <div class="mt-2 user-review-img mb-20">
         <img
-        src="${imgHref}
+        src="${imgHref}"
             alt="Food"
             class="rounded-lg"
             style="height: 400px;"
