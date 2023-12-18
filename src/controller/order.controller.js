@@ -48,6 +48,10 @@ class OrderController {
         res
           .status(200)
           .json({ message: `배달이 완료되었습니다.`, data: newOrder });
+      } else if (newOrder.status === '주문취소') {
+        res
+          .status(200)
+          .json({ message: `주문이 취소되었습니다.`, data: newOrder });
       }
     } catch (error) {
       next(error);
