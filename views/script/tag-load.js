@@ -83,7 +83,7 @@ function setLogoLink() {
       })
       .catch((error) => {
         console.error('Error fetching user details:', error);
-        alert('사용자 정보를 가져오는 데 실패했습니다. 다시 시도해 주세요.');
+        // alert('사용자 정보를 가져오는 데 실패했습니다. 다시 시도해 주세요.');
       });
   }
 }
