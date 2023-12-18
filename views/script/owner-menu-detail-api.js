@@ -100,7 +100,8 @@ function submitCreateForm() {
     })
     .then((response) => {
       alert(response.data.message);
-      window.location.href = `/owner-menu-detail.html?id=${res.data.data.id}`;
+      window.history.back();
+      // window.location.href = `/owner-menu-detail.html?id=${response.data.data.id}`;
     })
     .catch((error) => alert(error.response.data.message));
 }
@@ -131,7 +132,9 @@ function submitUpdateForm() {
     })
     .then((response) => {
       alert(response.data.message);
-      location.reload(); // 페이지 새로고침
+      window.history.back();
+      // location.reload();
+      // 페이지 새로고침
     })
     .catch((error) => alert(error.response.data.message));
 }
@@ -144,8 +147,10 @@ function submitDeleteForm() {
   axios
     .delete(`/api/menu/${id}`, { withCredentials: true })
     .then((response) => {
+      console.log(response.data);
       alert(response.data.message);
-      window.location.href = `/owner-menu-list.html?id=${storeId}`;
+      window.history.back();
+      // window.location.href = `/owner-menu-list.html?id=${storeId}`;
     })
     .catch((error) => alert(error.response.data.message));
 }
