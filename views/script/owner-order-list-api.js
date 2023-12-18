@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     .get(`/api/orders/store/${id}`, { withCredentials: true })
     .then((response) => {
       response.data.data.forEach((e) => {
+        const isDisabled = e.status === '주문취소' ? 'disabled' : '';
         let temp_html = `
           <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6 flex">
             <img src="${
@@ -22,9 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="flex">
                       <select id="status_${
                         e.id
-                      }" class="form-select" onchange="changeOrderStatus(this, ${
+                      }" class="form-select mr-2" onchange="changeOrderStatus(this, ${
                         e.id
-                      })">
+                      })"${isDisabled}>
                         <option value="배달전" ${
                           e.status === '배달전' ? 'selected' : ''
                         }>배달전</option>
@@ -78,7 +79,10 @@ function changeOrderStatus(selectElement, orderId) {
       },
     )
     .then((response) => {
-      alert('주문 상태가 변경되었습니다.');
+      if (selectedStatus === '주문취소') {
+        selectElement.disabled = true;
+      }
+      alert(`주문 상태가'${selectedStatus}'(으)로 변경되었습니다.`);
       location.reload(); // 상태 변경 후 페이지 새로고침
     })
     .catch((error) => {
