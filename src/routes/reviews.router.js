@@ -20,17 +20,10 @@ reviewRouter.post(
 reviewRouter.get('/storeName/:storeId', reviewController.getStoreName);
 
 // 특정 가게 리뷰 조회
-reviewRouter.get(
-  '/reviews/store/:storeId',
-  reviewController.getStoreReviews,
-);
+reviewRouter.get('/reviews/store/:storeId', reviewController.getStoreReviews);
 
 // 특정 고객 리뷰 조회
-reviewRouter.get(
-  '/reviews/user',
-  isLoggedIn,
-  reviewController.getUserReviews,
-);
+reviewRouter.get('/reviews/user', isLoggedIn, reviewController.getUserReviews);
 
 // 특정 리뷰 조회
 reviewRouter.get('/reviews/:reviewId', reviewController.getReviewById);
