@@ -23,12 +23,13 @@ document.addEventListener('DOMContentLoaded', function () {
           <div class="flex justify-between items-center px-2 py-0 sm:px-6"> 
             <div>
               <div class="font-semibold" style="font-size: 30px;">${e.order.customer.name}님</div>
+              <div class="font-semibold text-lg text-gray-600">${e.order.menu.name}</div>
               <div class="text-xs text-gray-500">${formatDateString(e.createdAt)}</div>
             </div>
 
           </div>
         </div>
-        <div id="review_wrapper_${e.id}" class="flex items-center px-4">
+        <div id="review_wrapper_${e.id}" class="flex items-center pl-7">
           <div id="rating"></div>  
           <div class="star_grade">
             <div class="review_comment_star_grade_wrapper${count}">
@@ -46,12 +47,12 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
         </div>
 
-        <div class="flex items-center px-4 text-sm mt-2">
+        <div class="flex items-center px-9 text-sm mt-2">
           <p>${e.comment}</p>
         </div>
         <div class="mt-2 user-review-img mb-20">
-          <img
-            src="https://source.unsplash.com/featured/?food"
+        <img
+        src="${e.imageUrl}
             alt="Food"
             class="rounded-lg"
             style="height: 400px;"

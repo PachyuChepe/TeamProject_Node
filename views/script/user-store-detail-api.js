@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const storeId = urlParams.get('id');
 
     // user-review-edit.html 페이지로 리디렉션하면서 id 값을 전달
-    window.location.href = `user-review-edit.html?id=${storeId}`;
+    window.location.href = `user-store-review-list.html?id=${storeId}`;
   });
 
   // URL에서 매장 ID 추출
@@ -40,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
     .then((response) => {
       // 메뉴 목록 표시
       response.data.data.forEach((e) => {
-        console.log(e, '뭐임');
         const formattedPrice = Number(e.price).toLocaleString();
         let temp_html = `
           <div class="bg-white shadow-md rounded-lg overflow-hidden mb-6">
