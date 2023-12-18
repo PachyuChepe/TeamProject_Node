@@ -16,7 +16,7 @@ class OrderService {
     status,
   ) => {
     // 포인트 관리 
-    await this.orderRepository.updatePoint(menuId, customerId, totalPrice);
+    await this.orderRepository.paymentCompleted(menuId, customerId, totalPrice);
 
     // 주문 저장
     const order = await this.orderRepository.createOrder(
@@ -31,8 +31,16 @@ class OrderService {
 
   // 사장 : 주문 관리 update / status String : 배달중, 배달완료, 준비중(?)
   updateOrder = async (orderId, status) => {
-    const order = await this.orderRepository.updateOrder(orderId, status);
-    return order;
+    if (status === "주문취소") {
+      // 포인트 관리 
+      await this.orderRepository.paymentCancled(orderId);
+      const order = await this.orderRepository.updateOrder(orderId, status);
+      return order;
+    }
+    if (status !== "주문취소") {
+      const order = await this.orderRepository.updateOrder(orderId, status);
+      return order;
+    }
   };
 
   // 사장 : 주문 취소 delete (개인적 사유로 사장의 일방적 취소)

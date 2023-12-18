@@ -5,8 +5,7 @@ class ReviewService {
   reviewRepository = new ReviewRepository();
 
   // 리뷰 생성
-  createReview = async (customerId, rating, comment, imageUrl) => {
-    const orderId = await this.reviewRepository.getOrderId(customerId);
+  createReview = async (orderId, rating, comment, imageUrl) => {
     const review = await this.reviewRepository.createReview(
       orderId,
       rating,

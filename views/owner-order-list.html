@@ -1,47 +1,45 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>[사장님] 주문 내역 조회 페이지</title>
-    <link rel="stylesheet" href="./css/layout.css" />
-    <link rel="stylesheet" href="./css/tag-load-page.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- bootscrap CDN-->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9"
-      crossorigin="anonymous"
-    />
-    <!-- 헤더/푸터 출력-->
-    <script defer src="./script/tag-load.js"></script>
-  </head>
 
-  <body>
-    <div id="header"></div>
-    <!-- 상단 바 -->
-    <!-- <div id="owner_top_menu"></div> -->
-    <div class="lay-body-container">
-      <div class="bg-white pt-4 pl-6 pr-6 rounded-lg shadow">
-        <h2 id="menu_list" class="text-2xl mb-6"></h2>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>[사장님] 주문 내역 조회 페이지</title>
+  <link rel="stylesheet" href="./css/layout.css" />
+  <link rel="stylesheet" href="./css/tag-load-page.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- bootscrap CDN-->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous" />
+  <!-- 헤더/푸터 출력-->
+  <script defer src="./script/tag-load.js"></script>
+</head>
+
+<body>
+  <div id="header"></div>
+  <!-- 상단 바 -->
+  <!-- <div id="owner_top_menu"></div> -->
+  <div class="lay-body-container">
+    <div class="bg-white pt-4 pl-6 pr-6 rounded-lg shadow">
+      <h2 id="menu_list" class="text-2xl mb-6"></h2>
     </div>
-    <div id="footer"></div>
-    <!-- 뒤로 가기 버튼 (직전 페이지) -->
+  </div>
+  <div id="footer"></div>
+  <!-- 뒤로 가기 버튼 (직전 페이지) -->
 
-    <!-- 주문 상품 정보 -->
+  <!-- 주문 상품 정보 -->
 
-    <!-- 1. 주문번호 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- 2. 고객명 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- 3. 메뉴명 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- 4. 총 금액 (공통 : 클릭하면 상세 페이지로 이동) -->
-    <!-- A. 주문 취소 btn 사장님의 일방적 주문 취소 -->
-    <!-- 5. status 변경 (배달중 / 배달완료) -->
-    <!-- 배달중 일때만 빨간색 btn, 완료 시 버튼 제어 불가능하게끔 -->
-  </body>
-  <!-- 프론트 비동기처리(?)-->
-  <!-- 프론트에서 백으로 데이터 넘겨주기!-->
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script defer src="./script/owner-order-list-api.js"></script>
+  <!-- 1. 주문번호 (공통 : 클릭하면 상세 페이지로 이동) -->
+  <!-- 2. 고객명 (공통 : 클릭하면 상세 페이지로 이동) -->
+  <!-- 3. 메뉴명 (공통 : 클릭하면 상세 페이지로 이동) -->
+  <!-- 4. 총 금액 (공통 : 클릭하면 상세 페이지로 이동) -->
+  <!-- A. 주문 취소 btn 사장님의 일방적 주문 취소 -->
+  <!-- 5. status 변경 (배달중 / 배달완료) -->
+  <!-- 배달중 일때만 빨간색 btn, 완료 시 버튼 제어 불가능하게끔 -->
+</body>
+<!-- 프론트 비동기처리(?)-->
+<!-- 프론트에서 백으로 데이터 넘겨주기!-->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script defer src="./script/owner-order-list-api.js"></script>
+
 </html>

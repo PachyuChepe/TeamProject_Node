@@ -8,12 +8,11 @@ class ReviewController {
   // 리뷰 생성
   createReview = async (req, res, next) => {
     try {
-      const { rating, comment } = req.body;
+      const { orderId, rating, comment } = req.body;
       const imageUrl = req.file ? req.file.location : null; // 이미지 URL 추출
-      const customerId = res.locals.user.id; // 현재 로그인한 사용자의 ID
 
       const review = await this.reviewService.createReview(
-        customerId,
+        orderId,
         rating,
         comment,
         imageUrl,
