@@ -97,7 +97,8 @@ function submitCreateForm() {
     })
     .then((response) => {
       alert(response.data.message);
-      window.location.href = `/user-review-edit.html?storeId=${storeId}&id=${response.data.data.id}`;
+      window.history.back();
+      // window.location.href = `/user-review-edit.html?storeId=${storeId}&id=${response.data.data.id}`;
     })
     .catch((error) => {
       alert(error.response.data.message);
@@ -134,7 +135,9 @@ function submitUpdateForm() {
     })
     .then((response) => {
       alert(response.data.message);
-      location.reload(); // 페이지 새로고침
+      window.history.back();
+      // location.reload();
+      // 페이지 새로고침
     })
     .catch((error) => {
       alert(error.response.data.message);
@@ -154,7 +157,9 @@ function submitDeleteForm() {
     })
     .then((response) => {
       alert(response.data.message);
-      window.parent.location.href = 'user-order-list.html'; // 사장 가게 등록 페이지 이동
+      window.history.back();
+      // window.parent.location.href = 'user-order-list.html';
+      // 사장 가게 등록 페이지 이동
     })
     .catch((error) => {
       alert(error.response.data.message);
