@@ -78,10 +78,16 @@ class OrderRepository {
 
 
   // 결제 취소 포인트 업데이트
-  paymentCancled = async (menuId, customerId, totalPrice) => {
+  paymentCancled = async (orderId) => {
+    // 메뉴 id 조회
+    const menu = await prisma.order.findUnique({
+      where: { id: +orderId },
+      select: { menuId: true, totalPrice: true, customerId: true }
+    });
+
     // 매장 id 조회
     const storeId = await prisma.menu.findUnique({
-      where: { id: +menuId },
+      where: { id: +menu.menuId },
       include: { store: { select: { id: true } } }
     });
 
@@ -92,31 +98,31 @@ class OrderRepository {
     });
 
     // 사장 포인트 조회
-    const owner = await prisma.user.findUnique({
+    const ownerPoint = await prisma.user.findUnique({
       where: { id: +ownerId.id },
       select: { points: true }
     });
 
-    if (owner.points < totalPrice) {
+    if (ownerPoint.points < menu.totalPrice) {
       throw new Error("잔액이 부족합니다.");
     }
 
     // 사장 포인트 차감
     const decreasePoint = await prisma.user.update({
-      data: { points: +user.points - totalPrice },
+      data: { points: +ownerPoint.points - menu.totalPrice },
       where: { id: +ownerId.id },
     });
 
     // 고객 포인트 조회
-    const ownerPoint = await prisma.user.findUnique({
-      where: { id: +customerId },
+    const userPoint = await prisma.user.findUnique({
+      where: { id: +menu.customerId },
       select: { points: true }
     });
 
     // 고객 포인트 추가
     const increasePoint = await prisma.user.update({
-      data: { points: +ownerPoint.points + totalPrice },
-      where: { id: +customerId },
+      data: { points: +userPoint.points + menu.totalPrice },
+      where: { id: +menu.customerId },
     });
   };
 
@@ -124,7 +130,7 @@ class OrderRepository {
   updateOrder = async (orderId, status) => {
     const order = await prisma.order.update({
       data: { status },
-      where: { id: +orderId.id },
+      where: { id: +orderId },
     });
 
     return order;

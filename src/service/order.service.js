@@ -33,7 +33,7 @@ class OrderService {
   updateOrder = async (orderId, status) => {
     if (status === "주문취소") {
       // 포인트 관리 
-      await this.orderRepository.paymentCancled(menuId, customerId, totalPrice);
+      await this.orderRepository.paymentCancled(orderId);
       const order = await this.orderRepository.updateOrder(orderId, status);
       return order;
     }
